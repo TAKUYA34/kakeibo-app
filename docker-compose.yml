@@ -14,7 +14,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "5001:5001"
+      - "5000:5000"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -30,6 +30,12 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - mynetwork
 
+networks:
+  mynetwork:
+    driver: bridge
+    
 volumes:
   mongo_data:
