@@ -31,5 +31,13 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+
 volumes:
   mongo_data:
