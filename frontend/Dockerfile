@@ -1,7 +1,13 @@
+# ベースイメージとして Node.js を使用
+FROM node:18 AS build
+
 WORKDIR /app
-COPY package.json ./
+
+# 依存関係をインストール
+COPY package.json package-lock.json ./
 RUN npm install
-COPY . . 
-RUN npm run build  # ここでビルドを実行
+
+# ソースコードをコピー
+COPY . .
 
 CMD ["npm", "start"]
