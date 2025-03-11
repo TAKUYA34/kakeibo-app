@@ -3,26 +3,30 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "5173:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=${NODE_ENV}
+      - VITE_API_URL=${VITE_API_URL}
+    command: npm run dev -- --host
 
   backend:
     build: ./backend
     ports:
-      - "5001:5001"
+      - "${PORT}:${PORT}"
     volumes:
       - ./backend:/app
       - /app/node_modules
     depends_on:
       - mongo
     environment:
-      - MONGO_URI="mongodb://mongo:27017/mern"
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - MONGO_URI=${MONGO_URI}
   mongo:
     image: mongo:latest
     ports:

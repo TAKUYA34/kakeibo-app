@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 5001;
+const PORT = process.env.PORT || 5001;
 
 // MONGO_URIをログに出力する
-const MONGO_URI = "mongodb://mongo:27017/mern"
+const MONGO_URI = process.env.MONGO_URI;
 console.log("Connecting to MongoDB at:", MONGO_URI);
 
 // Connect to MongoDB
@@ -16,6 +16,6 @@ app.get('/', (req, res) => {
   res.send('API is working');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
