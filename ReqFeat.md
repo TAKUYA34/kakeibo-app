@@ -23,8 +23,20 @@
 
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
-| POST        |
-| 
+| POST        | /api/auth/register      | ユーザー登録画面          |
+| POST        | /api/auth/login         | ログイン画面             |
+| POST        | /api/auth/logout        | ログアウト               |
+| GET         | /api/transactions       | 収支記録取得             |
+| POST        | /api/transactions       | 収支記録追加             |
+| PUT         | /api/transactions:id    | 収支記録編集             |
+| DELETE      | /api/transactions:id    | 収支記録削除             |
+| GET         | /api/categories         | カテゴリ管理取得          |
+| POST        | /api/categories         | カテゴリ管理追加          |
+| PUT         | /api/categories:id      | カテゴリ管理編集          |
+| DELETE      | /api/categories:id      | カテゴリ管理削除          |
+| GET         | /api/analytics/summary  | 収支データ取得            |
+| GET         | /api/export/csv         | CSVエクスポート          |
+| GET         | /api/export/pdf         | PDFエクスポート          |
 
 ## 画面設計
 
