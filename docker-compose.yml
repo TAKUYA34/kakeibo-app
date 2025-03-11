@@ -22,8 +22,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - NODE_ENV=development
-      - MONGO_URI='mongodb://localhost:27017/mydatabase'
+      - MONGO_URI="mongodb://mongo:27017/mern"
   mongo:
     image: mongo:latest
     ports:
