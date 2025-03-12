@@ -5,7 +5,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+  const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:5001";
 
   // API と連携するログイン処理
   const login = async (email, password) => {
