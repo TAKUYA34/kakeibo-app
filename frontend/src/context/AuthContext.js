@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("token"); // 失敗したらトークン削除
         });
     }
-  }, []);
+  }, [API_URL]);
 
   // ログアウト処理
   const logout = () => {
