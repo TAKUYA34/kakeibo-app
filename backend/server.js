@@ -1,3 +1,5 @@
+require('dotenv').config(); // .envファイルを読み込む
+
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
