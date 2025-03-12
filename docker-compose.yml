@@ -2,8 +2,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    ports:
-      - "5173:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -12,13 +10,10 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - CHOKIDAR_USEPOLLING=true
-      - VITE_API_URL=${VITE_API_URL}
     command: npm run dev -- --host
 
   backend:
     build: ./backend
-    ports:
-      - "${PORT}:${PORT}"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -28,6 +23,8 @@ services:
       - NODE_ENV=${NODE_ENV}
       - PORT=${PORT}
       - MONGO_URI=${MONGO_URI}
+    command: npm run dev
+
   mongo:
     image: mongo:latest
     ports:
@@ -46,6 +43,5 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./frontend/build:/usr/share/nginx/html # Nginx が React のビルドフォルダを使用
 volumes:
   mongo_data:
