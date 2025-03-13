@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-import "./App.css";
+import "./index.css"; // インポート
 
 const App = () => {
   return (
