@@ -1,5 +1,7 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Tailwindを適用するファイルを指定
+  content: [
+    "./frontend/src/**/*.{html,js,jsx,ts,tsx}",  // frontend/src フォルダを指定
+  ],
   theme: {
     extend: {},
   },
