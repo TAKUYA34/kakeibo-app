@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+/* 変数フィールド */
+:root {
+  --header-color: rgb(100,100,100);
+  --header-width: 100%;
+}
+/* 全体 */
+.container {
+  min-height: 100vh;
+  background-color: #f7fafc; /* bg-gray-100 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 画像 */
+.imageContainer {
+  width: var(--header-width); /* w-full */
+  height: 100%; /* h-1000 */
+  position: relative;
+}
+
+.image {
+  width: var(--header-width); /* w-full */
+  height: 1200px; /* h-96 */
+  opacity: 0.5; /* 不透明度50% */
+  object-fit: cover; /* 画像のアスペクト比を保ちつつ埋める */ 
+}
+
+/* ヘッダー */
+.header {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  width: var(--header-width); /* w-full */
+  max-width: 97%; /* 最大幅 */
+  margin: 0 auto; /* 自動で左右に余白を作り、中央に配置 */
+  padding: 0 2rem; /* 左右に余白を追加 */
+}
+
+.headerTitle {
+  font-size: 6rem; /* text-4xl */
+  color: var(--header-color);
+  font-weight: normal; /* font-normal */
+  font-family: 'Inspiration', sans-serif; /* font-inspiration */
+  margin: 2rem 2rem 0 4rem; /* ml-8 */
+}
+
+.navList {
+  display: flex;
+  font-size: 2.25rem;
+  gap: 10px;
+  margin-top: 85px;
+  list-style: none;
+}
+
+.navItem {
+  margin-right: 35px;
+  font-family: 'Indie Flower', cursive; /* font-indie */
+  color: var(--header-color);
+}
+
+.htext {
+  position: absolute;
+  bottom: -1000px; /* 画面下から調整 */
+  right: 50px;
+  margin: 20px;
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 4rem; /* サイズ調整 */
+  color: var(--header-color); /* 色調整 */
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.mainTitle {
+  font-size: 1.5rem; /* text-2xl */
+}
+
+.button {
+  background-color: #f56565; /* bg-red-500 */
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  border-radius: 0.375rem; /* rounded */
+}
+
+/* スマホ版（768px 以下） */
+@media (max-width: 768px) {
+  /* 画像の高さ調整 */
+  .image {
+    height: 600px; /* スマホ画面向けに高さを小さく */
+  }
+
+  /* ヘッダー */
+  .header {
+    flex-direction: column; /* ヘッダーを縦並びに */
+    align-items: center; /* 中央寄せ */
+    padding: 1rem; /* 内側に余白を追加 */
+  }
+
+  .headerTitle {
+    font-size: 3rem; /* ヘッダーの文字サイズを小さく */
+    text-align: center; /* 文字を中央に */
+    margin: 1rem 0;
+  }
+
+  .navList {
+    font-size: 1.5rem; /* ナビゲーションの文字サイズを小さく */
+    gap: 15px; /* アイテム間隔を広げる */
+    margin-top: 2rem;
+    justify-content: center; /* ナビゲーションを中央寄せ */
+  }
+
+  .navItem {
+    margin-right: 20px; /* ナビゲーションアイテムの右マージンを小さく */
+  }
+}

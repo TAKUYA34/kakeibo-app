@@ -1,27 +1,35 @@
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import '../css/Dashboard.css';
+import React from 'react';
+import styles from '../css/Dashboard.module.css';  // CSS Modulesをインポート
 
-const Dashboard = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-
+const App = ({ user, handleLogout }) => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className={styles.container}>
+      {/* 画像 */}
+      <div className='styles.imageContainer'>
+        <img
+          className={styles.image}
+          src='/images/mainimage.JPG'
+          alt='mainimage'
+        />
+      </div>
+
       {/* ヘッダー */}
-      <header className="bg-blue-200 text-white p-4">
-        <h1 className="text4xl font-bold">Kakeibo-app</h1>
+      <header className={`${styles.header} ${styles.wrapper}`}>
+        <h1 className={styles.headerTitle}>Kakeibo-app</h1>
+        <p className={styles.htext}>Simple Money Logs...</p>
+        <nav>
+          <ul className={styles.navList}>
+            <li className={styles.navItem}>Sign up</li>
+            <li className={styles.navItem}>Log out</li>
+            <li className={styles.navItem}>Menus</li>
+          </ul>
+        </nav>
       </header>
 
       {/* メインコンテンツ */}
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h2 className="text-2xl">お待ちしておりました, {user?.email} さん</h2>
-        <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 mt-4 rounded">
+      <div className={styles.mainContent}>
+        <h2 className={styles.mainTitle}>お待ちしておりました, {user?.email} さん</h2>
+        <button onClick={handleLogout} className={styles.button}>
           ログアウト
         </button>
       </div>
@@ -29,4 +37,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default App;
