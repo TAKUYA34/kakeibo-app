@@ -1,35 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 /* 変数フィールド */
 :root {
-  --header-color: rgb(100,100,100);
-  --header-width: 100%;
+  --header-color: rgb(195, 231, 235); /* ヘッダーの色 */
+  --main-color: rgb(100, 100, 100); /* メインの色 */
+  --mainSub-color: rgb(0, 0, 0); /* メインサブの色 */
+  --header-width: 100%; /* 画面幅 */
+  --main1-width: 100%; /* 画面幅 */
+  --main2-width: 100%; /* 画面幅 */
+  --header-position: fixed; /* ヘッダーの位置 */
 }
+
 /* 全体 */
-.container {
-  min-height: 100vh;
-  background-color: #f7fafc; /* bg-gray-100 */
-  display: flex;
-  flex-direction: column;
+.mainContainer {
+  min-height: 100vh; /* 画面の高さを最低100%に */
+  display: flex; /* フレックスボックス */
+  flex-direction: column; /* 縦並び */
+  background: linear-gradient(270deg, #ff7eb3, #ff477e, #6a11cb, #ffffff);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
 }
 
-/* 画像 */
-.imageContainer {
-  width: var(--header-width); /* w-full */
-  height: 100%; /* h-1000 */
-  position: relative;
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.image {
-  width: var(--header-width); /* w-full */
-  height: 1200px; /* h-96 */
-  opacity: 0.5; /* 不透明度50% */
-  object-fit: cover; /* 画像のアスペクト比を保ちつつ埋める */ 
-}
+/* ↓↓↓ ヘッダー ↓↓↓ */
+  /* ↓↓↓ ヘッダー画像 ↓↓↓ */
+  .imageContainer {
+    width: var(--header-width); /* w-full */
+    height: 1000px; /* h-1000 */
+    position: relative; /* 相対位置 */
+    overflow: hidden; /* 画像のはみ出しを隠す */
+  }
 
-/* ヘッダー */
+  .image {
+    width: var(--header-width); /* w-full */
+    height: 100%; /* h-100% */
+    object-fit: cover; /* 画像を中央に表示 */
+    opacity: 0; /* 初期状態は透明 */
+    transition: opacity 1.25s ease-in-out; /* 0.5秒かけて透明度を変化 */
+  }
+
+  .image.show {
+    opacity: 0.7; /* 表示 */
+  }
+  /* ↑↑↑ ヘッダー画像 ↑↑↑ */
+
 .header {
   position: absolute;
   display: flex;
@@ -38,9 +60,17 @@
 
 .wrapper {
   width: var(--header-width); /* w-full */
-  max-width: 97%; /* 最大幅 */
+  max-width: 100%; /* 最大幅 */
   margin: 0 auto; /* 自動で左右に余白を作り、中央に配置 */
-  padding: 0 2rem; /* 左右に余白を追加 */
+}
+
+.fixation {
+  width: var(--header-width); /* w-full */
+  max-width: 100%; /* 最大幅 */
+  display: flex;
+  justify-content: space-between;
+  position: var(--header-position); /* 固定 */
+  z-index: 1000; /* 重なり順 */
 }
 
 .headerTitle {
@@ -48,21 +78,32 @@
   color: var(--header-color);
   font-weight: normal; /* font-normal */
   font-family: 'Inspiration', sans-serif; /* font-inspiration */
-  margin: 2rem 2rem 0 4rem; /* ml-8 */
+  margin: 2rem 2rem 2rem 3rem; /* ml-8 */
 }
 
 .navList {
   display: flex;
-  font-size: 2.25rem;
   gap: 10px;
-  margin-top: 85px;
+  margin: 70px 0 0 0; /* 上マージン + 左マージン */
   list-style: none;
 }
 
 .navItem {
-  margin-right: 35px;
+  font-size: 2.25rem;
+  margin-right: 40px;
   font-family: 'Indie Flower', cursive; /* font-indie */
   color: var(--header-color);
+}
+
+.navList_a {
+  color: var(--header-color); /* リンクの色 */
+  text-decoration: none; /* 下線を取り除く */
+  display: inline-block; 
+  transition: transform 0.3s ease; /* 変化するアニメーション */
+}
+
+.navList_a:hover {
+  transform: translateX(5px); /* ホバー時に右に移動 */
 }
 
 .htext {
@@ -75,25 +116,440 @@
   color: var(--header-color); /* 色調整 */
 }
 
-.mainContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+.animatedText {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* ↑↑↑ ヘッダー ↑↑↑ */
+
+/* ↓↓↓ main1 ↓↓↓ */
+.main {
+  width: var(--header-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  padding: 120px 0 200px 0; /* 上マージン + 下マージン */
+  background: white; /* bg-white */
+}
+
+.main_layer {
+  display: flex; /* 横並び */
+  flex-direction: column; /* 縦並び */
+  align-items: center; /* 中央寄せ */
+  justify-content: center; /* 中央寄せ */
 }
 
 .mainTitle {
-  font-size: 1.5rem; /* text-2xl */
+  position: relative; /* 相対位置 */
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 4rem; /* text-2xl */
+  color: var(--main-color);
 }
 
-.button {
-  background-color: #f56565; /* bg-red-500 */
-  color: white;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  border-radius: 0.375rem; /* rounded */
+.mainSubTitle {
+  position: relative; /* 相対位置 */
+  bottom: 70px;
+  font-size: 1rem; /* text-lg */
+  color: var(--mainSub-color);
 }
+
+.overview_container {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  gap: 100px;
+  align-items: stretch; /* アイテムの高さを揃える */
+}
+
+.overview_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--main1-width); /* 100% */
+  max-width: 400px; /* 画像サイズに合わせる */
+  height: 100%; /* 高さを統一 */
+}
+
+.overview_image {
+  width: var(--main1-width); /* 100% */
+  height: 500px; /* 画像の高さを統一 */
+  aspect-ratio: 4 / 3; /* 画像の比率を統一 */
+  object-fit: cover;
+  border-radius: 20px; /* 画像の角を丸くする */
+  opacity: 0.7; /* 透明度を設定 */
+  transition: transform 0.4s ease-in-out; /* なめらかにズーム */
+}
+
+.overview_image:hover {
+  transform: scale(1.03); /* ホバー時に拡大 */
+  opacity: 1; /* ホバー時に透明度を変更 */
+}
+
+.overview_text {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.overview_button {
+  width: 760px; /* ボタンの幅 */
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  margin: 100px auto; /* 上マージン + 中央寄せ */
+  padding: 20px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 30px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  display: flex; /* フレックスボックス */
+  align-items: center; /* アイテムを縦方向中央 */
+  justify-content: space-between; /* テキストと矢印を両端に配置 */
+  text-align: center; /* テキスト中央 */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.overview_button:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+
+.overview_button:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+
+.button_text {
+  flex-grow: 1; /* 真ん中に寄せる */
+  text-align: center; /* テキスト中央寄せ */
+}
+
+.arrow {
+  display: flex; /* フレックスボックス */
+  align-items: center; /* 縦方向中央 */
+  margin-right: 15px; /* 右の余白 */
+}
+/* ↑↑↑ main1 ↑↑↑ */
+
+/* ↓↓↓ main2 ↓↓↓ */
+.main2 {
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  position: relative; /* 相対位置 */
+}
+
+.shape_container1 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  clip-path: polygon(0 0, 15% 0, 50% 100%, 0% 100%); /* 三角形 */
+  opacity: 1; /* 透明度を設定 */
+}
+
+.shape_container2 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 85% 100%); /* 三角形 */
+}
+
+.shape_container3 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  opacity: 0.5; /* 透明度を設定 */
+}
+
+.main2Image_container{
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  overflow: hidden; /* 画像のはみ出しを隠す */
+}
+
+.main2Image{
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  object-fit: cover; /* 画像を中央に表示 */
+}
+
+.main_layer2 {
+  display: flex; /* 横並び */
+  flex-direction: column; /* 縦並び */
+  align-items: center; /* 中央寄せ */
+  justify-content: center; /* 中央寄せ */
+}
+
+.whatsNew_container {
+  position: relative; /* 相対位置 */
+  display: flex;
+  max-width: 1200px;
+  margin-right: 800px;
+}
+
+.whatsNew_list {
+  list-style: none; /* リストスタイルをなしに */
+}
+
+.whatsNew_item {
+  color: #ffffff;
+  margin: 4rem 0;
+  font-size: 1.2rem;
+}
+
+.whatsNew_button {
+  position: relative; /* 相対位置 */
+  width: 760px; /* ボタンの幅 */
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  margin: 100px auto; /* 上マージン + 中央寄せ */
+  padding: 20px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 30px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  display: flex; /* フレックスボックス */
+  align-items: center; /* アイテムを縦方向中央 */
+  justify-content: space-between; /* テキストと矢印を両端に配置 */
+  text-align: center; /* テキスト中央 */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.whatsNew_button:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+
+.whatsNew_button:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+
+.button_text2 {
+  font-size: 1.6rem; /* フォントサイズ */
+  flex-grow: 1; /* 真ん中に寄せる */
+  text-align: center; /* テキスト中央寄せ */
+}
+/* ↑↑↑ main2 ↑↑↑ */
+
+/* ↓↓↓ Graph ↓↓↓ */
+.moneyGraph {
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  padding: 80px 0 100px 0; /* 上マージン + 下マージン */
+  position: relative; /* 相対位置 */
+  background-color: #fff8f8; /* 背景色 */
+}
+
+.moneyGraph_layer {
+  display: flex; /* 横並び */
+  flex-direction: column; /* 縦並び */
+}
+
+.moneyGraph_title {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 4rem; /* text-2xl */
+  color: var(--main-color);
+}
+
+.moneyGraph_content {
+  position: relative; /* 相対位置 */
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  font-size: 1.2rem; /* text-lg */
+  color: var(--mainSub-color);
+  bottom: 70px;
+}
+  
+.graphs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 200px;
+}
+/* ↑↑↑ Graph ↑↑↑ */
+
+/* ↓↓↓ Footer ↓↓↓ */
+.footer {
+  position: relative; /* 相対位置 */
+  background: #a19d9d; /* 背景色 */
+  color: white;
+  width: var(--main2-width); /* w-full */
+  max-height: 31.25rem;  /* h-500 */
+}
+
+.footerTop_Content {
+  max-width: 106.25rem; /* 最大幅 */
+  margin: 0px auto; /* 自動で左右に余白を作り、中央に配置 */
+  flex-direction: column; /* 縦並び */
+}
+
+.footerTop_Title {
+  font-size: 3.2rem; /* text-lg */
+  font-weight: 100; /* font-thin */
+  max-width: 200px; /* 最大幅 */
+  word-wrap: break-word; /* 長い文字列を折り返す */
+  font-family: 'Inspiration', sans-serif; /* font-inspiration */
+}
+
+.footer_a {
+  color: black; /* テキストの色を白に変更 */
+  text-decoration: none; /* 下線を取り除く */
+}
+
+.footerTop_Nav {
+  font-size: 0.7rem; /* text-base */
+}
+
+.footerLeft_NavNest {
+  font-size: 0.7rem; /* text-base */
+  position: absolute; /* 絶対位置 */ 
+  top: 13.75rem; /* 220px */
+}
+
+.footerTop_SNS {
+  max-width: 0 10px; /* 最大幅 */
+  padding: 0 10px; /* 内側に余白を追加 */
+}
+
+.footerLeftContainer_NavNest {
+  max-width: 500px; /* 最大幅 */
+  padding: 0 10px; /* 内側に余白を追加 */
+}
+
+.css_linkList_FoZ1V {
+  display: flex; /* 横並び */
+  column-gap: 20px; /* アイテム間隔 */
+  list-style-type: none; /* リストスタイルをなしに */
+}
+
+.css_linkList_FoZ1V:hover {
+  opacity: 1; /* ホバー時に透明度を変更 */
+}
+
+.css_footerLeftList_FoZ1V {
+  display: flex; /* 横並び */
+  margin-top: 20px; /* 上マージン */
+  column-gap: 100px; /* アイテム間隔 */
+  list-style-type: none; /* リストスタイルをなしに */
+}
+
+.css_link_VFSq {
+  display: inline-block;
+  color: white; /* リンクの色を白に変更 */
+  text-decoration: none; /* 下線を取り除く */
+}
+
+.css_link_VFSq:hover {
+  color: #3c8bdf; /* ホバー時のリンク色を濃い青に変更 */
+  text-decoration: underline; /* ホバー時に下線を追加 */
+}
+
+.css_link{
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.css_link:hover {
+  transform: scale(1.1); /* リンクを少し大きくする */
+}
+
+.css_link svg {
+  transition: fill 0.3s ease; /* SVGの色を変えるアニメーション */
+}
+
+.footerRight_TitleContainer {
+  display: flex; /* 横並び */
+  justify-content: end; /* 横方向に配置 */
+  gap: 8.8rem; /* アイテム間隔 */           
+  align-items: center; /* 縦方向に中央寄せ */
+  margin: 0 10px; /* 左右の余白 */
+}
+
+.footerRight_NavTitle {
+  position: relative; /* 相対位置 */
+  right: 5rem;;
+  bottom: 8.75rem;
+  font-size: 1.25rem; /* text-xl */
+}
+
+.footerRight_NavTitle_a {
+  color: black; /* リンクの色を黒に変更 */
+  text-decoration: none; /* 下線を取り除く */
+  font-weight: bold;
+}
+
+.footerRight_NavTitle_a:hover {
+  color: #424242; /* ホバー時のリンク色を濃い青に変更 */
+}
+
+.footerRight_Container{
+  display: grid; /* グリッドレイアウト */
+  grid-template-columns: repeat(3, 12.5rem); /* 3列 */
+  gap: 30px; /* アイテム間隔 */
+  justify-content: end; /* 右寄せ */
+  align-items: flex-start; /* 上寄せ */
+  margin: 0 10px; /* 左右の余白 */  
+}
+
+.footerRight_Nav {
+  position: relative; /* 相対位置 */
+  font-size: 1.25rem; /* text-xl */
+  bottom: 6rem;
+}
+
+.footerRight_Nav_a {
+  color: rgb(91, 90, 90); /* リンクの色を白に変更 */
+  text-decoration: none; /* 下線を取り除く */
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+}
+
+.footerRight_Nav_a:hover {
+  color: #3c8bdf; /* ホバー時のリンク色を濃い青に変更 */
+  text-decoration: underline; /* ホバー時に下線を追加 */
+}
+
+.footerRight_Underline {
+  display: block; /* ブロック要素 */
+  text-align: center; /* 中央寄せ */
+  border-bottom: 1px solid white; /* 下線を追加 */
+  width: 100%; /* 横幅 */
+}
+
+.footerEnd_Content {
+  max-width: var(--main2-width); /* w-full */
+  margin: 3.5rem 3.75rem; /* 自動で左右に余白を作り、中央に配置 */
+  display: flex; /* 横並び */
+  align-items: center; /* 縦方向に中央寄せ */
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+}
+
+.footerText {
+  text-align: center; /* 中央寄せ */
+  flex: 1; /* 横幅を均等に */
+}
+
+.footerLink {
+  align-items: center; /* 縦方向に中央寄せ（必要に応じて） */;
+  color: white; /* リンクの色を白に変更 */
+  text-decoration: none; /* 下線を取り除く */
+}
+
+.footerLink:hover {
+  color: #3c8bdf; /* ホバー時のリンク色を濃い青に変更 */
+  text-decoration: underline; /* ホバー時に下線を追加 */
+}
+/* ↑↑↑ Footer ↑↑↑ */
 
 /* スマホ版（768px 以下） */
 @media (max-width: 768px) {
@@ -101,7 +557,7 @@
   .image {
     height: 600px; /* スマホ画面向けに高さを小さく */
   }
-
+  
   /* ヘッダー */
   .header {
     flex-direction: column; /* ヘッダーを縦並びに */
