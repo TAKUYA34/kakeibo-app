@@ -1,0 +1,126 @@
+/* ↓↓↓ main2 ↓↓↓ */
+.main2 {
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  background: linear-gradient(270deg, #ff7eb3, #ff477e, #6a11cb, #ffffff);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.shape_container1 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  clip-path: polygon(0 0, 15% 0, 50% 100%, 0% 100%); /* 三角形 */
+  opacity: 0.7; /* 透明度を設定 */
+}
+
+.shape_container2 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 85% 100%); /* 三角形 */
+  opacity: 0.7; /* 透明度を設定 */
+}
+
+.shape_container3 {
+  position: absolute; /* 絶対位置 */
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  opacity: 0.5; /* 透明度を設定 */
+}
+
+.main2Image_container{
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  overflow: hidden; /* 画像のはみ出しを隠す */
+}
+
+.main2Image{
+  width: var(--main2-width); /* w-full */
+  height: 100vh;  /* h-screen */
+  object-fit: cover; /* 画像を中央に表示 */
+}
+
+.main_layer2 {
+  display: flex; /* 横並び */
+  flex-direction: column; /* 縦並び */
+  align-items: center; /* 中央寄せ */
+  justify-content: center; /* 中央寄せ */
+}
+
+.mainTitle2 {
+  position: relative; /* 相対位置 */
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 4rem; /* text-2xl */
+  color: var(--main-color);
+}
+
+.mainSubTitle2 {
+  position: relative; /* 相対位置 */
+  bottom: 70px;
+  font-size: 1rem; /* text-lg */
+  color: var(--mainSub-color);
+}
+
+.whatsNew_container {
+  position: relative; /* 相対位置 */
+  display: flex;
+  max-width: 1200px;
+  margin-right: 800px;
+}
+
+.whatsNew_list {
+  list-style: none; /* リストスタイルをなしに */
+}
+
+.whatsNew_item {
+  color: #ffffff;
+  margin: 4rem 0;
+  font-size: 1.2rem;
+}
+
+.whatsNew_button {
+  position: relative; /* 相対位置 */
+  width: 760px; /* ボタンの幅 */
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  margin: 100px auto; /* 上マージン + 中央寄せ */
+  padding: 20px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 30px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  display: flex; /* フレックスボックス */
+  align-items: center; /* アイテムを縦方向中央 */
+  justify-content: space-between; /* テキストと矢印を両端に配置 */
+  text-align: center; /* テキスト中央 */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.whatsNew_button:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+
+.whatsNew_button:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+
+.button_text2 {
+  font-size: 1.6rem; /* フォントサイズ */
+  flex-grow: 1; /* 真ん中に寄せる */
+  text-align: center; /* テキスト中央寄せ */
+}
+/* ↑↑↑ main2 ↑↑↑ */
