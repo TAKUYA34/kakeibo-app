@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import styles from '../css/Dashboard.module.css';
+import styles from '../styles/Dashboard.module.css';
 
 const Dashboard = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
-  // 画像のリスト
+  // header画像のリスト
   const imagesArray = [
     '/images/headerimageA.JPG',
     '/images/headerimageB.JPG',
     '/images/headerimageC.JPG'
   ];
 
-  // 現在の画像インデックス
+  // header画像インデックス
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showImage, setShowImage] = useState(true); // 画像表示フラグ
 
-  // テキスト
+  // headerテキスト
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-
+    // image画像がなければ処理実行
     if (!imagesArray || imagesArray.length === 0) {
       console.error('画像リストが空 or undefined:', imagesArray);
       return;
@@ -54,6 +54,7 @@ const Dashboard = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
   return () => clearInterval(intervalId);
   }, []);
 
+  // カードとテキストを一元化
   const layer1items = [
     {
       image: "/images/mainImageA.jpg",
@@ -84,6 +85,7 @@ const Dashboard = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
     { name: "Entertainment", value: 300 },
   ];
   
+  // グラフ色
   const COLORS = ["#8b0000", "#ff4500", "#ffa500"];  
 
   return (
