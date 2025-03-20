@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+/* 変数フィールド */
+:root {
+  --header-color: rgb(195, 231, 235); /* ヘッダーの色 */
+  --header-width: 100%; /* 画面幅 */
+  --header-position: fixed; /* ヘッダーの位置 */
+}
+
+/* 全体 */
+.mainContainer {
+  min-height: 100vh; /* 画面の高さを最低100%に */
+  display: flex; /* フレックスボックス */
+  flex-direction: column; /* 縦並び */
+  background: linear-gradient(270deg, #ff7eb3, #ff477e, #6a11cb, #ffffff);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ↓↓↓ ヘッダー ↓↓↓ */
+  /* ↓↓↓ ヘッダー画像 ↓↓↓ */
+  .imageContainer {
+    width: var(--header-width); /* w-full */
+    height: 1000px; /* h-1000 */
+    position: relative; /* 相対位置 */
+    overflow: hidden; /* 画像のはみ出しを隠す */
+  }
+
+  .image {
+    width: var(--header-width); /* w-full */
+    height: 100%; /* h-100% */
+    object-fit: cover; /* 画像を中央に表示 */
+    opacity: 0; /* 初期状態は透明 */
+    transition: opacity 1.25s ease-in-out; /* 0.5秒かけて透明度を変化 */
+  }
+
+  .image.show {
+    opacity: 0.7; /* 表示 */
+  }
+  /* ↑↑↑ ヘッダー画像 ↑↑↑ */
+
+.header {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  width: var(--header-width); /* w-full */
+  max-width: 100%; /* 最大幅 */
+  margin: 0 auto; /* 自動で左右に余白を作り、中央に配置 */
+}
+
+.fixation {
+  width: var(--header-width); /* w-full */
+  max-width: 100%; /* 最大幅 */
+  display: flex;
+  justify-content: space-between;
+  position: var(--header-position); /* 固定 */
+  z-index: 1000; /* 重なり順 */
+}
+
+.headerTitle {
+  font-size: 6rem; /* text-4xl */
+  color: var(--header-color);
+  font-weight: normal; /* font-normal */
+  font-family: 'Inspiration', sans-serif; /* font-inspiration */
+  margin: 2rem 2rem 2rem 3rem; /* ml-8 */
+}
+
+.navList {
+  display: flex;
+  gap: 10px;
+  margin: 70px 0 0 0; /* 上マージン + 左マージン */
+  list-style: none;
+}
+
+.navItem {
+  font-size: 2.25rem;
+  margin-right: 40px;
+  font-family: 'Indie Flower', cursive; /* font-indie */
+  color: var(--header-color);
+}
+
+.navList_a {
+  color: var(--header-color); /* リンクの色 */
+  text-decoration: none; /* 下線を取り除く */
+  display: inline-block; 
+  transition: transform 0.3s ease; /* 変化するアニメーション */
+}
+
+.navList_a:hover {
+  transform: translateX(5px); /* ホバー時に右に移動 */
+}
+
+.htext {
+  position: absolute;
+  bottom: -1000px; /* 画面下から調整 */
+  right: 50px;
+  margin: 20px;
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 4rem; /* サイズ調整 */
+  color: var(--header-color); /* 色調整 */
+}
+
+.animatedText {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* ↑↑↑ ヘッダー ↑↑↑ */
