@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home.js";
-import CurrentMoneyGraph from "./components/CurrentMoneyGraph.js";
+import Footer from "./components/Footer.js";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Home />} />
-          <Route path="/com/Test" element={<CurrentMoneyGraph />} />
+          <Route path="/com/Test" element={<Footer />} />
         </Routes>
       </Router>
     </AuthProvider>
