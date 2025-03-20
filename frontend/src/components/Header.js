@@ -54,6 +54,7 @@ const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
   }, []);
 
   return (
+    // headerScreen
     <main className={styles.mainContainer}>
 
       {/* 画像のコンテナ */}
