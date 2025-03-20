@@ -20,7 +20,7 @@ const OverView = () => {
   ];
   
   return (
-    // mainPage1
+    // mainScreen1
     <section className={styles.main}>
       <div className={styles.main_layer}>
         <h2 className={styles.mainTitle}>Over View.</h2>

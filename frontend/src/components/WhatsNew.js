@@ -4,6 +4,7 @@ import styles from '../styles/WhatsNew.module.css';
 const WhatsNew = () => {
 
   return (
+    // mainScreen2
     <section className={styles.main2}>
       {/* 画像のコンテナ1 */}
       <div className={styles.shape_container1}>
