@@ -6,12 +6,12 @@
 /* 変数フィールド */
 :root {
   --header-color: rgb(195, 231, 235); /* ヘッダーの色 */
+  --header-width: 100%; /* 画面幅 */
+  --header-position: fixed; /* ヘッダーの位置 */
   --main-color: rgb(100, 100, 100); /* メインの色 */
   --mainSub-color: rgb(0, 0, 0); /* メインサブの色 */
-  --header-width: 100%; /* 画面幅 */
   --main1-width: 100%; /* 画面幅 */
   --main2-width: 100%; /* 画面幅 */
-  --header-position: fixed; /* ヘッダーの位置 */
 }
 
 /* 全体 */
