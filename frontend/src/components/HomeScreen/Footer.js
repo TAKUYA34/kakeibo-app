@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from '../styles/Footer.module.css';
+import styles from '../../styles/Footer.module.css';
 
 const Footer = () => {
   return (
     // footerScreen
-    <footer className={styles.footer}>
+    <footer className={styles.footerContent}>
       <div className={styles.footerTop_Content}>
         <h1 className={styles.footerTop_Title}>
           <a className={styles.footer_a} href='#' target="_blank">Kakeibo-app</a>

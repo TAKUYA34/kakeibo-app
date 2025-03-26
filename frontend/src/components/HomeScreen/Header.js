@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Header.module.css';
+import styles from '../../styles/Header.module.css';
 
 const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
     // header画像のリスト
@@ -72,12 +72,12 @@ const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
         <p className={styles.htext}>{displayedText}</p>
         <div className={styles.fixation}>
           <h1 className={styles.headerTitle}>
-          <a className={styles.navList_a} href='#' target='_blank'>Kakeibo-app</a>
+          <a className={styles.navList_a} href='#' target="_self">Kakeibo-app</a>
           </h1>
           <nav>
             <ul className={styles.navList}>
               <li className={styles.navItem}>
-                <a className={styles.navList_a} href='#' target='_blank'>Sign up</a>
+                <a className={styles.navList_a} href='/Home/SignUp' target="_self">Sign up</a>
               </li>
               <li className={styles.navItem}>
                 <a className={styles.navList_a} href='#' target='_blank'>Log out</a>

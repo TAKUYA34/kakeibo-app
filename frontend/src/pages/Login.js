@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../api/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (login(email, password)) {
-      navigate("/dashboard"); // ログイン成功時にダッシュボードへ遷移
+      navigate("/Home"); // ログイン成功時にダッシュボードへ遷移
     } else {
       alert("ログイン失敗: メールアドレスまたはパスワードが違います");
     }

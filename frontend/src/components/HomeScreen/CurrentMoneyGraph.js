@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import styles from '../styles/CurrentMoneyGraph.module.css';
+import styles from '../../styles/CurrentMoneyGraph.module.css';
 
 const CurrentMoneyGraph = () => {
 
