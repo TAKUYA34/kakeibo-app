@@ -14,10 +14,10 @@
 
 | entity(データの種類)          | field(データ名)                      |
 |:----------------------------|:------------------------------------|
-| **User**                    | ID, name, mail, password            |
-| **Transaction**             | ID, userid, date, category, money,  |
-|                             | memo, type_in, type_out             |
-| **Category**                | ID, userid, name, type_in, type_out |
+| **User**                    | user_id（PK）, user_name, email, password, created_at, update_at            |
+| **Transaction**             | trans_id（PK）, user_id（FK）,trans_date, category_id（FK）, amount,  |
+|                             | trans_fixed, memo, create_at           |
+| **Category**                | category_id（FK）, user_id（FK）, name, type (ENUM: 'income' or 'expense') |
 
 ## API設計
 
