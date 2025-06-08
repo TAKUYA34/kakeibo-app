@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/WhatsNew.module.css';
+import styles from '../../styles/HomeStatic/WhatsNew.module.css';
 
 const WhatsNew = () => {
 
@@ -50,7 +50,7 @@ const WhatsNew = () => {
           </ul>
         </div>
         <button className={styles.whatsNew_button}>
-          <span className={styles.button_text2}>Show Logs...</span>
+          <span className={styles.button_text2}>Transaction Add...</span>
           <div className={styles.arrow}>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
               <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>

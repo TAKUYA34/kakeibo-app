@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../../styles/Header.module.css';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../services/AuthContext';
+import styles from '../../styles/HomeStatic/Header.module.css';
 
-const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
+// 各ページでヘッダーの表示を制御するためのカスタムフック
+const Header = ({ text = "Simple Money Logs..." }) => {
+  // useAuthフックを使用して認証情報を取得
+  const { user, logout } = useAuth();
+
     // header画像のリスト
   const imagesArray = [
     '/images/headerimageA.JPG',
@@ -9,6 +15,15 @@ const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
     '/images/headerimageC.JPG'
   ];
 
+  // useLocationフックを使用して現在のパスを取得
+  const location = useLocation();
+  // 現在のパスを取得
+  const path = location.pathname;
+
+  // 条件設定
+  const isHomePage = path === '/home' || path === '/';
+  const isSignUpPage = path === '/home/register' || path === '/home/signUpForm/';
+  const isLoginPage = path === '/home/login';
   // header画像インデックス
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showImage, setShowImage] = useState(true); // 画像表示フラグ
@@ -52,44 +67,63 @@ const Header = ({ user, handleLogout, text = "Simple Money Logs..." }) => {
 
     return () => clearInterval(intervalId);
   }, []);
-
+  
   return (
     // headerScreen
-    <main className={styles.mainContainer}>
+    <>
+      {(!isSignUpPage && !isLoginPage) && (
+        <main className={styles.mainContainer}>
 
-      {/* 画像のコンテナ */}
-      <div className={styles.imageContainer}>
-        <img
-          className={`${styles.image} ${showImage ? styles.show : ''}`}
-          src={imagesArray[currentImageIndex]}
-          alt="headerImage"
-          onError={() => console.log('画像の読み込みに失敗:', imagesArray[currentImageIndex])} // エラーログ
-          />
-      </div>
-    
-      {/* header */}
-      <header className={`${styles.header} ${styles.wrapper}`}>
-        <p className={styles.htext}>{displayedText}</p>
-        <div className={styles.fixation}>
-          <h1 className={styles.headerTitle}>
-          <a className={styles.navList_a} href='#' target="_self">Kakeibo-app</a>
-          </h1>
-          <nav>
-            <ul className={styles.navList}>
-              <li className={styles.navItem}>
-                <a className={styles.navList_a} href='/Home/SignUp' target="_self">Sign up</a>
-              </li>
-              <li className={styles.navItem}>
-                <a className={styles.navList_a} href='#' target='_blank'>Log out</a>
-              </li>
-              <li className={styles.navItem}>
-                <a className={styles.navList_a} href='#' target='_blank'>Menus</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    </main>
+          {/* 画像のコンテナ */}
+            <div className={styles.imageContainer}>
+              <img
+                className={`${styles.image} ${showImage ? styles.show : ''}`}
+                src={imagesArray[currentImageIndex]}
+                alt="headerImage"
+                onError={() => console.log('画像の読み込みに失敗:', imagesArray[currentImageIndex])} // エラーログ
+                />
+            </div>
+
+        
+          {/* header */}
+          <header className={`${styles.header} ${styles.wrapper}`}>
+          <p className={styles.htext}>{displayedText}</p>
+            <div className={styles.fixation}>
+              <h1 className={styles.headerTitle}>
+                <a className={styles.navList_a} href='/home' target="_self">Kakeibo-app</a>
+              </h1>
+              <nav>
+                <ul className={styles.navList}>
+                  { !user && (
+                    <>
+                    <li className={styles.navItem}>
+                      <a className={styles.navList_a} href='/home/register' target="_self">Sign up</a>
+                    </li>
+                    <li className={styles.navItem}>
+                      <a className={styles.navList_a} href='/home/login' target='_blank'>Log in</a>
+                    </li>
+                    </>
+                  )}
+                  { user && (
+                    <>
+                    <li className={styles.navItem}>
+                      <span className={styles.navList_a}>{user.name}</span>
+                    </li>
+                    <li className={styles.navItem}>
+                      <button className={styles.navList_a} onClick = {logout}>Log out</button>
+                    </li>
+                    </>
+                  )}
+                  <li className={styles.navItem}>
+                    <a className={styles.navList_a} href='#' target='_blank'>Menus</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </header>
+        </main>
+      )}
+    </>
   );
 };
 

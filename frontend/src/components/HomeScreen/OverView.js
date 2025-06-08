@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/OverView.module.css';
+import styles from '../../styles/HomeStatic/OverView.module.css';
 
 const OverView = () => {
 
@@ -37,7 +37,7 @@ const OverView = () => {
       </div>
 
       <button className={styles.overview_button}>
-        <span className={styles.button_text}>MORE...</span>
+        <span className={styles.button_text}>Transaction Menu...</span>
         <div className={styles.arrow}>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
             <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
