@@ -8,6 +8,8 @@ const Header = ({ text = "Simple Money Logs..." }) => {
   // useAuthフックを使用して認証情報を取得
   const { user, logout } = useAuth();
 
+  const [showMenu, setShowMenu] = useState(false); // メニュー表示フラグ
+
     // header画像のリスト
   const imagesArray = [
     '/images/headerimageA.JPG',
@@ -107,15 +109,37 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                   { user && (
                     <>
                     <li className={styles.navItem}>
-                      <span className={styles.navList_a}>{user.name}</span>
+                      <span className={styles.navList_a}>{user.user_name}</span>
                     </li>
                     <li className={styles.navItem}>
-                      <button className={styles.navList_a} onClick = {logout}>Log out</button>
+                      <button className={styles.buttonNavList_a} onClick = {() => {
+                        const confirmLogout = window.confirm("ログアウトしますか？");
+                        // ログアウトの確認ダイアログ
+                        if (confirmLogout) {
+                          logout();
+                        }
+                      }}>Log out</button>
                     </li>
                     </>
                   )}
-                  <li className={styles.navItem}>
-                    <a className={styles.navList_a} href='#' target='_blank'>Menus</a>
+                  <li className={styles.navItem}
+                    onMouseEnter={() => setShowMenu(true)}
+                    onMouseLeave={() => setShowMenu(false)}
+                  >
+                    <span className={styles.navList_a}>Menus</span>
+                    { showMenu && (
+                      <ul className={styles.dropdownMenu}>
+                        <li className={styles.dropdownItem}>
+                          <a className={styles.dropdownLink} href='#' target='_blank'>Expense</a>
+                        </li>
+                        <li className={styles.dropdownItem}>
+                          <a className={styles.dropdownLink} href='#' target='_blank'>Income</a>
+                        </li>
+                        <li className={styles.dropdownItem}>
+                          <a className={styles.dropdownLink} href='#' target='_blank'>Summary</a>
+                        </li>
+                      </ul>
+                    )}
                   </li>
                 </ul>
               </nav>

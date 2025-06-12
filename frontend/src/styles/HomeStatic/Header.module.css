@@ -102,6 +102,21 @@
   transition: transform 0.3s ease; /* 変化するアニメーション */
 }
 
+.buttonNavList_a {
+  font-size: 2.25rem;
+  font-family: 'Indie Flower', cursive; /* font-indie */
+  color: var(--header-color);
+  background: none; /* ボタンの背景なし */
+  border: none; /* ボタンの枠なし */
+  display: inline-block; 
+  cursor: pointer; /* カーソルをポインターに */
+  transition: transform 0.3s ease; /* 変化するアニメーション */
+}
+
+.buttonNavList_a:hover {
+  transform: translateX(5px); /* ホバー時に右に移動 */
+}
+
 .navList_a:hover {
   transform: translateX(5px); /* ホバー時に右に移動 */
 }
@@ -122,5 +137,20 @@
   font-weight: bold;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.dropdownMenu {
+  list-style: none; /* リストのスタイルをなし */
+}
+
+.dropdownLink {
+  color: var(--header-color); /* リンクの色 */
+  text-decoration: none; /* 下線を取り除く */
+  display: block; /* ブロック要素にする */
+  padding: 10px; /* パディングを追加 */
+}
+
+.dropdownLink:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* ホバー時の背景色 */
 }
 /* ↑↑↑ ヘッダー ↑↑↑ */
