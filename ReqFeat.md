@@ -16,27 +16,27 @@
 |:----------------------------|:------------------------------------|:------------------|
 | **User**                    | user_id（PK）, user_name, email, password, created_at, update_at            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時  |
 | **Transaction**             | transaction_id（PK）, user_id（FK）, category_id（FK）,trans_type[income, expense], amount,  | 取引ID、取引するユーザーID、カテゴリID、[収入, 支出]、金額  |
-| **Transaction**             | memo, trans_date, create_at, update_at           | 詳細、取引日、登録日時、更新日時  |
+| **Transaction**             | trans_fixed, trans_variable, memo, trans_date, create_at, update_at           | 固定費、変動費、詳細、取引日、登録日時、更新日時  |
 | **Category**                | category_id（PK）, user_id（FK）, category_name, category_type[income, expense] |  カテゴリID、ユーザー毎にカスタム、〇〇費、[収入、支出]
 
 ## API設計
 
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
-| POST        | /api/auth/register      | ユーザー登録画面          |
-| POST        | /api/auth/login         | ログイン画面             |
-| POST        | /api/auth/logout        | ログアウト               |
-| GET         | /api/transactions       | 収支記録取得             |
-| POST        | /api/transactions       | 収支記録追加             |
-| PUT         | /api/transactions:id    | 収支記録編集             |
-| DELETE      | /api/transactions:id    | 収支記録削除             |
-| GET         | /api/categories         | カテゴリ管理取得          |
-| POST        | /api/categories         | カテゴリ管理追加          |
-| PUT         | /api/categories:id      | カテゴリ管理編集          |
-| DELETE      | /api/categories:id      | カテゴリ管理削除          |
-| GET         | /api/analytics/summary  | 収支データ取得            |
-| GET         | /api/export/csv         | CSVエクスポート          |
-| GET         | /api/export/pdf         | PDFエクスポート          |
+| POST        | /home/register      | ユーザー登録画面          |
+| POST        | /home/login         | ログイン画面             |
+| POST        | /home/logout        | ログアウト               |
+| GET         | /home/transactions       | 収支記録取得             |
+| POST        | /home/transactions       | 収支記録追加             |
+| PUT         | /home/transactions:id    | 収支記録編集             |
+| DELETE      | /home/transactions:id    | 収支記録削除             |
+| GET         | /home/categories         | カテゴリ管理取得          |
+| POST        | /home/categories         | カテゴリ管理追加          |
+| PUT         | /home/categories:id      | カテゴリ管理編集          |
+| DELETE      | /home/categories:id      | カテゴリ管理削除          |
+| GET         | /home/analytics/summary  | 収支データ取得            |
+| GET         | /home/export/csv         | CSVエクスポート          |
+| GET         | /home/export/pdf         | PDFエクスポート          |
 
 ## 画面設計
 
@@ -46,4 +46,4 @@
 | **ホーム画面**                  | 収支の概要やグラフを表示               |
 | **取引一覧画面**                | 取引の一覧表示・編集・削除             | 
 | **取引追加画面**                | 新しい収入・支出を記録                |
- | **カテゴリ追加画面**             | カテゴリの作成・編集・削除             |
+ | **カテゴリ追加画面**             | カテゴリの作成・編集・削除             |ß
