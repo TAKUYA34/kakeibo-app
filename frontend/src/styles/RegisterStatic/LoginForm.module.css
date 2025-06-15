@@ -1,0 +1,72 @@
+.loginMain {
+  background-color: #FFFFFF; /* bg-white */
+}
+
+div{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.headerTitle {
+  font-size: 5rem; /* text-4xl */
+  color: #000000;
+  font-weight: normal; /* font-normal */
+  font-family: 'Inspiration', sans-serif; /* font-inspiration */
+  margin: 2rem 2rem 2rem 3rem; /* ml-8 */
+}
+
+.navList_a {
+  color: #000000;
+  text-decoration: none; /* 下線を取り除く */
+  display: inline-block; 
+  transition: transform 0.3s ease; /* 変化するアニメーション */
+}
+
+p {
+  text-align: center;
+}
+
+.LoginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* 画面高さ分 */
+}
+
+.formGroup {
+  font-size: 1.5rem; /* text-4xl */
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+}
+
+.formGroup label {
+  margin-top: 6rem;
+  margin-bottom: 1rem; /* mb-2 */
+}
+
+.formGroup input {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid gray; /* 細いボーダー */
+}
+
+button {
+  display: block;
+  margin: auto; /* mt-8 mb-8 */
+}
+
+.LoginBtn {
+  margin-top: 3.5rem; /* mt-8 */
+  background-color: #000000; /* bg-black */
+  color: #FFFFFF; /* text-white */
+  padding: 0.5rem 8rem; /* py-2 px-4 */
+  font-size: 1.5rem; /* text-4xl */
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: none; /* ボーダーなし */
+  cursor: pointer; /* ポインターを手の形にする */
+}
