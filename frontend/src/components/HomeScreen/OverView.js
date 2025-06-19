@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/HomeStatic/OverView.module.css';
 
 const OverView = () => {
 
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // ボタンがクリックされたときの処理
+    navigate('/home/transactions/add');
+  };
   // カードとテキストを一元化
   const layer1items = [
     {
@@ -36,7 +43,7 @@ const OverView = () => {
         ))}
       </div>
 
-      <button className={styles.overview_button}>
+      <button className={styles.overview_button} onClick={handleButtonClick}>
         <span className={styles.button_text}>Transaction Add...</span>
         <div className={styles.arrow}>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
