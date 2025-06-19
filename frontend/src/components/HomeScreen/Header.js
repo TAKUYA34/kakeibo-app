@@ -102,7 +102,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                       <a className={styles.navList_a} href='/home/register' target="_self">Sign up</a>
                     </li>
                     <li className={styles.navItem}>
-                      <a className={styles.navList_a} href='/home/login' target='_blank'>Log in</a>
+                      <a className={styles.navList_a} href='/home/login' target='_self'>Log in</a>
                     </li>
                     </>
                   )}
