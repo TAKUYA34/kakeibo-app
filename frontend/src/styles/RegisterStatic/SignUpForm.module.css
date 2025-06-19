@@ -14,7 +14,7 @@ div{
   color: #000000;
   font-weight: normal; /* font-normal */
   font-family: 'Inspiration', sans-serif; /* font-inspiration */
-  margin: 2rem 2rem 2rem 3rem; /* ml-8 */
+  margin: 0.5rem 3.5rem; /* ml-8 */
 }
 
 .navList_a {
@@ -31,8 +31,7 @@ p {
 .signupContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 60vh; /* 画面高さ分 */
+  max-height: 100vh; /* 画面高さ分 */
 }
 
 .formGroup {
@@ -44,7 +43,7 @@ p {
 }
 
 .formGroup label {
-  margin-top: 5rem;
+  margin-top: 3.5rem;
   margin-bottom: 1rem; /* mb-2 */
 }
 
@@ -61,7 +60,7 @@ button {
 }
 
 .SignUpBtn {
-  margin-top: 10rem; /* mt-8 */
+  margin-top: 6rem; /* mt-8 */
   background-color: #000000; /* bg-black */
   color: #FFFFFF; /* text-white */
   padding: 0.5rem 8rem; /* py-2 px-4 */
