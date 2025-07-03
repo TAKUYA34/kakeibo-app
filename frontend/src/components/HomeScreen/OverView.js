@@ -1,15 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../services/AuthContext';
 import styles from '../../styles/HomeStatic/OverView.module.css';
 
 const OverView = () => {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleButtonClick = () => {
-    // ボタンがクリックされたときの処理
-    navigate('/home/transactions/add');
-  };
+    
+    if (user === null) {
+      // ユーザーがログインしていない場合、ログインページにリダイレクト
+      navigate('/home/login');
+      return;
+    } else {
+      // ボタンがクリックされたときの処理
+      navigate('/home/transactions/add');
+    }
+    };
   // カードとテキストを一元化
   const layer1items = [
     {
