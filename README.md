@@ -16,8 +16,8 @@
 |:----------------------------|:------------------------------------|:------------------|
 | **User**                    | user_id（PK）, user_name, email, password, created_at, update_at            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時  |
 | **Transaction**             | transaction_id（PK）, user_id（FK）, category_id（FK）,trans_type[income, expense], amount, total_amount | 取引ID、取引するユーザーID、カテゴリID、[収入, 支出]、金額、合計金額 |
-| **Transaction**             | cost_type[fixed, variable], memo, major_sel, middle_sel, minor_sel, trans_date, create_at, update_at           | [収入, 支出]、詳細、大項目、中項目、小項目、取引年月、登録日時、更新日時  |
-| **Category**                | category_id（PK）, user_id（FK）, category_name, category_type[income, expense] |  カテゴリID、ユーザー毎にカスタム、〇〇費、[収入、支出]
+| **Transaction**             | memo, major_sel, middle_sel, minor_sel, create_at, update_at           | [収入, 支出]、詳細、大項目、中項目、小項目、取引年月、登録日時、更新日時  |
+| **Category（仮）**                | category_id（PK）, user_id（FK）, category_name, category_type[income, expense] |  カテゴリID、ユーザー毎にカスタム、〇〇費、[収入、支出]
 
 ## API設計
 
