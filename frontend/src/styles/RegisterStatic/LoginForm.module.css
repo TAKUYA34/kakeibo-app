@@ -70,3 +70,17 @@ button {
   border: none; /* ボーダーなし */
   cursor: pointer; /* ポインターを手の形にする */
 }
+
+.navFooter_main {
+  margin: 100px 0 0 0; /* mt-24 */
+}
+.navFooter_a {
+  color: #dc5a5a; /* text-black */
+  text-decoration: none; /* 下線を取り除く */
+  margin-left: 800px;
+}
+
+.navFooter_a:hover {
+  color: #dc5a5a; /* text-black */
+  text-decoration: underline; /* 下線を付ける */
+}

@@ -71,6 +71,9 @@ const Login = () => {
         </div>
         <button type="submit" className={styles.LoginBtn} disabled = {loading || !email || !password}>{loading ? "ログイン中..." : "ログイン"}</button>
       </form>
+      <p className={styles.navFooter_main}>
+        <a className={styles.navFooter_a} href="/home/register" target="_self">アカウントをお持ちでない方はこちら</a>
+      </p>
     </div>
   );
 };
