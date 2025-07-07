@@ -13,7 +13,7 @@ const transactionSchema = new mongoose.Schema({
   major_sel: { type: String, required: true }, // 大項目
   middle_sel: { type: String, required: true }, // 中項目
   minor_sel: { type: String, }, // 小項目
-  // trans_date: { type: Date, required: true },
+  trans_date: { type: Date, required: true },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
