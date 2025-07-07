@@ -1,16 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../services/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/HomeStatic/OverView.module.css';
 
 const OverView = () => {
 
+  const { user, isLoading } = useAuth(); // useAuthフックを使用して認証情報を取得
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   const handleButtonClick = () => {
     
-    if (user === null) {
+    if (!isLoading && !user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
       return;

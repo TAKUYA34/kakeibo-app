@@ -6,6 +6,7 @@ const AuthContext = createContext();
 // アプリ全体にログイン状態を提供するプロバイダーコンポーネント
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // 認証確認フラグ
 
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
@@ -32,7 +33,11 @@ export const AuthProvider = ({ children }) => {
       if (!meRes.ok) throw new Error("ユーザー情報の取得に失敗しました");
 
       const userData = await meRes.json();
-      setUser({ email: userData.email }); // 状態を更新
+      setUser({
+        _id: userData._id, // ユーザーIDも保存
+        user_name: userData.user_name, // ユーザー名も保存
+        email: userData.email
+       }); // 状態を更新
 
       return true;
     } catch (error) {
@@ -52,14 +57,19 @@ export const AuthProvider = ({ children }) => {
         .then((data) => {
           if (data.email) {
             setUser({
+              _id: data._id, // ユーザーIDも保存
               email: data.email,
               user_name: data.user_name
             }); // ユーザー情報を状態にセット
           }
+          setIsLoading(false); // 認証確認完了
         })
         .catch(() => {
           localStorage.removeItem("token"); // 失敗したらトークン削除
+          setIsLoading(false); // 認証確認完了
         });
+    } else {
+      setIsLoading(false); // トークンがない場合も認証確認完了
     }
   }, [API_URL]);
 
@@ -70,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
