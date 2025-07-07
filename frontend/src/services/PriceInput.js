@@ -1,26 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-const PriceInput = () => {
-  const [amount, setAmount] = useState("");
+const PriceInput = ({ onChange }) => {
+  const [displayVal, setDisplayVal] = useState("");
 
   // 入力時の処理（数字のみ）
   const handleChange = (e) => {
-    const value = e.target.value;
+    const input = e.target.value;
     // 数字のみを許可
-    const numericValue = value.replace(/[^\d]/g, "");
-    setAmount(numericValue);
+    const numericValue = input.replace(/[^\d]/g, "");
+    const formattedValue = Number(numericValue).toLocaleString();
+    setDisplayVal(formattedValue); // 表示用の値を更新
+    onChange(formattedValue); // 外部に渡す
+  };
+
+  // フォーカス時、カンマや円を除去して編集しやすくする
+  const handleFocus = () => {
+    const rawValue = displayVal.replace(/円/g, ""); // カンマ・円を除去
+    setDisplayVal(rawValue);
   };
 
   // フォーカスを外した際、’円’を自動で付与する
   const handleBlur = () => {
-    if ( amount !== "" && !amount.endsWith("円")) {
+    if ( displayVal !== "" && !displayVal.endsWith("円")) {
       // 数字が入力されていて、最後に円が付いていない場合
-      setAmount(`${amount}円`);
+      setDisplayVal(`${displayVal}円`);
     }
-  };
-
-  const handleFocus = () => {
-    setAmount(amount.replace("円", ""));
   };
 
   return (
@@ -28,11 +32,12 @@ const PriceInput = () => {
       <label>金額：</label>
       <input
         type="text"
-        value={amount}
+        value={displayVal}
         onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
         name="amount"
+        placeholder="例: 1000円"
       />
       <br />
     </div>
