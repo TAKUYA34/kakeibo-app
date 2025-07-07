@@ -18,7 +18,7 @@ const OverView = () => {
       // ボタンがクリックされたときの処理
       navigate('/home/transactions/add');
     }
-    };
+  };
   // カードとテキストを一元化
   const layer1items = [
     {
