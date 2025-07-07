@@ -1,16 +1,26 @@
 {
-  // IntelliSense を使用して利用可能な属性を学べます。
-  // 既存の属性の説明をホバーして表示します。
-  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
+    // Reactフロント用（そのまま残す）
     {
       "type": "chrome",
       "request": "launch",
       "name": "localhost に対して Chrome を起動する",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
+    },
+
+    // Node.js サーバー（Express等）用のデバッグ構成を追加
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "サーバーをデバッグ起動",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/server/index.js", // ←起動ファイルのパスに変更
+      "env": {
+        "PORT": "5001",
+        "NODE_ENV": "development"
+      }
     }
   ]
 }
