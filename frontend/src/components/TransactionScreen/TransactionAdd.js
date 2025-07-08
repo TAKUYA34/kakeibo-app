@@ -31,6 +31,7 @@ const TransactionAdd = () => {
   const [majorError, setMajorError] = useState('');
   const [middleError, setMiddleError] = useState('');
   const [minorError, setMinorError] = useState('');
+  const [priceError, setPriceError] = useState('');
 
   // 月初のDB合計を管理するためのuseStateフックを使用
   const [initialTotal, setInitialTotal] = useState(0);
@@ -127,15 +128,23 @@ const TransactionAdd = () => {
       setMinorError('');
     }
 
+    const numericPrice = parseInt(String(price).replace(/[^\d-]/g, ''), 10) || 0; // 数字以外の文字を除去し、整数に変換
+
+    if (!numericPrice || isNaN(numericPrice)) {
+      setPriceError('金額を入力してください');
+      hasError = true;
+    } else {
+      setPriceError('');
+    }
+    
     if (hasError) {
       // エラーがある場合は追加しない
       return;
     }
-
-    const numericPrice = parseInt(price.replace(/[^\d-]/g, ''), 10) || 0; // 数字以外の文字を除去し、整数に変換
+    
     const signedPrice = majorSelect === 'expense' ? -Math.abs(numericPrice) : Math.abs(numericPrice); // 支出の場合はマイナス、収入の場合はプラスに変換
     const updatedTotal = initialTotal + signedPrice; // 合計金額を計算
-
+    
     setRows([
       ...rows,
       {
@@ -159,6 +168,7 @@ const TransactionAdd = () => {
     setMajorError('');
     setMiddleError(''); 
     setMinorError('');
+    setPriceError('');
   };
   
   // Row Delete
@@ -228,100 +238,128 @@ const TransactionAdd = () => {
               <option key={value} value={value}>{label}</option>
             ))}
           </select>
-          {majorError && <div style={{ color: 'red' }}>{majorError}</div>}
+          {majorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{majorError}</div>}
           <hr />
         </div>
 
         <div className={styles.items_row}>
           <h1>Items</h1>
-          <label>中項目：</label>
-            <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect'>
-              <option value='default'>-- 中項目 --</option>
-              { majorSelect === 'income' ? (
-                <>
-                  { Object.entries(salarySelect).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
-                  ))}
-                </>
-              ) : (
-                <>
-                  { Object.entries(middleItems).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
-                  ))}
-                </>
-              )};
-            </select>
-            {middleError && <div style={{ color: 'red' }}>{middleError}</div>}
-            <br />
-        
-          <label>小項目：</label>
-          <select value={minorSelect} onChange={handleMinorChange} name='minorSelect'>
-            <option value='default'>-- 小項目 --</option>
-              { /* 中項目の選択に応じて小項目を表示 */ }
+          <div className={styles.select_row}>
+            <div className={styles.select_block}>
+              <label className={styles.label_middle}>中項目：</label>
+              <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect'>
+                <option value='default'>-- 中項目 --</option>
+                { majorSelect === 'income' ? (
+                  <>
+                    { Object.entries(salarySelect).map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    { Object.entries(middleItems).map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                  </>
+                )};
+              </select>
+              {middleError && (
+                <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{middleError}</div>
+              )}
+            </div>
+
+            { /* 中項目の選択に応じて小項目を表示 */ }
+            <div className={styles.select_block}>
               { majorSelect === 'income' ? (
                 <></> 
-              ) : (
-              <>
-                { minorItems[middleSelect] && minorItems[middleSelect].length > 0 ? (
-                  minorItems[middleSelect].map((item, index) => (
-                    <option key={index} value={item}>{item}</option>
-                  ))
-                  /* 中項目の選択に応じて小項目を表示 */
-                  ) : (
-                  <option value='default'>選択可能な小項目がありません</option>
+                ) : (
+                <>
+                  <label className={styles.label_minor}>小項目：</label>
+                  <select value={minorSelect} onChange={handleMinorChange} name='minorSelect'>
+                    <option value='default'>-- 小項目 --</option>
+                    { minorItems[middleSelect] && minorItems[middleSelect].length > 0 ? (
+                      minorItems[middleSelect].map((item, index) => (
+                        <option key={index} value={item}>{item}</option>
+                      ))
+                      /* 中項目の選択に応じて小項目を表示 */
+                      ) : (
+                      <option value='default'>選択可能な小項目がありません</option>
+                    )}
+                  </select>
+                  {minorError && <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{minorError}</div>}
+                </>
                 )}
-              </>
-            )};
-          </select>
-          {minorError && <div style={{ color: 'red' }}>{minorError}</div>}
-          <br />
-          
-          <PriceInput value={price} onChange={setPrice} /> {/* 価格入力コンポーネントを追加 */}
+            </div>
+          </div>
 
-          <label htmlFor='memo'>詳細</label>
-          <textarea name="memo" value={memo} onChange={(e) => setMemo(e.target.value)} placeholder='詳細' rows={2} cols={40} />
+          <div className={styles.select_row2}>
+            <PriceInput value={price} onChange={setPrice} className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <label htmlFor='memo' className={styles.label_memo}>詳細</label>
+              <textarea name="memo" value={memo} onChange={(e) => setMemo(e.target.value)} placeholder='詳細' rows={4} cols={40} />
+            </div>
+          </div>
           <hr />
         </div>
 
-        <h1>Table</h1>
-        <button onClick={handleAddRow} className={styles.addButton}>追加</button>
+        <div className={styles.table_row}>
+          <h1>Table</h1>
+          <button onClick={handleAddRow} className={styles.addButton}>
+            <span>追加</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+              <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+            </svg>
+          </button>
 
-        <table className={styles.transactionTable}>
-          <thead>
-            <tr>
-              <th>追加日</th>
-              <th>大項目</th>
-              <th>中項目</th>
-              <th>小項目</th>
-              <th>金額</th>
-              <th>合計</th>
-              <th>詳細</th>
-              <th>削除</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                <td>{row.date}</td>
-                <td>{majorItems[row.major] || row.major}</td>
-                <td>
-                  {majorItems[row.major] === '収支' ? salarySelect[row.middle] || row.middle : middleItems[row.middle] || row.middle}
-                </td>
-                <td>{row.minor}</td>
-                <td>{row.price}</td>
-                <td>{row.initialTotal}</td>
-                <td>{row.memo}</td>
-                <td>
-                  <input type="button" name="delete" value="削除" onClick={() => handleDeleteRow(index)} />
-                </td>
+          <table className={styles.transactionTable}>
+            <thead>
+              <tr>
+                <th>追加日</th>
+                <th>大項目</th>
+                <th>中項目</th>
+                <th>小項目</th>
+                <th>金額</th>
+                <th>合計</th>
+                <th>詳細</th>
+                <th>削除</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <hr />
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.date}</td>
+                  <td>{majorItems[row.major] || row.major}</td>
+                  <td>
+                    {majorItems[row.major] === '収支' ? salarySelect[row.middle] || row.middle : middleItems[row.middle] || row.middle}
+                  </td>
+                  <td>{row.minor}</td>
+                  <td>{row.price}</td>
+                  <td>{row.initialTotal}</td>
+                  <td>{row.memo}</td>
+                  <td>
+                    <button type="button" name="delete" className={styles.deleteBtn} onClick={() => handleDeleteRow(index)}>
+                      <span>削除</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                        <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <hr />
+        </div>
 
-        <h1>Register</h1>
-        <button type='button' onClick={handleRegister} className={styles.registerBtn}>登録する</button>
+        <div className={styles.register_row}>
+          <h1>Register</h1>
+          <button type='button' onClick={handleRegister} className={styles.registerBtn}>
+            <span>登録する</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+              <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </main>
   );
