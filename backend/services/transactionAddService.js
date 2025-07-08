@@ -1,5 +1,6 @@
 const transactionAddRepository = require('../repositorys/TransactionAddRepository');
 const { mapToTransaction } = require('../mappers/transactionAddMapper');
+const { convertWarekiToDate } = require('../utils/dateUtils');
 
 async function toAddUserTransactions(transactions, userId) {
   const txDate = new Date(); // 現在の日付を使用
@@ -10,10 +11,17 @@ async function toAddUserTransactions(transactions, userId) {
   const resultTransactions = []; // 箱
   
   for (const tx of transactions) {
-    const mapped = mapToTransaction(tx, userId, runTotal); // マッピング
-    
+
+    let parsedDate = new Date();
+    const warekiStr = tx.date;
+    if (/^([RHS])(\d+)年(\d+)月(\d+)日$/.test(warekiStr)) { // 和西形式なら変換する
+      parsedDate = convertWarekiToDate(warekiStr);
+    } else if (!isNaN(Date.parse(warekiStr))) { // ISO文字列など正しい日付ならそのまま使用する
+      parsedDate = new Date(warekiStr);
+    }
+
+    const mapped = mapToTransaction({...tx, date: parsedDate }, userId, runTotal); // マッピング
     resultTransactions.push(mapped); // 結果を配列に追加する
-    
     runTotal += mapped.amount; // マッピングされたトランザクションの金額を合計に加算
   }
   

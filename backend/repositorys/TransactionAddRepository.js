@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
 async function getMonthlyTotalByUser(userId, startOfMonth, endOfMonth) {
-
-  console.log("userId:", userId);
-  console.log("startOfMonth:", startOfMonth.toISOString());
-  console.log("endOfMonth:", endOfMonth.toISOString());
   
   // 月ごとの合計を計算
   const result = await Transaction.aggregate([ // 月ごとの合計を計算
