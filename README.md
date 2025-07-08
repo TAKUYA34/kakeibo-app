@@ -24,17 +24,17 @@
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
 | POST        | /home/register      | ユーザー登録画面          |
-| GET        | /home/login         | ログイン画面             |
-| GET        | /home/logout        | ログアウト               |
+| POST        | /home/login         | ログイン画面             |
+| GET         | /home/logout        | ログアウト               |
 | GET         | /home/transaction/list   | 取引一覧画面取得             |
-| GET         | /home/transaction/list/search   | 取引一覧画面検索             |
+| POST        | /home/transaction/list/search   | 取引一覧画面検索             |
 | GET         | /home/transaction/add       | 取引追加画面             |
 | POST        | /home/transaction/add/register       | 取引追加画面追加             |
 | DELETE      | /home/transactions/delete:id    | 取引追加画面削除             |
 | GET         | /home/inventory         | 在庫管理画面          |
-| PUT         | /home/inventory/edit:id      | 在庫管理画面編集          |
+| POST        | /home/inventory/edit:id      | 在庫管理画面編集          |
 | DELETE      | /home/inventory/delete:id      | 在庫管理画面削除          |
-| GET         | /home/analytics/summary  | 収支データ取得            |
+| POST        | /home/analytics/summary  | 収支データ取得            |
 | GET         | /home/export/csv         | CSVエクスポート          |
 | GET         | /home/export/pdf         | PDFエクスポート          |
 
