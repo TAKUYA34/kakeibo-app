@@ -224,6 +224,7 @@ const TransactionAdd = () => {
   return (
     <main>
       <div className={styles.transactionAddMainContainer}>
+        <div className={styles.transactionAddImage} />
         <div className={styles.header_row}>
           <h1>Register your household account book</h1>
         <hr />
