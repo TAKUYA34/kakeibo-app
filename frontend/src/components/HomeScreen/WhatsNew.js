@@ -1,7 +1,24 @@
 import React from 'react';
+import { useAuth } from '../../services/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/HomeStatic/WhatsNew.module.css';
 
 const WhatsNew = () => {
+
+  const { user, isLoading } = useAuth(); // useAuthフックを使用して認証情報を取得
+  const navigate = useNavigate();
+  
+  const handleButtonClick = () => {
+    
+    if (!isLoading && !user) {
+      // ユーザーがログインしていない場合、ログインページにリダイレクト
+      navigate('/home/login');
+      return;
+    } else {
+      // ボタンがクリックされたときの処理
+      navigate('/home/transactions/list');
+    }
+  };
 
   return (
     // mainScreen2
@@ -49,7 +66,7 @@ const WhatsNew = () => {
             </li>
           </ul>
         </div>
-        <button className={styles.whatsNew_button}>
+        <button className={styles.whatsNew_button} onClick={handleButtonClick}>
           <span className={styles.button_text2}>Transaction List...</span>
           <div className={styles.arrow}>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
