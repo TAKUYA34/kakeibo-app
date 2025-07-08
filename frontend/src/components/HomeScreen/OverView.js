@@ -19,6 +19,7 @@ const OverView = () => {
       navigate('/home/transactions/add');
     }
   };
+  
   // カードとテキストを一元化
   const layer1items = [
     {
