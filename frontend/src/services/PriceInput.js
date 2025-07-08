@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PriceInput = ({ onChange }) => {
+const PriceInput = ({ onChange, className, error }) => {
   const [displayVal, setDisplayVal] = useState("");
 
   // 入力時の処理（数字のみ）
@@ -28,8 +28,8 @@ const PriceInput = ({ onChange }) => {
   };
 
   return (
-    <div>
-      <label>金額：</label>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <label className={className}>金額</label>
       <input
         type="text"
         value={displayVal}
@@ -39,7 +39,7 @@ const PriceInput = ({ onChange }) => {
         name="amount"
         placeholder="例: 1000円"
       />
-      <br />
+      {error && <div style={{ color: 'red', marginTop: '8px' }}>{error}</div>}
     </div>
   );
 };
