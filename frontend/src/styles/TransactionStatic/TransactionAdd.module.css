@@ -1,0 +1,289 @@
+/* TransactionAdd.module.css */
+
+/* mainコンテナ */
+.transactionAddMainContainer {
+  background-color: #ffffff; /* 背景色 */
+  min-height: 1300px; /* 画面全体の高さを確保 */
+}
+
+/* ヘッダーtitle */
+.header_row {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 1.2rem; /* text-3xl */
+  color: #3b3939;
+  margin: 20px 20px 35px; /* 上、左右、下の余白 */
+}
+
+/* カテゴリー選択 */
+.category_row {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 1.2rem; /* text-3xl */
+  color: #3b3939;
+  margin: 20px 20px 35px 20px; /* 上、左右、下の余白 */
+}
+
+.category_row h1 {
+  margin-bottom: 70px; /* 下側の余白 */
+}
+
+.category_row label{
+  font-weight: bold; /* 太字 */
+  margin-left: 43.2rem; /* 左側の余白 */
+}
+
+.category_row select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px; /* 内側の余白 */
+  width: 150px; /* 幅 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin-left: 20px; /* 左側の余白 */
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23272626' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* 矢印の位置 */
+  background-size: 12px; /* 矢印のサイズ */
+}
+
+.category_row option {
+  text-align: left; /* オプションのテキストを中央揃え */
+}
+
+/* アイテム選択 */
+.items_row {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 1.2rem; /* text-3xl */
+  color: #3b3939;
+  margin: 20px 20px 35px 20px; /* 上、左右、下の余白 */
+}
+
+.items_row h1 {
+  margin-bottom: 50px; /* 下側の余白 */
+}
+
+.select_row {
+  display: flex;
+  flex-wrap: wrap; /* レスポンシブに対応 */
+  gap: 45rem; /* 間隔 */
+  align-items: flex-start;
+}
+
+.select_block {
+  display: inline-block;
+}
+
+.label_middle,
+.label_minor {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 8px;
+  margin-left: 120px;
+}
+
+.select_row select {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.select_row2 {
+  display: flex;
+  margin-top: 150px; /* 上側の余白 */
+  margin-left: 80px; /* 左側の余白 */
+}
+
+.select_row2 > div {
+  flex: 1; /* 均等に広がる */
+}
+
+.label_amount {
+  font-weight: bold; /* 太字 */
+  margin-left: 40px;
+}
+
+.label_memo {
+  font-weight: bold; /* 太字 */
+  margin-left: 240px;
+}
+
+.select_row2 input {
+  width: 150px; /* 幅 */
+  padding: 10px; /* 内側の余白 */
+  margin-left: 40px;
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  cursor: pointer;
+}
+
+.select_row2 textarea {
+  width: 300px; /* 幅 */
+  padding: 8px; /* 内側の余白 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin-left: 240px;
+  cursor: pointer;
+}
+
+.items_row select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px; /* 内側の余白 */
+  width: 150px; /* 幅 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin-left: 20px; /* 左側の余白 */
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23272626' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* 矢印の位置 */
+  background-size: 12px; /* 矢印のサイズ */
+}
+
+/* Table */
+.table_row {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 1.2rem; /* text-3xl */
+  color: #3b3939;
+  margin: 20px 20px 35px; /* 上、左右、下の余白 */
+}
+
+.addButton {
+  width: 250px; /* ボタンの幅 */
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  margin: 20px 40px 80px; /* 上マージン + 中央寄せ */
+  padding: 15px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.addButton:hover {
+background: #e6e5e5; /* ホバー時に色を変える */
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+transform: translateY(-2px); /* 少し浮かせる */
+}
+
+.addButton:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+
+.addButton svg {
+  margin-left: 150px; /* アイコンとテキストの間のスペース */
+}
+
+.transactionTable {
+  width: 100%;
+  border-collapse: collapse; /* セルの間の隙間をなくす */
+} 
+
+.transactionTable th {
+  background-color: aqua;
+}
+
+.transactionTable th,
+.transactionTable td {
+  border: 1px solid #ccc; /* 罫線（灰色）を各セルに付ける */
+  padding: 10px;           /* 文字の余白 */
+  text-align: left;
+}
+
+.transactionTable td {
+  width: 210px; /* セルの幅を固定 */
+}
+
+/* 削除ボタン */
+.deleteBtn {
+  display: inline-block;
+  width: 210px;
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 6px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 8px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start;
+}
+
+.deleteBtn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.deleteBtn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+  
+.deleteBtn svg {
+  margin-left: 140px; /* アイコンとテキストの間のスペース */
+}
+
+
+/* 登録ボタン */
+.register_row {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 1.2rem; /* text-3xl */
+  color: #3b3939;
+  margin: 20px 20px 35px 20px; /* 上、左右、下の余白 */
+}
+
+.register_row h1 {
+  margin-bottom: 100px; /* 下側の余白 */
+}
+
+.registerBtn {
+    width: 760px; /* ボタンの幅 */
+    font-family: 'Inspiration', sans-serif; /* フォント */
+    font-weight: bolder; /* 太字 */
+    margin: 20px 500px 80px; /* 上マージン + 中央寄せ */
+    padding: 15px; /* 余白 */
+    border: 1px solid gray; /* 細いボーダー */
+    border-radius: 20px; /* 角を丸く */
+    background: white; /* 背景色 */
+    font-size: 1.2rem; /* フォントサイズ */
+    cursor: pointer; /* マウスオーバー時のカーソル */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+    transition: all 0.2s ease-in-out;
+    text-align: center; /* テキストを左寄せ */
+  }
+  
+  .registerBtn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+  }
+  
+  .registerBtn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+  }
+  
+  .registerBtn svg {
+    margin-left: 620px; /* アイコンとテキストの間のスペース */
+  }
+  
