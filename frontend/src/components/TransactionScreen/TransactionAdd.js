@@ -232,15 +232,17 @@ const TransactionAdd = () => {
 
         <div className={styles.category_row}>
           <h1>Category</h1>
-          <label>大項目：</label>
-          <select value={majorSelect} onChange={handleMajorChange} name='majorSelect'>
-            <option value='default'>-- 大項目 --</option>
-            {Object.entries(majorItems).map(([value, label]) => (
-              <option key={value} value={value}>{label}</option>
-            ))}
-          </select>
-          {majorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{majorError}</div>}
-          <hr />
+          <div className={styles.major_row}>
+            <label>大項目：</label>
+            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect'>
+              <option value='default'>-- 大項目 --</option>
+              {Object.entries(majorItems).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+            {majorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{majorError}</div>}
+            <hr />
+          </div>
         </div>
 
         <div className={styles.items_row}>
