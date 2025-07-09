@@ -5,7 +5,7 @@
   position: relative;
   z-index: 0;
   height: 100vh; /* 画面全体の高さを確保 */
-  min-height: 1700px;
+  min-height: 2200px;
   padding: 40px 20px; /* スマホ用 */
 }
 
@@ -24,35 +24,37 @@
 
 /* ヘッダーtitle */
 .header_row {
-  font-family: 'Irish Grover', sans-serif; /* font-irish */
-  font-size: 1.2rem; /* text-3xl */
-  color: #3b3939;
   margin: 0 20px 35px; /* 上、左右、下の余白 */
 }
 
 .header_row h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 2.5rem; /* text-3xl */
+  color: #3b3939;
   margin: 0;
   margin-bottom: 100px;
 }
 
 /* カテゴリー選択 */
 .category_row {
-  font-family: 'Irish Grover', sans-serif; /* font-irish */
-  font-size: 1.2rem; /* text-3xl */
-  color: #3b3939;
   margin: 20px 20px; /* 上下、左右の余白 */
 }
 
-.category_row h1 {
-  margin-bottom: 70px; /* 下側の余白 */
+.category_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.major_row {
+.category_row h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 2.5rem; /* text-3xl */
+  color: #3b3939;
+  margin-bottom: 70px; /* 下側の余白 */
 }
 
 .category_row label{
   font-weight: bold; /* 太字 */
-  margin: 0 0 0 500px;
 }
 
 .category_row select {
@@ -77,51 +79,58 @@
   text-align: left; /* オプションのテキストを中央揃え */
 }
 
+.date_row {
+  margin: 20px 20px; /* 上下、左右の余白 */
+}
+
+.date_row label{
+  font-weight: bold; /* 太字 */
+}
+
+.date_row input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px; /* 内側の余白 */
+  width: 150px; /* 幅 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin: 10px; /* 左側の余白 */
+  cursor: pointer;
+}
+
 /* アイテム選択 */
 .items_row {
-  font-family: 'Irish Grover', sans-serif; /* font-irish */
-  font-size: 1.2rem; /* text-3xl */
-  color: #3b3939;
   margin: 20px 20px 35px 20px; /* 上、左右、下の余白 */
 }
 
+.items_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .items_row h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 2.5rem; /* text-3xl */
+  color: #3b3939;
   margin-bottom: 50px; /* 下側の余白 */
 }
 
 .select_row {
-  display: flex;
-  gap: 20rem; /* 間隔 */
-}
-
-.select_block {
-  display: inline-block;
+  margin: 30px 0;
 }
 
 .label_middle,
 .label_minor {
-  display: inline-block;
   font-weight: bold;
-  margin-right: 8px;
-  margin-left: 10rem;
-}
-
-.select_row select {
-  display: inline-block;
-  padding: 5px;
-  border-radius: 6px;
 }
 
 .select_row2 {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 150px; /* 上側の余白 */
-  margin-left: 10rem; /* 左側の余白 */
+  margin: 50px 0;
+  margin-top: 50px; /* 上側の余白 */
 } 
-
-.select_row2 > div {
-  flex: 1; /* 均等に広がる */
-}
 
 .label_amount {
   font-weight: bold; /* 太字 */
@@ -129,7 +138,6 @@
 
 .label_memo {
   font-weight: bold; /* 太字 */
-  margin-left: 7.4rem;
 }
 
 .select_row2 input {
@@ -139,6 +147,7 @@
   background-color: #d7d7d7; /* 背景色 */
   border-radius: 10px; /* 角を丸くする */
   font-size: 1rem; /* フォントサイズ */
+  margin-bottom: 30px;
   cursor: pointer;
 }
 
@@ -149,7 +158,6 @@
   background-color: #d7d7d7; /* 背景色 */
   border-radius: 10px; /* 角を丸くする */
   font-size: 1rem; /* フォントサイズ */
-  margin-left: 7.4rem;
   cursor: pointer;
 }
 
