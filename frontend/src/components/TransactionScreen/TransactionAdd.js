@@ -24,7 +24,7 @@ const TransactionAdd = () => {
   const [minorSelect, setMinorSelect] = useState('');
   const [price, setPrice] = useState(0);
   const [memo, setMemo] = useState('');
-  const [date] = useState(new Date().toISOString().split('T')[0]); // 現在の日付を初期値に設定
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // 現在の日付を初期値に設定
   const [rows, setRows] = useState([]); // テキストエリアの行数を管理
 
   // errorの状態を管理するためのuseStateフックを使用
@@ -148,7 +148,7 @@ const TransactionAdd = () => {
     setRows([
       ...rows,
       {
-        date: date,
+        date: setDate,
         major: majorSelect,
         middle: middleSelect,
         minor: minorSelect,
@@ -225,14 +225,14 @@ const TransactionAdd = () => {
     <main>
       <div className={styles.transactionAddMainContainer}>
         <div className={styles.transactionAddImage} />
-        <div className={styles.header_row}>
-          <h1>Register your household account book</h1>
-        <hr />
-        </div>
+          <div className={styles.header_row}>
+            <h1>Register your household account book</h1>
+            <hr />
+          </div>
 
-        <div className={styles.category_row}>
-          <h1>Category</h1>
-          <div className={styles.major_row}>
+        <div className={styles.category_Container}>
+          <div className={styles.category_row}>
+            <h1>Category</h1>
             <label>大項目：</label>
             <select value={majorSelect} onChange={handleMajorChange} name='majorSelect'>
               <option value='default'>-- 大項目 --</option>
@@ -241,14 +241,23 @@ const TransactionAdd = () => {
               ))}
             </select>
             {majorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{majorError}</div>}
-            <hr />
+          </div>
+
+          <div className={styles.date_row}>
+            <label>日付：</label>
+            <input
+              type="date"
+              value={setDate}
+              onChange={(e) => setDate(e.target.value)}
+            />
           </div>
         </div>
+        <hr />
 
         <div className={styles.items_row}>
-          <h1>Items</h1>
-          <div className={styles.select_row}>
-            <div className={styles.select_block}>
+          <div className={styles.items_Container}>
+            <h1>Items</h1>
+            <div className={styles.select_row}>
               <label className={styles.label_middle}>中項目：</label>
               <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect'>
                 <option value='default'>-- 中項目 --</option>
@@ -270,9 +279,9 @@ const TransactionAdd = () => {
                 <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{middleError}</div>
               )}
             </div>
-
-            { /* 中項目の選択に応じて小項目を表示 */ }
-            <div className={styles.select_block}>
+            
+            <div className={styles.select_row}>
+              { /* 中項目の選択に応じて小項目を表示 */ }
               { majorSelect === 'income' ? (
                 <></> 
                 ) : (
@@ -291,19 +300,19 @@ const TransactionAdd = () => {
                   </select>
                   {minorError && <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{minorError}</div>}
                 </>
-                )}
+              )}
             </div>
-          </div>
 
-          <div className={styles.select_row2}>
-            <PriceInput value={price} onChange={setPrice} className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-              <label htmlFor='memo' className={styles.label_memo}>詳細</label>
-              <textarea name="memo" value={memo} onChange={(e) => setMemo(e.target.value)} placeholder='詳細' rows={4} cols={40} />
+            <div className={styles.select_row2}>
+              <PriceInput value={price} onChange={setPrice} className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
+              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <label htmlFor='memo' className={styles.label_memo}>詳細</label>
+                <textarea name="memo" value={memo} onChange={(e) => setMemo(e.target.value)} placeholder='詳細' rows={4} cols={40} />
+              </div>
             </div>
           </div>
-          <hr />
         </div>
+        <hr />
 
         <div className={styles.table_row}>
           <h1>Table</h1>
