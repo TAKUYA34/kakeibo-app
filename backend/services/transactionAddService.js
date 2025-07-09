@@ -1,26 +1,40 @@
 const transactionAddRepository = require('../repositorys/transactionAddRepository');
 const { mapToTransaction } = require('../mappers/transactionAddMapper');
-const { convertWarekiToDate } = require('../utils/dateUtils');
 
 async function toAddUserTransactions(transactions, userId) {
-  const txDate = new Date(); // 現在の日付を使用
-  const startOfMonth = new Date(txDate.getFullYear(), txDate.getMonth(), 1); // 月の初日を取得
-  const endOfMonth = new Date(txDate.getFullYear(), txDate.getMonth() + 1, 0, 23, 59, 59, 999); // 月の最終日を取得
-  
-  let runTotal = await transactionAddRepository.getMonthlyTotalByUser(userId, startOfMonth, endOfMonth); // 月ごとの合計を取得
   const resultTransactions = []; // 箱
-  
-  for (const tx of transactions) {
-    const mapped = mapToTransaction(tx, userId, runTotal); // マッピング
-    resultTransactions.push(mapped); // 結果を配列に追加する
-    runTotal += mapped.amount; // マッピングされたトランザクションの金額を合計に加算
-  }
-  
-  let initialTotal = runTotal; // 合計を保存
+  let runTotalMap = {}; // 月ごとの合計を記録する（key: '2025-01'）
 
-  // Mongooseのモデルに自動でマッピングされるので、ここでは直接保存
-  await transactionAddRepository.insertMany(resultTransactions); // ← insertMany で一括保存
-  return { initialTotal, saved: resultTransactions }; // 初期合計と保存されたトランザクションを返す
+  for (const tx of transactions) {
+    const txDate = new Date(tx.date); // 各取引の日付
+    const yearMonthKey = `${txDate.getFullYear()}-${String(txDate.getMonth() + 1).padStart(2, '0')}`;
+
+    // 初回のみ、その月の合計を取得して保存
+    if (!runTotalMap.hasOwnProperty(yearMonthKey)) {
+      const startOfMonth = new Date(txDate.getFullYear(), txDate.getMonth(), 1);
+      const endOfMonth = new Date(txDate.getFullYear(), txDate.getMonth() + 1, 0, 23, 59, 59, 999);
+      const lastTotal = await transactionAddRepository.getLastTotalAmountByMonth(userId, startOfMonth, endOfMonth);
+      runTotalMap[yearMonthKey] = lastTotal || 0;
+    }
+
+    const runTotal = runTotalMap[yearMonthKey];
+    const mapped = mapToTransaction(tx, userId, runTotal);
+    resultTransactions.push(mapped);
+
+    // 月ごとの合計も更新しておく
+    runTotalMap[yearMonthKey] += mapped.amount;
+  }
+
+  // 保存
+  await transactionAddRepository.insertMany(resultTransactions);
+
+  // 最後に登録した月の runTotal を initialTotal として返す（例：画面表示用など）
+  const latestTx = resultTransactions[resultTransactions.length - 1];
+  const latestDate = latestTx.trans_date;
+  const latestKey = `${latestDate.getFullYear()}-${String(latestDate.getMonth() + 1).padStart(2, '0')}`;
+  const initialTotal = runTotalMap[latestKey];
+
+  return { initialTotal, saved: resultTransactions };
 }
 
 module.exports = {

@@ -1,31 +1,26 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
-async function getMonthlyTotalByUser(userId, startOfMonth, endOfMonth) {
-  
-  // 月ごとの合計を計算
-  const result = await Transaction.aggregate([ // 月ごとの合計を計算
-    {
-      $match: {
-        user_id: new mongoose.Types.ObjectId(userId), // ユーザーIDでフィルタリング
-        trans_date: { $gte: startOfMonth, $lte: endOfMonth }
-      }
-    },
-    {
-      $group: {
-        _id: null,
-        total: { $sum: "$amount" }
-      }
-    }
-  ]);
-  return result.length > 0 ? result[0].total : 0; // 合計金額を返す
-}
-
 async function insertMany(transactions) {
   return await Transaction.insertMany(transactions);
 }
 
+// 最新の total_amount を取得する（その月の中で最も遅い trans_date のデータ）
+async function getLastTotalAmountByMonth(userId, startOfMonth, endOfMonth) {
+
+  const objectUserId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+
+  const lastTransaction = await Transaction.findOne({
+    user_id: objectUserId,
+    trans_date: { $gte: startOfMonth, $lte: endOfMonth }
+  })
+  .sort({ trans_date: -1 }) // trans_date の降順でソート
+  .limit(1); // 1件
+
+  return lastTransaction ? lastTransaction.total_amount : 0;
+}
+
 module.exports = {
-  getMonthlyTotalByUser,
-  insertMany
+  insertMany,
+  getLastTotalAmountByMonth
 };
