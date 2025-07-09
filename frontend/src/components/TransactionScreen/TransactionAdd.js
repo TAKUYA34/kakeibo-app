@@ -19,11 +19,11 @@ const TransactionAdd = () => {
 
 
   // formの状態を管理するためのuseStateフックを使用
-  const [majorSelect, setMajorSelect] = useState('default');
-  const [middleSelect, setMiddleSelect] = useState('default');
-  const [minorSelect, setMinorSelect] = useState('');
-  const [price, setPrice] = useState(0);
-  const [memo, setMemo] = useState('');
+  const [majorSelect, setMajorSelect] = useState('default'); // 大項目
+  const [middleSelect, setMiddleSelect] = useState('default'); // 中項目
+  const [minorSelect, setMinorSelect] = useState(''); // 小項目
+  const [price, setPrice] = useState(0); // 金額
+  const [memo, setMemo] = useState(''); // 合計金額
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // 現在の日付を初期値に設定
   const [rows, setRows] = useState([]); // テキストエリアの行数を管理
 
@@ -115,15 +115,13 @@ const TransactionAdd = () => {
       setMiddleError('');
     }
 
-    if (middleSelect === 'utility' && (!minorSelect || minorSelect === 'default')) {
-      setMinorError('小項目を選択してください');
-      hasError = true;
-    } else if (middleSelect === 'food' && (!minorSelect || minorSelect === 'default')) {
-      setMinorError('小項目を選択してください');
-      hasError = true;
-    } else if (middleSelect === 'transportation' && (!minorSelect || minorSelect === 'default')) {
-      setMinorError('小項目を選択してください');
-      hasError = true;
+    if (minorItems.hasOwnProperty(middleSelect)) {
+      if (!minorSelect || minorSelect === 'default') {
+        setMajorError('小項目を選択してください')
+        hasError = true;
+      } else {
+        setMinorError('');
+      }
     } else {
       setMinorError('');
     }
@@ -148,11 +146,12 @@ const TransactionAdd = () => {
     setRows([
       ...rows,
       {
-        date: setDate,
+        date: date,
         major: majorSelect,
         middle: middleSelect,
         minor: minorSelect,
         price: `${numericPrice.toLocaleString()}円`, // 数字をカンマ区切りで表示
+        priceNum: signedPrice, // 計算用
         initialTotal: `${updatedTotal.toLocaleString()}円`, // 合計金額をカンマ区切りで表示
         memo: memo
       }
@@ -175,7 +174,7 @@ const TransactionAdd = () => {
   const handleDeleteRow = (indexToDelete) => {
     const deletedRow = rows[indexToDelete]; // 削除する行を取得
 
-    const numericPrice = parseInt(deletedRow.price.replace(/[^\d-]/g, '').replace(/円/g, ''), 10) || 0; // 数字以外の文字を除去し、整数に変換
+    const numericPrice = deletedRow.priceNum || 0;
     
     setInitialTotal(prevTotal => prevTotal - numericPrice); // 合計金額を更新
 
@@ -247,7 +246,7 @@ const TransactionAdd = () => {
             <label>日付：</label>
             <input
               type="date"
-              value={setDate}
+              value={date}
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
@@ -276,7 +275,7 @@ const TransactionAdd = () => {
                 )};
               </select>
               {middleError && (
-                <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{middleError}</div>
+                <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{middleError}</div>
               )}
             </div>
             
@@ -298,7 +297,7 @@ const TransactionAdd = () => {
                       <option value='default'>選択可能な小項目がありません</option>
                     )}
                   </select>
-                  {minorError && <div style={{ color: 'red', marginTop: '8px', marginLeft: '100px' }}>{minorError}</div>}
+                  {minorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{minorError}</div>}
                 </>
               )}
             </div>

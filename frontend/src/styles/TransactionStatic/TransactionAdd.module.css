@@ -4,8 +4,7 @@
 .transactionAddMainContainer {
   position: relative;
   z-index: 0;
-  height: 100vh; /* 画面全体の高さを確保 */
-  min-height: 2200px;
+  height: auto; /* 中身に合わせる */
   padding: 40px 20px; /* スマホ用 */
 }
 
@@ -37,7 +36,7 @@
 
 /* カテゴリー選択 */
 .category_row {
-  margin: 20px 20px; /* 上下、左右の余白 */
+  margin: 0 20px; /* 上下、左右の余白 */
 }
 
 .category_Container {
@@ -147,7 +146,6 @@
   background-color: #d7d7d7; /* 背景色 */
   border-radius: 10px; /* 角を丸くする */
   font-size: 1rem; /* フォントサイズ */
-  margin-bottom: 30px;
   cursor: pointer;
 }
 
