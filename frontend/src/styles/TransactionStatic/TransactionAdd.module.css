@@ -19,7 +19,8 @@
   background-size: cover;
   background-position: center;
   opacity: 0.4;
-  z-index: -1; /* 最背面 */}
+  z-index: -1; /* 最背面 */
+}
 
 /* ヘッダーtitle */
 .header_row {
@@ -286,7 +287,7 @@ transform: translateY(2px); /* 押し込んだように */
   width: 760px; /* ボタンの幅 */
   font-family: 'Inspiration', sans-serif; /* フォント */
   font-weight: bolder; /* 太字 */
-  margin: 0 300px; /* 上マージン + 中央寄せ */
+  margin: 0 auto; /* 上マージン + 中央寄せ */
   padding: 15px; /* 余白 */
   border: 1px solid gray; /* 細いボーダー */
   border-radius: 20px; /* 角を丸く */
