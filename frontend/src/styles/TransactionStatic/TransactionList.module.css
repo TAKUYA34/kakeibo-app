@@ -1,0 +1,87 @@
+
+/* Mainコンテナ */
+.TransactionListMainContainer {
+  position: relative;
+  z-index: 0;
+  height: auto; /* 中身に合わせる */
+  padding: 40px 20px; /* スマホ用 */
+}
+
+/* backのイメージ画像*/
+.TransactionListImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/TransactionList.jpg'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1; /* 最背面 */
+}
+
+.TransactionListMainContainer h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 2.5rem; /* text-3xl */
+  color: #3b3939;
+  margin: auto 0;
+}
+
+/* 検索フィルター */
+.List_row {
+  margin: 50px 0;
+}
+
+.List_row label {
+  margin: 0;
+}
+
+.List_row select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px; /* 内側の余白 */
+  width: 150px; /* 幅 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #d7d7d7; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin: 10px; /* 左側の余白 */
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23272626' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* 矢印の位置 */
+  background-size: 12px; /* 矢印のサイズ */
+}
+
+/* テーブル全体 */
+.listTable {
+  width: auto;
+  height: auto;
+  table-layout: fixed; /* 均等に配置 */
+  border-collapse: collapse; /* セルの間の隙間をなくす */
+  margin: 0 auto;
+}
+
+.listTable th {
+  background-color: aqua;
+}
+
+.listTable th,
+.listTable td {
+  border: 1px solid #ccc; /* 罫線（灰色）を各セルに付ける */
+  padding: 8px; /* 文字の余白 */
+  text-align: center;
+}
+
+.listTable td {
+  background-color: #ffffff;
+}
+
+/* 収支合計部分 */
+.category_rowColor td {
+  font-weight: bold;
+  background-color: #c4c5c4;
+  text-align: start;
+}
