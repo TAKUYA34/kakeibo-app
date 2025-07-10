@@ -4,17 +4,7 @@ const Transaction = require('../models/Transaction'); // Mongooseのモデルを
 
 // 日付文字列を受け取って、時間・秒がなければ追加してDateオブジェクトに変換
 function parseDateTimeAndSecond(dateStr) {
-  if (!dateStr) return new Date();
-
-  if (dateStr.includes('T')) {
-    return new Date(dateStr);
-  }
-  // 日付のみの場合
-  const baseDate = new Date(dateStr + 'T00:00:00');
-  const now = new Date();
-  baseDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-  
-  return baseDate;
+  return dateStr ? new Date(dateStr) : new Date(); // 変換
 }
 
 // モデルにマッピング
@@ -28,7 +18,7 @@ function mapToTransaction(tx, userId, runTotal) {
     user_id: new mongoose.Types.ObjectId(userId), // ユーザーIDをObjectIdに変換
     trans_type: tx.major === 'income' ? 'income' : 'expense', // majorがincomeなら収入、expenseなら支出
     amount: txAmount, // 金額を設定
-    total_amount: runTotal + txAmount, // 現在の合計金額を計算
+    total_amount: runTotal, // 現在の合計金額を計算
     trans_date: txDate, // 指定日付
     major_sel: tx.major, // 大項目を設定
     middle_sel: tx.middle, // 中項目を設定

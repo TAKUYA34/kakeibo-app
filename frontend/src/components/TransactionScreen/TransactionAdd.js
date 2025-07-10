@@ -24,7 +24,7 @@ const TransactionAdd = () => {
   const [minorSelect, setMinorSelect] = useState(''); // 小項目
   const [price, setPrice] = useState(0); // 金額
   const [memo, setMemo] = useState(''); // 合計金額
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // 現在の日付を初期値に設定
+  const [date, setDate] = useState(new Date()); // 現在の日付
   const [rows, setRows] = useState([]); // テキストエリアの行数を管理
 
   // errorの状態を管理するためのuseStateフックを使用
@@ -68,6 +68,21 @@ const TransactionAdd = () => {
     food: ['食料品', '飲み会'],
     transportation: ['公共交通', 'タクシー', '通勤']
   }
+
+  // 日付変更
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value; // '2025-01-29'
+    const [hour, minute] = [date.getHours(), date.getMinutes()];
+    const newDate = new Date(`${selectedDate}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`);
+  };
+
+  // 時間変更 (hiddenで使用)
+  const handleTimeChange = (e) => {
+    const [hourStr, minuteStr] = e.target.value.split(':');
+    const newDate = new Date(date);
+    newDate.setHours(Number(hourStr), Number(minuteStr));
+    setDate(newDate);
+  };
 
   const handleMajorChange = (event) => {
     const value = event.target.value;
@@ -117,7 +132,7 @@ const TransactionAdd = () => {
 
     if (minorItems.hasOwnProperty(middleSelect)) {
       if (!minorSelect || minorSelect === 'default') {
-        setMajorError('小項目を選択してください')
+        setMinorError('小項目を選択してください')
         hasError = true;
       } else {
         setMinorError('');
@@ -146,7 +161,7 @@ const TransactionAdd = () => {
     setRows([
       ...rows,
       {
-        date: date,
+        date: date.toISOString(), // ISO文字列で送る
         major: majorSelect,
         middle: middleSelect,
         minor: minorSelect,
@@ -246,8 +261,15 @@ const TransactionAdd = () => {
             <label>日付：</label>
             <input
               type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              value={date.toISOString().split('T')[0]}
+              onChange={handleDateChange}
+            />
+
+            <input
+              type="date"
+              value={date.toTimeString().slice(0, 5)}
+              onChange={handleTimeChange}
+              hidden
             />
           </div>
         </div>
