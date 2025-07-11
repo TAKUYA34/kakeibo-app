@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../services/AuthContext';
+import { Link } from 'react-router-dom'; // ルートを切り替え
 import styles from '../../styles/HomeStatic/Header.module.css';
 
 // 各ページでヘッダーの表示を制御するためのカスタムフック
@@ -86,20 +87,19 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                 />
             </div>
 
-        
           {/* header */}
           <header className={`${styles.header} ${styles.wrapper}`}>
           <p className={styles.htext}>{displayedText}</p>
             <div className={styles.fixation}>
               <h1 className={styles.headerTitle}>
-                <a className={styles.navList_a} href='/home' target="_self">Kakeibo-app</a>
+                <Link className={styles.navList_a} to='/home' target="_self">Kakeibo-app</Link>
               </h1>
               <nav>
                 <ul className={styles.navList}>
                   { !user && (
                     <>
                     <li className={styles.navItem}>
-                      <a className={styles.navList_a} href='/home/register' target="_self">Sign up</a>
+                      <Link className={styles.navList_a} to='/home/register' target="_self">Sign up</Link>
                     </li>
                     <li className={styles.navItem}>
                       <a className={styles.navList_a} href='/home/login' target='_self'>Log in</a>
