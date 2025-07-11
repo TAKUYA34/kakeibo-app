@@ -24,7 +24,6 @@ const Header = ({ text = "Simple Money Logs..." }) => {
   const path = location.pathname;
 
   // 条件設定
-  const isHomePage = path === '/home' || path === '/';
   const isSignUpPage = path === '/home/register' || path === '/home/signUpForm/';
   const isLoginPage = path === '/home/login';
   // header画像インデックス
