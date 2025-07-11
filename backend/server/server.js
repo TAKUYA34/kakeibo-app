@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('../routes/auth');
 const transactionAddRoutes = require('../routes/transactionAddRoutes'); // トランザクション追加のルーティング
 const transactionListRoutes = require('../routes/transactionListRoutes'); // トランザクションリストのルーティング
+const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes') // homeグラフ
 
 require('dotenv').config(); // 環境変数の読み込み
 
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 app.use('/home', authRoutes); // 認証関連のルーティングを使用
 app.use('/transactions', transactionAddRoutes); // トランザクション追加のルーティングを使用
 app.use('/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
+app.use('/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
 
 // サーバー起動
 app.listen(PORT, () => {
