@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const authenticate = require('../middleware/auth_situation');
+const { authenticate, isAdmin } = require('../middleware/auth_situation');
 const log = console.log; // ログ出力用
 // JWTシークレットキー
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
@@ -11,7 +11,6 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 // ログインルート
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  log('Login request body:', req.body);  // 出力確認
 
   // 入力チェック
   if (!email || !password) {
@@ -35,8 +34,9 @@ router.post('/login', async (req, res) => {
     }
 
     // JWTトークン生成
-    const token = jwt.sign({ email: user.email, id: user._id }, JWT_SECRET, {
-      expiresIn: '1h',
+    const token = jwt.sign({ email: user.email, id: user._id, role: user.role },
+      JWT_SECRET, {
+      expiresIn: '7d',
     });
 
     return res.status(200).json({ token });
@@ -46,6 +46,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// 管理者専用：全ユーザー一覧
+router.get('/admin/users', authenticate, isAdmin, async (req, res) => {
+  const users = (await User.find()).select('-password');
+  res.json(users);
+})
+
+// 一般ユーザー用：自身の情報
 router.get('/me', authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password'); // パスワード除外
