@@ -61,11 +61,15 @@ export const AuthProvider = ({ children }) => {
               email: data.email,
               user_name: data.user_name
             }); // ユーザー情報を状態にセット
+          } else {
+            setUser(null);
+            localStorage.removeItem("token"); // 不要なトークン削除
           }
           setIsLoading(false); // 認証確認完了
         })
         .catch(() => {
           localStorage.removeItem("token"); // 失敗したらトークン削除
+          setUser(null);
           setIsLoading(false); // 認証確認完了
         });
     } else {
