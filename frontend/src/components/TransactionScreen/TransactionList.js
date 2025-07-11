@@ -20,6 +20,8 @@ const TransactionList = () => {
   const [monthOptions, setMonthOptions] = useState([]); // 月データ
   const [groupedTransactions, setGroupedTransactions] = useState([]); // 集計済データ
   const [filteredTransactions, setFilteredTransactions] = useState([]); // 月検索フィルタ
+  const [searchTerm, setSearchTerm] = useState(''); // 検索ワード
+  
   // 変換
   const majorItems = {
     income: '収支',
@@ -131,7 +133,40 @@ const TransactionList = () => {
 
     setFilteredTransactions(filtered);
   }, [monthDate, groupedTransactions]);
+
+  // 検索ワード用
+  useEffect(() => {
+    const selectedMonth = Number(monthDate); // 月を数字に変換
   
+    const filtered = groupedTransactions
+      .map(item => {
+        const amount = selectedMonth
+          ? item.monthly[selectedMonth - 1] || 0
+          : item.total;
+  
+        return {
+          ...item,
+          highlightMonthOnly: selectedMonth,
+          total: amount
+        };
+      })
+      .filter(item => {
+        if (!searchTerm.trim()) return true;
+        // 収支は検索ワード関係なく常に表示
+        if (item.major_sel === 'income') return true;
+        // 収支以外を検索対象にする
+        return Array.isArray(item.memos) &&
+          item.memos.some(memo =>
+            String(memo).toLowerCase().includes(searchTerm.toLowerCase())
+          );
+      });
+  
+    setFilteredTransactions(filtered);
+  }, [monthDate, groupedTransactions, searchTerm]);  // 月変更、再集計データ、検索語変更
+
+  // 検索中フラグ
+  const isSearching = searchTerm.trim() !== '';
+
   return (
     <main>
       <div className={styles.TransactionListMainContainer}>
@@ -153,6 +188,16 @@ const TransactionList = () => {
                 <option key={month} value={month}>{month}</option>
               ))}
             </select>
+          
+            {/* 検索入力欄 */}
+            <label htmlFor="search">検索</label>
+            <input
+              type="text"
+              id="search" // ← labelと対応
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="search"
+            />
           </div>
         
         <table className={styles.listTable}>
@@ -193,10 +238,10 @@ const TransactionList = () => {
                     <td>
                       {Array.isArray(item.memos)
                       ? item.memos
-                          .map(memo => String(memo).trim())        // 文字列化 + 前後の空白削除
-                          .filter(memo => memo !== '')             // 空文字は除外
+                          .map(memo => String(memo).trim())
+                          .filter(memo => memo !== '')
                           .join(', ')
-                      : ''}
+                      : ''} 
                     </td>
                     {item.monthly.map((amount, i) => (
                       <td key={i}>

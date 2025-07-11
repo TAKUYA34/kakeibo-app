@@ -34,7 +34,8 @@
 }
 
 .List_row label {
-  margin: 0;
+  margin: 0 20px;
+  font-weight: bold;
 }
 
 .List_row select {
@@ -53,6 +54,14 @@
   background-repeat: no-repeat;
   background-position: right 10px center; /* 矢印の位置 */
   background-size: 12px; /* 矢印のサイズ */
+}
+
+.List_row input {
+  font-size: 16px;
+	background-color: #ddd;
+  padding: 6px;
+  border-radius: 6px;
+  border: solid 1px black;
 }
 
 /* テーブル全体 */
