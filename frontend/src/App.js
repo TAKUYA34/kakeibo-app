@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./services/AuthContext.js";
+import PrivateRoute from "./services/PrivateRoute.js"
 import { Navigate } from "react-router-dom";
 import Register from "./pages/Register.js";
 import Login from "./pages/Login.js";
@@ -12,12 +13,43 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
+          {/* 認証不要ページ */}
           <Route path="/home/login" element={<Login />} />
           <Route path="/home/register" element={<Register />} />
-          <Route path="/home/transactions/add" element={<Transactions />} />
-          <Route path="/home/transactions/list" element={<TransDataList />} />
+
+          {/* 認証が必要な画面 */}
+          <Route
+            path="/"
+            element={
+            <PrivateRoute>
+              <Navigate to="/home" />
+            </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home/transactions/add"
+            element={
+              <PrivateRoute>
+                <Transactions />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home/transactions/list"
+            element={
+              <PrivateRoute>
+                <TransDataList />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>
