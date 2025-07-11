@@ -33,7 +33,8 @@ async function toAddUserTransactions(transactions, userId) {
     // 月ごとの合計も更新しておく
     runTotalMap[yearMonthKey] = currentTotal;
   }
-
+  
+  console.log('合計金額：')
   // 保存
   const savedata = await transactionAddRepository.insertMany(resultTransactions);
 

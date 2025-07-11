@@ -23,9 +23,9 @@ const TransactionAdd = () => {
   const [middleSelect, setMiddleSelect] = useState('default'); // 中項目
   const [minorSelect, setMinorSelect] = useState(''); // 小項目
   const [price, setPrice] = useState(0); // 金額
-  const [memo, setMemo] = useState(''); // 合計金額
+  const [memo, setMemo] = useState(''); // メモ
   const [date, setDate] = useState(new Date()); // 現在の日付
-  const [rows, setRows] = useState([]); // テキストエリアの行数を管理
+  const [rows, setRows] = useState([]); // データ
 
   // errorの状態を管理するためのuseStateフックを使用
   const [majorError, setMajorError] = useState('');
@@ -33,8 +33,8 @@ const TransactionAdd = () => {
   const [minorError, setMinorError] = useState('');
   const [priceError, setPriceError] = useState('');
 
-  // 月初のDB合計を管理するためのuseStateフックを使用
-  const [initialTotal, setInitialTotal] = useState(0);
+  // 月別オブジェクト
+  const [monthlyTotals, setMonthlyTotals] = useState({}); // key: '2025-07', value: 合計金額
 
   // 大項目データ
   const majorItems = {
@@ -72,8 +72,11 @@ const TransactionAdd = () => {
   // 日付変更
   const handleDateChange = (e) => {
     const selectedDate = e.target.value; // '2025-01-29'
+    const [year, month, day] = selectedDate.split('-').map(Number);
+
     const [hour, minute] = [date.getHours(), date.getMinutes()];
-    const newDate = new Date(`${selectedDate}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`);
+    const newDate = new Date(year, month - 1, day, hour, minute); // Jaの時間に変更
+    setDate(newDate);
   };
 
   // 時間変更 (hiddenで使用)
@@ -156,12 +159,15 @@ const TransactionAdd = () => {
     }
     
     const signedPrice = majorSelect === 'expense' ? -Math.abs(numericPrice) : Math.abs(numericPrice); // 支出の場合はマイナス、収入の場合はプラスに変換
-    const updatedTotal = initialTotal + signedPrice; // 合計金額を計算
     
+    const yearMonthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`; // 日付
+    const currentMonthTotal = monthlyTotals[yearMonthKey] || 0;
+    const updatedTotal = currentMonthTotal + signedPrice;
+
     setRows([
       ...rows,
       {
-        date: date.toISOString(), // ISO文字列で送る
+        date: date,
         major: majorSelect,
         middle: middleSelect,
         minor: minorSelect,
@@ -172,12 +178,17 @@ const TransactionAdd = () => {
       }
     ]);
 
+    // 月ごとの合計金額を更新
+    setMonthlyTotals(prev => ({
+      ...prev,
+      [yearMonthKey]: updatedTotal
+    }));
+
     // 入力フィールドをリセット
     setMajorSelect('default');
     setMiddleSelect('default');
     setMinorSelect('');
     setPrice(0);
-    setInitialTotal(updatedTotal); // 合計金額を更新
     setMemo('');
     setMajorError('');
     setMiddleError(''); 
@@ -189,9 +200,14 @@ const TransactionAdd = () => {
   const handleDeleteRow = (indexToDelete) => {
     const deletedRow = rows[indexToDelete]; // 削除する行を取得
 
-    const numericPrice = deletedRow.priceNum || 0;
-    
-    setInitialTotal(prevTotal => prevTotal - numericPrice); // 合計金額を更新
+    const numericPrice = deletedRow.priceNum || 0; // 行の金額を取得
+    const delDate = new Date(deletedRow.date); // 日付
+    const yearMonthKey = `${delDate.getFullYear()}-${String(delDate.getMonth() + 1).padStart(2, '0')}`;
+  
+    setMonthlyTotals(prev => ({
+      ...prev,
+      [yearMonthKey]: (prev[yearMonthKey] || 0) - numericPrice
+    }));
 
     // 指定されたインデックスの行を削除
     setRows(prevRows => prevRows.filter((_, idx) => idx !== indexToDelete));
@@ -206,8 +222,11 @@ const TransactionAdd = () => {
 
     const payload = {
       userId: user ? user._id : null, // ユーザーIDを取得
-      transactions: rows,
-      // initialTotal: initialTotal // 初期合計を含める
+      transactions: rows.map(row => ({
+        ...row,
+        trans_date: row.date instanceof Date ? row.date.toISOString() : new Date(row.date).toISOString(), // Modelと合わせないとエラーになる
+        amount: row.priceNum
+      }))
     };
 
     try {
@@ -219,15 +238,11 @@ const TransactionAdd = () => {
         body: JSON.stringify(payload)
       });
 
-      const data = await response.json(); // レスポンスをJSON形式で取得
-
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error('サーバーエラーが発生しました。' + errorText);
       }
       
-      setInitialTotal(data.initialTotal); // 初期合計をstateに保存
-
       alert('テーブルの登録が完了しました。');
       setRows([]); // 登録後にテーブルをクリア
     } catch (error) {
@@ -261,12 +276,12 @@ const TransactionAdd = () => {
             <label>日付：</label>
             <input
               type="date"
-              value={date.toISOString().split('T')[0]}
+              value={`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`}
               onChange={handleDateChange}
             />
 
             <input
-              type="date"
+              type="time"
               value={date.toTimeString().slice(0, 5)}
               onChange={handleTimeChange}
               hidden
@@ -360,7 +375,7 @@ const TransactionAdd = () => {
             <tbody>
               {rows.map((row, index) => (
                 <tr key={index}>
-                  <td>{row.date}</td>
+                  <td>{new Date(row.date).toLocaleString()}</td>
                   <td>{majorItems[row.major] || row.major}</td>
                   <td>
                     {majorItems[row.major] === '収支' ? salarySelect[row.middle] || row.middle : middleItems[row.middle] || row.middle}
