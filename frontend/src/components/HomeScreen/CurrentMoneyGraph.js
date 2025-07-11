@@ -28,7 +28,6 @@ const CurrentMoneyGraph = () => {
   };
 
   useEffect(() => {
-    console.log('user:', user);
     if (!user) return;
     const fetchData = async () => {
       try {
@@ -42,7 +41,6 @@ const CurrentMoneyGraph = () => {
         
         setBarData(barJson);
         setPieData(pieJson);
-        console.log('pieData:', pieData);
         
       } catch (err) {
         console.error('グラフデータ取得失敗:', err);
