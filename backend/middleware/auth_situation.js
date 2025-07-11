@@ -10,11 +10,20 @@ const authenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET); // トークンの検証
-    req.user = decoded; // { email, id } 
+    req.user = decoded; // { email, id, role }
     next();
   } catch (err) {
     return res.sendStatus(403); // トークンが無効または期限切れ
   }
 };
 
-module.exports = authenticate;
+// 追加：管理者チェックミドルウェア
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ message: '管理者権限が必要です' });
+  }
+};
+
+module.exports = { authenticate, isAdmin };
