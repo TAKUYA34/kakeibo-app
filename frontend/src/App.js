@@ -7,6 +7,7 @@ import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
 import Transactions from "./pages/Transactions.js";
 import TransDataList from "./pages/TransDataList.js";
+import ExportData from "./pages/ExportData.js";
 
 const App = () => {
   return (
@@ -47,6 +48,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <TransDataList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home/export"
+            element={
+              <PrivateRoute>
+                <ExportData />
               </PrivateRoute>
             }
           />
