@@ -116,9 +116,10 @@ const TransactionList = () => {
   // useMemo で filteredTransactions を計算
   const filteredTransactions = useMemo(() => {
     const selectedMonth = Number(monthDate);
-    const keyword = searchTerm.trim().toLowerCase();
+    const keyword = searchTerm.trim().toLowerCase(); //スペースやタブを排除
 
     return groupedTransactions
+      // データ探索
       .map(item => {
         const amount = selectedMonth
           ? item.monthly[selectedMonth - 1] || 0
@@ -130,18 +131,16 @@ const TransactionList = () => {
           total: amount
         };
       })
+      // 検索対象カスタマイズ
       .filter(item => {
-        if (!keyword) return true;
-        if (item.major_sel === 'income') return true;
-        return Array.isArray(item.memos) &&
+        if (!keyword) return true; // 検索フォームが空なら除外
+        if (item.major_sel === 'income') return true; // 収支は検索対象から除外
+        return Array.isArray(item.memos) && 
           item.memos.some(memo =>
-            String(memo).toLowerCase().includes(keyword)
+            String(memo).toLowerCase().includes(keyword) // DBから正常にデータを取得 && 検索ワードに該当すれば大文字小文字関係なくtrueになる
           );
       });
   }, [groupedTransactions, monthDate, searchTerm]);
-
-  // 検索中フラグ
-  const isSearching = searchTerm.trim() !== '';
 
   return (
     <main>
