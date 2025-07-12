@@ -1,5 +1,5 @@
 
-const GetSummaryPdfAndCsv = () => {
+const ExportPdfAndCsv = () => {
   console.log('ExportDataコンポーネントが描画されました');
 
   return (
@@ -9,4 +9,4 @@ const GetSummaryPdfAndCsv = () => {
   );
 };
 
-export default GetSummaryPdfAndCsv;
+export default ExportPdfAndCsv;
