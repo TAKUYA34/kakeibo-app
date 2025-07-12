@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
 import axios from 'axios'; // HTTP req res
 import styles from '../../styles/TransactionStatic/TransactionList.module.css'
 
@@ -15,11 +16,12 @@ const TransactionList = () => {
     const now = new Date();
     return now.getFullYear().toString();
   }); // 年検索
+
+
   const [monthDate, setMonthDate] = useState(''); // 月検索
   const [yearOptions, setYearOptions] = useState([]); // 年データ
   const [monthOptions, setMonthOptions] = useState([]); // 月データ
   const [groupedTransactions, setGroupedTransactions] = useState([]); // 集計済データ
-  const [filteredTransactions, setFilteredTransactions] = useState([]); // 月検索フィルタ
   const [searchTerm, setSearchTerm] = useState(''); // 検索ワード
   
   // 変換
@@ -89,8 +91,7 @@ const TransactionList = () => {
         });
 
         // 収支を一番トップにソートする
-      const sorted = [...formatted]
-      .sort((a, b) => {
+      const sorted = [...formatted].sort((a, b) => {
         // major_sel = income を上に
         if (a.major_sel !== b.major_sel) {
           return a.major_sel === 'income' ? -1 : 1;
@@ -102,9 +103,8 @@ const TransactionList = () => {
         return a.minor_sel.localeCompare(b.minor_sel);
       });
 
-        setGroupedTransactions(sorted); // 全データ保存
-        setFilteredTransactions(sorted); // 初期は全表示
-
+      setGroupedTransactions(sorted); // 全データ保存
+      
       } catch (error) {
         console.error('集計データの取得に失敗しました', error);
       }
@@ -113,37 +113,17 @@ const TransactionList = () => {
     fetchMonthlyData();
   }, [user, yearDate]);
 
-  // 月変更時にfilteredTransactionsを更新
-  useEffect(() => {
+  // useMemo で filteredTransactions を計算
+  const filteredTransactions = useMemo(() => {
     const selectedMonth = Number(monthDate);
-    if (!selectedMonth || selectedMonth < 1 || selectedMonth > 12) {
-      setFilteredTransactions(groupedTransactions);
-      return;
-    }
+    const keyword = searchTerm.trim().toLowerCase();
 
-    const filtered = groupedTransactions.map(item => {
-
-      const amount = item.monthly[selectedMonth - 1] || 0;
-      return {
-        ...item,
-        highlightMonthOnly: selectedMonth, // 表示だけ制御（金額は維持）
-        total: amount
-      };
-    });
-
-    setFilteredTransactions(filtered);
-  }, [monthDate, groupedTransactions]);
-
-  // 検索ワード用
-  useEffect(() => {
-    const selectedMonth = Number(monthDate); // 月を数字に変換
-  
-    const filtered = groupedTransactions
+    return groupedTransactions
       .map(item => {
         const amount = selectedMonth
           ? item.monthly[selectedMonth - 1] || 0
           : item.total;
-  
+
         return {
           ...item,
           highlightMonthOnly: selectedMonth,
@@ -151,18 +131,14 @@ const TransactionList = () => {
         };
       })
       .filter(item => {
-        if (!searchTerm.trim()) return true;
-        // 収支は検索ワード関係なく常に表示
+        if (!keyword) return true;
         if (item.major_sel === 'income') return true;
-        // 収支以外を検索対象にする
         return Array.isArray(item.memos) &&
           item.memos.some(memo =>
-            String(memo).toLowerCase().includes(searchTerm.toLowerCase())
+            String(memo).toLowerCase().includes(keyword)
           );
       });
-  
-    setFilteredTransactions(filtered);
-  }, [monthDate, groupedTransactions, searchTerm]);  // 月変更、再集計データ、検索語変更
+  }, [groupedTransactions, monthDate, searchTerm]);
 
   // 検索中フラグ
   const isSearching = searchTerm.trim() !== '';
@@ -274,13 +250,25 @@ const TransactionList = () => {
                       {/* ← この2列分の合計を表示 */}
                       <td colSpan={2}>
                         {
-                          filteredTransactions
-                            .filter(tx => tx.middle_sel === item.middle_sel)
-                            .reduce(
-                              (totalSum, tx) => totalSum + tx.monthly.reduce((sum, val) => sum + val, 0),
-                              0
-                            )
-                            .toLocaleString()
+                          (() => {
+                            // 月検索した時の集計金額
+                            if (monthDate) {
+                              const i = Number(monthDate) - 1;
+                              const monthlySum = filteredTransactions
+                                .filter(tx => tx.middle_sel === item.middle_sel)
+                                .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
+                              return monthlySum.toLocaleString();
+                            } else {
+                              // 全体の集計金額（12ヶ月分合計）
+                              return filteredTransactions
+                                .filter(tx => tx.middle_sel === item.middle_sel)
+                                .reduce(
+                                  (totalSum, tx) => totalSum + tx.monthly.reduce((sum, val) => sum + val, 0),
+                                  0
+                                )
+                                .toLocaleString();
+                            }
+                          })()
                         }
                       </td>
                     </tr>
@@ -289,17 +277,18 @@ const TransactionList = () => {
               );
             })}
 
-            {/* 支出合計行（末尾）*/}
+            {/* 支出合計行（末尾） */}
             {yearDate && (
             <>
               <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>
                 <td colSpan={4}>
-                  {monthDate ? `支出  合計（${monthDate}月）` : '支出  合計'}
+                  {monthDate ? `支出 合計（${monthDate}月）` : '支出 合計'}
                 </td>
                 {[...Array(12)].map((_, i) => {
                   const total = filteredTransactions
                     .filter(item => item.major_sel === 'expense')
                     .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+
                   return (
                     <td key={i}>
                       {(!monthDate || i === Number(monthDate) - 1)
@@ -308,8 +297,28 @@ const TransactionList = () => {
                     </td>
                   );
                 })}
-                <td colSpan={2}></td>
+                <td colSpan={2}>
+                  {
+                    (() => {
+                      if (monthDate) {
+                        const i = Number(monthDate) - 1;
+                        return filteredTransactions
+                          .filter(item => item.major_sel === 'expense')
+                          .reduce((sum, item) => sum + (item.monthly[i] || 0), 0)
+                          .toLocaleString();
+                      } else {
+                        return filteredTransactions
+                          .filter(item => item.major_sel === 'expense')
+                          .reduce((totalSum, item) =>
+                            totalSum + item.monthly.reduce((sum, val) => sum + val, 0), 0
+                          )
+                          .toLocaleString();
+                      }
+                    })()
+                  }
+                </td>
               </tr>
+
               {/* トータル合計（収支 + 支出） */}
               <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0' }}>
                 <td colSpan={4}>収支 + 支出 = 合計金額</td>
@@ -332,7 +341,22 @@ const TransactionList = () => {
                     </td>
                   );
                 })}
-                <td colSpan={2}></td>
+                <td colSpan={2}>
+                  {
+                    (() => {
+                      if (monthDate) {
+                        const i = Number(monthDate) - 1;
+                        const total = filteredTransactions.reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+                        return total.toLocaleString();
+                      } else {
+                        const total = filteredTransactions.reduce(
+                          (sum, item) => sum + item.monthly.reduce((acc, val) => acc + val, 0), 0
+                        );
+                        return total.toLocaleString();
+                      }
+                    })()
+                  }
+                </td>
               </tr>
             </>
             )}
