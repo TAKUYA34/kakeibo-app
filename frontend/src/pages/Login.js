@@ -1,16 +1,16 @@
 // pages/Login.js
 
 import Header from "../components/HomeScreen/Header";
-import Login from "../components/RegisterScreen/LoginForm";
+import LoginPage from "../components/RegisterScreen/LoginForm";
 import Footer from "../components/HomeScreen/Footer";
 
-const Register = () => {
+const Login = () => {
   return (
     <>
       <Header />
-      <Login />
+      <LoginPage />
       <Footer />
     </>
   );
 }
-export default Register;
+export default Login;
