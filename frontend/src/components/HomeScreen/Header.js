@@ -132,10 +132,10 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                           <Link className={styles.dropdownLink} href='#' target='_blank'>Inventory</Link>
                         </li>
                         <li className={styles.dropdownItem}>
-                          <Link className={styles.dropdownLink} to='/home/export' target='_blank'>Summary</Link>
+                          <Link className={styles.dropdownLink} to='/home/export' target='_self'>Export</Link>
                         </li>
                         <li className={styles.dropdownItem}>
-                          <a className={styles.dropdownLink} href='#' target='_blank'>Summary</a>
+                          <a className={styles.dropdownLink} href='#' target='_self'>Edit profile</a>
                         </li>
                       </ul>
                     )}
