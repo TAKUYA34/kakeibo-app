@@ -1,14 +1,14 @@
 // pages/ExportData.js
 
 import Header from "../components/HomeScreen/Header";
-import GetSummaryPdfAndCsv from "../components/MenuScreen/GetSummaryPdfAndCsv";
+import ExportPdfAndCsv from "../components/MenuScreen/ExportPdfAndCsv";
 import Footer from "../components/HomeScreen/Footer";
 
 const ExportData = () => {
   return (
     <>
       <Header />
-      <GetSummaryPdfAndCsv />
+      <ExportPdfAndCsv />
       <Footer />
     </>
   );
