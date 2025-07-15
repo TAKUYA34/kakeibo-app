@@ -57,7 +57,7 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchYearsAndMonths = async () => {
       try {
-        const res = await axios.get('http://localhost:5001/transactions/list');
+        const res = await axios.get('http://localhost:5001/api/transactions/list');
         setYearOptions(res.data.years); // [2023, 2024, 2025]
         setMonthOptions(res.data.months); // [1, 2, ..., 12]
       } catch (error) {
@@ -71,7 +71,7 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchMonthlyData = async () => {
       try {
-        const res = await axios.get('http://localhost:5001/transactions/list/aggregate', {
+        const res = await axios.get('http://localhost:5001/api/transactions/list/aggregate', {
           params: {
             year: Number(yearDate), // 年フィルタ
             userId: user._id

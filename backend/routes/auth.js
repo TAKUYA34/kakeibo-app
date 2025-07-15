@@ -4,9 +4,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const { authenticate, isAdmin } = require('../middleware/auth_situation');
-const log = console.log; // ログ出力用
+
+// 環境変数の読み込み
+require('dotenv').config({ path: './.env.development' });
+
 // JWTシークレットキー
-const JWT_SECRET = process.env.REACT_JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // ログインルート
 router.post('/login', async (req, res) => {

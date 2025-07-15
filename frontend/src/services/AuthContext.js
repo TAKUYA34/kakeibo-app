@@ -13,12 +13,12 @@ export const AuthProvider = ({ children }) => {
   // API と連携するログイン処理
   const login = async (email, password) => {
     try {
-      const res = await fetch(`${API_URL}/home/login`, {
+      const res = await fetch(`${API_URL}/api/home/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      
+      console.log('res.ok', res.ok);
       if (!res.ok) throw new Error("ログインに失敗しました");
       
       const data = await res.json();
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem("token", token); // トークンをローカルストレージに保存
       // トークンを使ってユーザー情報を取得
-      const meRes = await fetch(`${API_URL}/home/me`, {
+      const meRes = await fetch(`${API_URL}/api/home/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       // バックエンドでユーザー情報を取得
-      fetch(`${API_URL}/home/me`, {
+      fetch(`${API_URL}/api/home/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())

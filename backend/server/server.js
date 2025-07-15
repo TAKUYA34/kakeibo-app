@@ -1,23 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const authRoutes = require('../routes/auth');
 const transactionAddRoutes = require('../routes/transactionAddRoutes'); // トランザクション追加のルーティング
 const transactionListRoutes = require('../routes/transactionListRoutes'); // トランザクションリストのルーティング
-const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes') // homeグラフ
+const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes'); // homeグラフ
+const ExportPDFAndCSV = require('../routes/ExportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
 
-require('dotenv').config(); // 環境変数の読み込み
+require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.BACKEND_PORT || 5001;
 const mongoUri = process.env.MONGO_URI || 'mongodb://mongo:27017/my_database';
 
 // MongoDB接続
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
+mongoose.connect(mongoUri).then(() => {
   console.log('MongoDB に接続しました');
 }).catch((err) => {
   console.error('MongoDB 接続エラー:', err);
@@ -26,7 +23,7 @@ mongoose.connect(mongoUri, {
 // CORSの設定（順番に注意）
 // フロントエンドのポート3000からのリクエストを許可
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONTEND_PORT || 'http://localhost:3000', // 'https://kake-ibo-app.com', // 本番環境ではフロントエンドのURLを指定
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
@@ -34,13 +31,15 @@ app.use(cors({
 app.options('*', cors());
 
 // JSON形式のリクエストボディをパース
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ルーティング
-app.use('/home', authRoutes); // 認証関連のルーティングを使用
-app.use('/transactions', transactionAddRoutes); // トランザクション追加のルーティングを使用
-app.use('/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
-app.use('/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
+app.use('/api/home', authRoutes); // 認証関連のルーティングを使用
+app.use('/api/transactions', transactionAddRoutes); // トランザクション追加のルーティングを使用
+app.use('/api/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
+app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
+app.use('/api/transactions', ExportPDFAndCSV); // PDF or CSV出力データのルーティングを使用
 
 // サーバー起動
 app.listen(PORT, () => {

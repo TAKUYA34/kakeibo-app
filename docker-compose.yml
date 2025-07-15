@@ -1,9 +1,11 @@
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:6.0
     restart: always
     volumes:
       - mongo_data:/data/db
+    ports:
+      - "27017:27017"  # MongoDBのデフォルトポート
     networks:
       - my_network
 
@@ -14,8 +16,13 @@ services:
       dockerfile: Dockerfile.dev  # 開発用
     container_name: kakeibo-backend
     restart: always
+    env_file:
+    - ./backend/.env.development  # 開発用の環境変数ファイル
+    # - ./backend/.env.production  # 本番用の環境変数ファ
     # expose:
     #   - "5001"  # nginxからアクセスするためにはexposeでOK 本番用
+    depends_on:
+      - mongo
     ports:
       - "5001:5001"  # 開発用
     volumes:
@@ -23,13 +30,6 @@ services:
       - /app/node_modules  # ホストのnode_modulesを上書きしない
     networks:
       - my_network
-    environment:
-      # - NODE_ENV=production # 本番用
-      - NODE_ENV=development
-      - PORT=5001
-      # - MONGO_URI=mongodb://mongo:27017/production_db # 本番用
-      - MONGO_URI=mongodb://mongo:27017/my_database
-      # - JWT_SECRET=${REACT_JWT_SECRET} # 本番用
 
   frontend:
     build:
