@@ -47,6 +47,8 @@ const TransactionAdd = () => {
     utility: '光熱費',
     rent: '家賃',
     food: '食費',
+    dailyNecessities: '日用品費',
+    education: '教育費',
     transportation: '交通費',
     beauty: '美容費',
     gasoline: 'ガソリン費',
@@ -54,19 +56,32 @@ const TransactionAdd = () => {
     medicalCare: '医療費',
     insurance: '保険費',
     diningOut: '外食費',
+    entertainment: '娯楽費',
+    hobby: '趣味費',
+    special: '特別費',
     other: 'その他'
   };
 
   // 中項目データ ※収支を選択した場合のみ
   const salarySelect = {
-    salary: '給料'
+    salary: '給料',
+    bonus: 'ボーナス'
   }
 
   // 小項目データ
   const minorItems = {
+    rent: ['住宅ローン'],
     utility: ['電気', 'ガス', '水道'],
-    food: ['食料品', '飲み会'],
-    transportation: ['公共交通', 'タクシー', '通勤']
+    food: ['食料品', 'おやつ', '飲み会'],
+    dailyNecessities: ['雑貨', '衣類', '家具'],
+    education: ['塾', '習い事'],
+    transportation: ['公共交通', 'タクシー', '通勤', '個人'],
+    beauty: ['美容院', 'ネイル', '整形'],
+    gasoline: ['通勤', '個人'],
+    communication: ['携帯', 'WI-FI', 'データ購入'],
+    medicalCare: ['精神科', '歯科', '内科', '整体', '消化器科', '皮膚科', '呼吸器内科', '健康診断', '薬'],
+    insurance: ['生命保険', '医療保険', 'がん保険', '自動車保険', '火災保険'],
+    entertainment: ['冠婚葬祭', 'レジャー施設', '交通費', '温泉']
   }
 
   // 日付変更
@@ -230,11 +245,12 @@ const TransactionAdd = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5001/transactions/add/register', { // APIエンドポイントを適切に設定
+      const response = await fetch('http://localhost:5001/api/transactions/add/register', { // APIエンドポイントを適切に設定
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include', // 認証管理
         body: JSON.stringify(payload)
       });
 
