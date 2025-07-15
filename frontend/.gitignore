@@ -1,23 +1,37 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# node modules パッケージ等
+/node_modules/
+
+# build output
+/build/
+
+# if using Next.js or other tools:
+/.next/
+/out/
 
 # testing
-/coverage
+/coverage/
 
-# production
-/build
-
-# misc
+# misc 環境変数はGitに反映しない
 .DS_Store
+.env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
+# logs エラーログも反映しない
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# editor settings (optional)
+/.vscode/
+/.idea/
+
+# OS files
+Thumbs.db

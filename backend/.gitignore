@@ -1,0 +1,12 @@
+# dependencies Gitに含めない
+/node_modules
+
+# env files
+.env
+
+# logs
+logs
+*.log
+
+# system files
+.DS_Store

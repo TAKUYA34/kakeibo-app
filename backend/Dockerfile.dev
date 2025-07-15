@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+# nodemonをグローバルインストール（もしくはdevDependenciesに含めておく）
+RUN npm install -g nodemon
+
+COPY . .
+
+EXPOSE 5001
+
+CMD ["nodemon", "server/server.js"]

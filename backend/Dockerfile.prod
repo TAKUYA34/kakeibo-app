@@ -1,0 +1,13 @@
+# === BUILD DTAGE ===
+FROM node:18 AS build
+
+WORKDIR /app
+
+# 依存関係install
+COPY package.json package-lock.json ./
+RUN npm install
+
+# アプリのソースコードをコピーする
+COPY . .
+
+CMD ["node", "server/server.js"]
