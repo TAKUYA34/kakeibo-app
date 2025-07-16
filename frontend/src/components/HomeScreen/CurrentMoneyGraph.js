@@ -7,6 +7,17 @@ import { useState } from 'react';
 
 const CurrentMoneyGraph = () => {
 
+  // ダミーデータ（初期表示用）
+  const dummyBarData = [
+    { name: '1月', income: 0, expense: 0 },
+    { name: '2月', income: 0, expense: 0 },
+    { name: '3月', income: 0, expense: 0 },
+  ];
+  
+  const dummyPieData = [
+    { middle: 'other', minor: 'サンプル', value: 1 },
+  ];
+
   const { user } = useAuth(); // useAuthフックを使用して認証情報を取得
   const COLORS = ["#8b0000", "#ff4500", "#ffa500", "#32cd32", "#20b2aa"];
 
@@ -57,7 +68,7 @@ const CurrentMoneyGraph = () => {
         <p className={styles.moneyGraph_content}>現在の収支・支出</p>
         <div className={styles.graphs}>
           <ResponsiveContainer width="45%" height={500}>
-            <BarChart data={barData}>
+            <BarChart data={barData.length ? barData : dummyBarData}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip 
@@ -74,9 +85,9 @@ const CurrentMoneyGraph = () => {
           <ResponsiveContainer width="45%" height={500}>
             <PieChart>
               <Pie
-                data={pieData}
+                data={pieData.length ? pieData : dummyPieData}
                 dataKey="value"
-                nameKey="middle"
+                nameKey="middle"  
                 outerRadius={200}
                 label
               >
