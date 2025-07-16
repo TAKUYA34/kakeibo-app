@@ -215,8 +215,12 @@ box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
 transform: translateY(2px); /* 押し込んだように */
 }
 
+.addButton span {
+  margin-left: 65px;
+}
+
 .addButton svg {
-  margin-left: 150px; /* アイコンとテキストの間のスペース */
+  margin-left: 60px; /* アイコンとテキストの間のスペース */
 }
 
 .transactionTable {
@@ -267,9 +271,13 @@ transform: translateY(2px); /* 押し込んだように */
 box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
 transform: translateY(2px); /* 押し込んだように */
 }
+
+.deleteBtn span {
+  margin-left: 60px; /* アイコンとテキストの間のスペース */
+}
   
 .deleteBtn svg {
-  margin-left: 140px; /* アイコンとテキストの間のスペース */
+  margin-left: 50px; /* アイコンとテキストの間のスペース */
 }
 
 /* 登録ボタン */
@@ -311,7 +319,11 @@ box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
 transform: translateY(2px); /* 押し込んだように */
 }
 
+.registerBtn span {
+  margin-left: 300px; /* アイコンとテキストの間のスペース */
+}
+
 .registerBtn svg {
-  margin-left: 620px; /* アイコンとテキストの間のスペース */
+  margin-left: 300px; /* アイコンとテキストの間のスペース */
 }
   

@@ -4,14 +4,15 @@ import styles from '../../styles/RegisterStatic/SignUpForm.module.css'; // ス�
 import { useNavigate } from 'react-router-dom'; // useNavigateをインポート
 
 const SignUpForm = () => {
+  // formのデータを管理
   const [formData, setFormData] = useState({
     user_name: '',
     email: '',
     password: '',
   });
   
-  const [error, setError] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(''); // エラーメッセージを管理
+  const [confirmPassword, setConfirmPassword] = useState(""); // 確認用パスワードを管理
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -19,6 +20,7 @@ const SignUpForm = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
   
+  // 入力フィールドの変更を処理する関数
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -27,6 +29,7 @@ const SignUpForm = () => {
     }));
   };
 
+  // フォームの送信を処理する関数
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { user_name, email, password } = formData;
@@ -63,10 +66,10 @@ const SignUpForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('サインアップに成功しました');
+        alert('新規登録完了しました');
         navigate('/home/login'); // サインアップ成功後にログインページへリダイレクト
       } else {
-        setError(result.message || 'サインアップに失敗しました');
+        setError(result.message || '新規登録失敗しました');
       }
     } catch (error) {
       setError('サーバーエラーが発生しました。後でもう一度お試しください。');

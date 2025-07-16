@@ -92,6 +92,10 @@ box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
 transform: translateY(2px); /* 押し込んだように */
 }
 
-.download_btn svg {
-  margin-left: 320px; /* アイコンとテキストの間のスペース */
+.download_btn span {
+  margin-left: 170px;
 }
+
+.download_btn svg {
+  margin-left: 150px;
+  }

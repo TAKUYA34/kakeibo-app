@@ -369,7 +369,7 @@ const TransactionAdd = () => {
         <div className={styles.table_row}>
           <h1>Table</h1>
           <button onClick={handleAddRow} className={styles.addButton}>
-            <span>追加</span>
+            <span>追加する</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
               <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
             </svg>
@@ -402,7 +402,7 @@ const TransactionAdd = () => {
                   <td>{row.memo}</td>
                   <td>
                     <button type="button" name="delete" className={styles.deleteBtn} onClick={() => handleDeleteRow(index)}>
-                      <span>削除</span>
+                      <span>削除する</span>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
                         <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
                       </svg>
