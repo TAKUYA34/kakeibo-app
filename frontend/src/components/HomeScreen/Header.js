@@ -7,7 +7,7 @@ import styles from '../../styles/HomeStatic/Header.module.css';
 // 各ページでヘッダーの表示を制御するためのカスタムフック
 const Header = ({ text = "Simple Money Logs..." }) => {
   // useAuthフックを使用して認証情報を取得
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
 
   const [showMenu, setShowMenu] = useState(false); // メニュー表示フラグ
 
@@ -105,7 +105,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                     </li>
                     </>
                   )}
-                  { user && (
+                  { !isLoading && user?.user_name && (
                     <>
                     <li className={styles.navItem}>
                       <span className={styles.navList_a}>{user.user_name}</span>
@@ -129,13 +129,13 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                     { showMenu && (
                       <ul className={styles.dropdownMenu}>
                         <li className={styles.dropdownItem}>
-                          <Link className={styles.dropdownLink} href='#' target='_blank'>Inventory</Link>
+                          <Link className={styles.dropdownLink} to='#' target='_self'>Inventory</Link>
                         </li>
                         <li className={styles.dropdownItem}>
                           <Link className={styles.dropdownLink} to='/home/export' target='_self'>Export</Link>
                         </li>
                         <li className={styles.dropdownItem}>
-                          <a className={styles.dropdownLink} href='#' target='_self'>Edit profile</a>
+                          <Link className={styles.dropdownLink} to='/home/profile' target='_self'>profile</Link>
                         </li>
                       </ul>
                     )}
