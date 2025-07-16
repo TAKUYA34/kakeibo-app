@@ -8,6 +8,7 @@ import Home from "./pages/Home.js";
 import Transactions from "./pages/Transactions.js";
 import TransDataList from "./pages/TransDataList.js";
 import ExportData from "./pages/ExportData.js";
+import UsersEdit from "./pages/UsersEdit.js";
 
 const App = () => {
   return (
@@ -17,24 +18,10 @@ const App = () => {
           {/* 認証不要ページ */}
           <Route path="/home/login" element={<Login />} />
           <Route path="/home/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home" /> }/>
 
           {/* 認証が必要な画面 */}
-          <Route
-            path="/"
-            element={
-            <PrivateRoute>
-              <Navigate to="/home" />
-            </PrivateRoute>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          />
           <Route
             path="/home/transactions/add"
             element={
@@ -56,6 +43,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <ExportData />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home/profile"
+            element={
+              <PrivateRoute>
+                <UsersEdit />
               </PrivateRoute>
             }
           />
