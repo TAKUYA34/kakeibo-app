@@ -1,16 +1,25 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AdminAuthProvider } from './services/AdminAuthContext';
-// import AdminPrivateRoute from './services/AdminPrivateRoute';
+import AdminProtectedRoute from './services/AdminProtectedRoute';
 
 import AdminLogin from './pages/AdminLogin';
-// import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminHome from './pages/AdminHome';
 
 const AdminApp = () => (
   <AdminAuthProvider>
     <BrowserRouter>
       <Routes>
+        {/* 管理者画面 認証不要 */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        {/* 他の管理画面ルート */}
+        {/* 管理者画面 認証必要 */}
+        <Route
+          path="/admin/home"
+          element={
+          <AdminProtectedRoute>
+            <AdminHome />
+          </AdminProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </AdminAuthProvider>
