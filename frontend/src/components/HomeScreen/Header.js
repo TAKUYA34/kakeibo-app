@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; // ReactのuseStateとuseEffectフックをインポート
+import { useLocation } from 'react-router-dom'; // useLocationフックを使用して現在のパスを取得
 import { useAuth } from '../../services/AuthContext';
 import { Link } from 'react-router-dom'; // ルートを切り替え
 import styles from '../../styles/HomeStatic/Header.module.css';
