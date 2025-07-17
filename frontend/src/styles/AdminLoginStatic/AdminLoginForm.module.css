@@ -1,0 +1,53 @@
+/* AdminLoginForm.module.css */
+
+.loginContainer {
+  margin: 0 auto;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.loginContainer h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 3rem;
+  text-align: center;
+  margin: 0;
+  padding: 80px 0;
+}
+
+.inputGroup {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 30px auto;
+}
+
+.inputGroup label {
+  font-weight: bold;
+}
+
+.inputGroup input {
+  padding: 12px;
+  border: 1px solid #8e8e8e;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+.login_btn {
+  padding: 12px;
+  width: 100%;
+  max-width: 250px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 10px; 
+  cursor: pointer;
+}
+
+.login_btn:hover {
+  background-color: #4f575e;
+}
