@@ -71,6 +71,10 @@ button {
   cursor: pointer; /* ポインターを手の形にする */
 }
 
+.LoginBtn:hover {
+  background-color: #4f575e; /* bg-gray-700 */
+}
+
 .navFooter_main {
   margin: 100px 0 0 0; /* mt-24 */
 }
