@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./services/AuthContext.js";
-import PrivateRoute from "./services/PrivateRoute.js"
 import { Navigate } from "react-router-dom";
+// ユーザー用
+import { AuthProvider } from "./services/AuthContext.js";
+import PrivateRoute from "./services/PrivateRoute.js";
 import Register from "./pages/Register.js";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
@@ -12,16 +13,16 @@ import UsersEdit from "./pages/UsersEdit.js";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
-          {/* 認証不要ページ */}
+          {/* 一般ユーザー画面 認証不要 */}
           <Route path="/home/login" element={<Login />} />
           <Route path="/home/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Navigate to="/home" /> }/>
 
-          {/* 認証が必要な画面 */}
+          {/* 一般ユーザー画面 認証が必要 */}
           <Route
             path="/home/transactions/add"
             element={
@@ -55,8 +56,8 @@ const App = () => {
             }
           />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 };
 
