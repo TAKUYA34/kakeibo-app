@@ -1,0 +1,56 @@
+/* AdminOnlyScreen.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
+
+.AdminOnlyScreenContainer {
+  position: relative;
+  z-index: 0;
+  height: auto; /* 中身に合わせる */
+  padding: 2rem;
+}
+
+.AdminOnlyScreenImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/AdminOnlyScreen.jpeg'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: -1; /* 最背面 */
+}
+
+.AdminOnlyScreenContainer h1 {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.statsCardContainer {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.statCard {
+  background: #fed9c0;
+  padding: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Flexboxでカードを均等に配置 */
+  text-align: center;
+}
+
+.chartSection {
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  margin-bottom: 8rem;
+}
+
+.chartSection h2 {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+}
