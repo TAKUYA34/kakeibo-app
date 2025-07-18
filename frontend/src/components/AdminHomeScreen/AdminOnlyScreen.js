@@ -108,7 +108,7 @@ const AdminOnlyScreen = ({ children }) => {
     <main>
       <div className={styles.AdminOnlyScreenContainer}>
       <div className={styles.AdminOnlyScreenImage} />
-        <h1>管理者専用画面</h1>
+        <h1>ユーザー全体の統計</h1>
 
       {stats && (
         <>

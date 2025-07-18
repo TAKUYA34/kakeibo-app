@@ -73,7 +73,7 @@ const CurrentMoneyGraph = () => {
   return (
     <section className={styles.moneyGraph}>
       <div className={styles.moneyGraph_layer}>
-        <h2 className={styles.moneyGraph_title}>Current MoneyGraph</h2>
+        <h2 className={styles.moneyGraph_title}>Current MoneyGraph.</h2>
         <p className={styles.moneyGraph_content}>現在の収支・支出</p>
         <div className={styles.graphs}>
           <ResponsiveContainer width="45%" height={500}>
