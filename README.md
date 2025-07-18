@@ -23,17 +23,21 @@
 
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
+| GET         | /home                   | ユーザー画面             |
+| GET         | /summary/monthly        | 収支／支出データ取得       |
+| GET         | /summary/categories     | カテゴリデータ取得        |
 | POST        | /home/register          | ユーザー登録画面          |
 | POST        | /home/login             | ログイン画面             |
+| POST        | /home/me                | 認証                    |
 | GET         | /home/logout            | ログアウト               |
 | GET         | /home/profile           | ユーザー情報画面          |
 | PUT         | /home/profile/edit:id   | ユーザー情報編集          |
 | DELETE      | /home/profile/delete:id | ユーザー情報削除          |
-| GET         | /home/transaction/list  | 取引一覧画面取得          |
+| GET         | /home/transaction/list  | 取引一覧画面 + 年データ取得 |
+| GET         | /home/transaction/aggregate     | 取引一覧画面集計データ取得  |
 | POST        | /home/transaction/list/search   | 取引一覧画面検索  |
 | GET         | /home/transaction/add   | 取引追加画面             |
 | POST        | /home/transaction/add/register  | 取引追加画面追加  |
-| DELETE      | /home/transactions/delete:id    | 取引追加画面削除  |
 | GET         | /home/inventory         | 在庫管理画面             |
 | POST        | /home/inventory/edit:id | 在庫管理画面編集          |
 | DELETE      | /home/inventory/delete:id       | 在庫管理画面削除  |
@@ -49,16 +53,16 @@
 | **プロフィール画面**             | ユーザーの情報を表示                  |
 | **取引一覧画面**               | 取引の一覧表示・検索・編集・削除        | 
 | **取引追加画面**               | 新しい収入・支出を複数記録・削除        |
- | **在庫管理画面**              | 在庫管理表の作成・編集・削除           |
+| **在庫管理画面(仮)**           | 在庫管理表の作成・編集・削除            |
 
 -------------------
 ## 機能設計
 #### 管理者
 
-| features(機能)      | detail(詳細)                   |
+| features(機能)      | detail(詳細)                    |
 |:-------------------|:--------------------------------|
-| **管理者認証**       | ログイン／ログアウト                |
-| **ユーザー全体の統計** | 全体の概要／統計                  |
+| **管理者認証(完成)**  | ログイン／ログアウト               |
+| **ユーザー全体の統計(完成)** | 全体の概要／統計             |
 | **ユーザー管理**      | ユーザー一覧と編集／削除           |
 | **全取引一覧**       | 全ユーザーの取引一覧               |
 | **お知らせ**         | トップ画面に表示される内容の編集     |
@@ -72,7 +76,10 @@
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
 | GET         | admin/home              | 管理者画面               |
-| POST        | admin/home/login        | ログイン画面             |
+| GET         | admin/home/data         | 全体のグラフデータ取得     |
+| GET         | admin/home/stats        | 全体の統計データ取得       |
+| POST        | admin/login             | ログイン画面             |
+| POST        | admin/me                | 認証                    |
 | GET         | admin/home/logout       | ログアウト               |
 | GET         | admin/home/users        | ユーザー管理画面          |
 | POST        | admin/home/users/search | ユーザー検索             |
