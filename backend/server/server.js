@@ -11,7 +11,8 @@ const ExportPDFAndCSV = require('../routes/ExportPDFAndCSVRoutes'); // PDFもし
 const profileEditRoutes = require('../routes/profileEditRoutes'); // プロフィール編集
 
 // 管理者用
-const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者認証関連のルーティング
+const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者ログイン認証
+const adminOnlyScreen = require('../routes/adminOnlyScreenRoutes'); // 管理者home画面の統計データ
 
 require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
@@ -49,7 +50,8 @@ app.use('/api/transactions', ExportPDFAndCSV); // PDF or CSV出力データの�
 app.use('/api/home', profileEditRoutes); // プロフィール編集のルーティングを使用
 
 // 管理者用ルーティング
-app.use('/api/admin', authLoginFormRoutes); // 管理者認証関連のルーティングを使用
+app.use('/api/admin', authLoginFormRoutes); // 管理者ログイン認証のルーティングを使用
+app.use('/api/admin', adminOnlyScreen); // 管理者home画面の統計データのルーティングを使用
 
 // サーバー起動
 app.listen(PORT, () => {
