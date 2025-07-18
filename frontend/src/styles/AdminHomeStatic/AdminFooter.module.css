@@ -1,0 +1,25 @@
+footer {
+  background-color: gray;
+  color: white;
+  padding: 8px;
+}
+
+footer p {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.footerContainer {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.adminFooterMenu a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit; /* 親要素の色をコピー */
+  cursor: pointer;
+}
+
+.adminFooterMenu a:hover {
+  color: rgb(66, 247, 247);
+}
