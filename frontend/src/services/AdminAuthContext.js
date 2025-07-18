@@ -19,7 +19,6 @@ export const AdminAuthProvider = ({ children }) => {
   useEffect(() => {
     // ローカルストレージからトークンを取得
     const token = localStorage.getItem("admin_token");
-    console.log("adminUser:", adminUser);
     if (token) {
       fetch(`${API_URL}/api/admin/me`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -27,10 +26,8 @@ export const AdminAuthProvider = ({ children }) => {
       .then(res => res.json())
       .then(data => {
         // レスポンスからユーザー情報を取得し、管理者ユーザーとして設定
-        console.log("Fetching admin user data...", data.user);
         if (data?.user?.role === 'admin') {
           setAdminUser(data.user);
-          console.log("Admin user set:", data.user);
         } else { // 管理者でない場合はログアウト
           setAdminUser(null);
         }
