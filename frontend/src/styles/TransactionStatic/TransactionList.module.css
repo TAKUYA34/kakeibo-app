@@ -94,3 +94,8 @@
   background-color: #c4c5c4;
   text-align: start;
 }
+
+.total_row {
+  margin: 0 auto;
+  text-align: center;
+}

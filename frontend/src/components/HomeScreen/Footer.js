@@ -7,8 +7,7 @@ const Footer = () => {
   const location = useLocation();
   const path = location.pathname;
   // 制御
-  const isHomePage = path === '/home' || path === '/';
-  const isSignUpPage = path === '/home/register' || path === '/home/signUpForm';
+  const isSignUpPage = path === '/home/register';
   const isLoginPage = path === '/home/login';
 
   return (
@@ -130,7 +129,7 @@ const Footer = () => {
             <div className={styles.footerRight_Underline}>
             </div>
             <div className={styles.footerEnd_Content}>
-              <p className={styles.footerText}>© Copyright All Rights Reserved. Kakeibo-App © 2025.</p>
+              <p className={styles.footerText}>© Copyright All Rights Reserved. Kakeibo-App {new Date().getFullYear()}.</p>
               <a className={styles.footerLink} href="#">Page Top.</a>
             </div>
           </div>

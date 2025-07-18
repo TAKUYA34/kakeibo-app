@@ -2,6 +2,7 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import styles from '../../styles/HomeStatic/CurrentMoneyGraph.module.css';
 import { useAuth } from '../../services/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -18,16 +19,21 @@ const CurrentMoneyGraph = () => {
     { middle: 'other', minor: 'サンプル', value: 1 },
   ];
 
-  const { user } = useAuth(); // useAuthフックを使用して認証情報を取得
   const COLORS = ["#8b0000", "#ff4500", "#ffa500", "#32cd32", "#20b2aa"];
-
+  
+  const { user } = useAuth(); // useAuthフックを使用して認証情報を取得
+  const navigate = useNavigate();
   const [barData, setBarData] = useState([]);
   const [pieData, setPieData] = useState([]);
 
   const labelPieMap = {
+    salary: '給料',
+    bonus: 'ボーナス',
     utility: '光熱費',
     rent: '家賃',
     food: '食費',
+    dailyNecessities: '日用品費',
+    education: '教育費',
     transportation: '交通費',
     beauty: '美容費',
     gasoline: 'ガソリン費',
@@ -35,11 +41,14 @@ const CurrentMoneyGraph = () => {
     medicalCare: '医療費',
     insurance: '保険費',
     diningOut: '外食費',
+    entertainment: '娯楽費',
+    hobby: '趣味費',
+    special: '特別費',
     other: 'その他'
   };
-
+  
   useEffect(() => {
-    if (!user) return;
+    if (!user || !user._id) return;
     const fetchData = async () => {
       try {
         const [barRes, pieRes] = await Promise.all([
@@ -91,7 +100,7 @@ const CurrentMoneyGraph = () => {
                 outerRadius={200}
                 label
               >
-                {pieData.map((entry, index) => (
+                {Array.isArray(pieData) && pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

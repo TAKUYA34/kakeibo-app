@@ -123,7 +123,7 @@
 
 .htext {
   position: absolute;
-  bottom: -1000px; /* 画面下から調整 */
+  bottom: -10px; /* 画面下から調整 */
   right: 50px;
   margin: 20px;
   font-family: 'Irish Grover', sans-serif; /* font-irish */

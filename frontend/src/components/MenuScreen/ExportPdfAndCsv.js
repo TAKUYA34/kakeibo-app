@@ -1,8 +1,12 @@
 import styles from '../../styles/MenuStatic/ExportPdfAndCsv.module.css';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../services/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ExportPdfAndCsv = () => {
+  const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [yearOptions, setYearOptions] = useState([]);
   const [monthOptions, setMonthOptions] = useState([]);
   const [yearMonthMap, setYearMonthMap] = useState({});
@@ -11,29 +15,36 @@ const ExportPdfAndCsv = () => {
   const [monthDate, setMonthDate] = useState('');
   const [format, setFormat] = useState('csv');
 
+  useEffect(() => {
+    if (!user) {
+      // ユーザーがログインしていない場合、ログインページにリダイレクト
+      navigate('/home/login');
+    }
+  }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
+
 // 年月オプションの取得
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:5001/api/transactions/date-options', {
+    axios.get('http://localhost:5001/api/transactions/date-options', {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => res.json())
-      .then(data => {
-        const map = {};
-        data.forEach(({ year, month }) => {
-          if (!map[year]) map[year] = new Set();
-          map[year].add(month);
-        });
+    .then(res => {
+      const data = res.data; // axiosはレスポンスデータを `.data` に持っているため、.jsonはだめ
+      const map = {};
+      data.forEach(({ year, month }) => {
+        if (!map[year]) map[year] = new Set();
+        map[year].add(month);
+      });
 
-        const convertedMap = {};
-        for (const y in map) {
-          convertedMap[y] = Array.from(map[y]).sort((a, b) => a - b);
-        }
+      const convertedMap = {};
+      for (const y in map) {
+        convertedMap[y] = Array.from(map[y]).sort((a, b) => a - b);
+      }
 
-        setYearMonthMap(convertedMap);
-        setYearOptions(Object.keys(convertedMap).sort((a, b) => b - a));
-      })
-      .catch(err => console.error('年月取得エラー:', err));
+      setYearMonthMap(convertedMap);
+      setYearOptions(Object.keys(convertedMap).sort((a, b) => b - a));
+    })
+    .catch(err => console.error('年月取得エラー:', err));
   }, []);
 
   // 年を選んだら月をリセット
@@ -60,6 +71,7 @@ const ExportPdfAndCsv = () => {
     }
 
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5001/api/transactions/export', {
         params: { year: yearDate, month: monthDate, format },
         responseType: 'blob',
@@ -77,7 +89,6 @@ const ExportPdfAndCsv = () => {
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      console.error('ダウンロードに失敗しました', err);
       console.error('ダウンロードに失敗しました', err.response?.data?.error);
       alert('ダウンロードに失敗しました');
     }

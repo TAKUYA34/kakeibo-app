@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      console.log('res.ok', res.ok);
       if (!res.ok) throw new Error("ログインに失敗しました");
       
       const data = await res.json();
@@ -49,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // バックエンドでユーザー情報を取得
+      // ユーザー情報を取得
       fetch(`${API_URL}/api/home/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })

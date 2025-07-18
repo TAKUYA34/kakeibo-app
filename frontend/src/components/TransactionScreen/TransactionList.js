@@ -31,10 +31,13 @@ const TransactionList = () => {
   };
   // 変換
   const middleItems = {
-    utility: '光熱費',
     salary: '給料',
+    bonus: 'ボーナス',
+    utility: '光熱費',
     rent: '家賃',
     food: '食費',
+    dailyNecessities: '日用品費',
+    education: '教育費',
     transportation: '交通費',
     beauty: '美容費',
     gasoline: 'ガソリン費',
@@ -42,6 +45,9 @@ const TransactionList = () => {
     medicalCare: '医療費',
     insurance: '保険費',
     diningOut: '外食費',
+    entertainment: '娯楽費',
+    hobby: '趣味費',
+    special: '特別費',
     other: 'その他'
   };
 
@@ -57,7 +63,14 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchYearsAndMonths = async () => {
       try {
-        const res = await axios.get('http://localhost:5001/api/transactions/list');
+        const token = localStorage.getItem('token');
+
+        const res = await axios.get('http://localhost:5001/api/transactions/list', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
         setYearOptions(res.data.years); // [2023, 2024, 2025]
         setMonthOptions(res.data.months); // [1, 2, ..., 12]
       } catch (error) {
@@ -71,7 +84,12 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchMonthlyData = async () => {
       try {
+        const token = localStorage.getItem('token');
+
         const res = await axios.get('http://localhost:5001/api/transactions/list/aggregate', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
           params: {
             year: Number(yearDate), // 年フィルタ
             userId: user._id
@@ -241,13 +259,13 @@ const TransactionList = () => {
                         .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
 
                         return (
-                          <td key={i}>
+                          <td key={i} className={styles.total_row}>
                             {(!monthDate || i === Number(monthDate) - 1) ? middleTotal.toLocaleString() : ''}
                           </td>
                         );
                       })}
                       {/* ← この2列分の合計を表示 */}
-                      <td colSpan={2}>
+                      <td colSpan={2} className={styles.total_row}>
                         {
                           (() => {
                             // 月検索した時の集計金額
@@ -289,14 +307,14 @@ const TransactionList = () => {
                     .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
 
                   return (
-                    <td key={i}>
+                    <td key={i} className={styles.total_row}>
                       {(!monthDate || i === Number(monthDate) - 1)
                         ? total.toLocaleString()
                         : ''}
                     </td>
                   );
                 })}
-                <td colSpan={2}>
+                <td colSpan={2} className={styles.total_row}>
                   {
                     (() => {
                       if (monthDate) {
@@ -333,14 +351,14 @@ const TransactionList = () => {
                   const total = income + expense;
 
                   return (
-                    <td key={i}>
+                    <td key={i} className={styles.total_row}>
                       {(!monthDate || i === Number(monthDate) - 1)
                         ? total.toLocaleString()
                         : ''}
                     </td>
                   );
                 })}
-                <td colSpan={2}>
+                <td colSpan={2} className={styles.total_row}>
                   {
                     (() => {
                       if (monthDate) {

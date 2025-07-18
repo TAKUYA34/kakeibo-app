@@ -3,7 +3,7 @@ import styles from '../../styles/TransactionStatic/TransactionAdd.module.css';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import PriceInput from '../../services/PriceInput.js' // 価格入力コンポーネントをインポート
+import PriceInput from '../../services/PriceInput.js'; // 価格入力コンポーネントをインポート
 
 const TransactionAdd = () => {
 
@@ -70,7 +70,7 @@ const TransactionAdd = () => {
 
   // 小項目データ
   const minorItems = {
-    rent: ['住宅ローン'],
+    rent: ['家賃', '住宅ローン'],
     utility: ['電気', 'ガス', '水道'],
     food: ['食料品', 'おやつ', '飲み会'],
     dailyNecessities: ['雑貨', '衣類', '家具'],
@@ -245,12 +245,13 @@ const TransactionAdd = () => {
     };
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:5001/api/transactions/add/register', { // APIエンドポイントを適切に設定
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
-        credentials: 'include', // 認証管理
         body: JSON.stringify(payload)
       });
 

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const userEditRepository = require('../repositorys/userEditRepository');
+const userEditRepository = require('../repositorys/profileEditRepository');
 const { mapToUserUpdateFields } = require('../mappers/userEditMapper'); // mapper を使用
 
 const updateUserProfile = async (userId, user_name, email, password) => {

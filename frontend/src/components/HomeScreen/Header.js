@@ -24,7 +24,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
   const path = location.pathname;
 
   // 条件設定
-  const isSignUpPage = path === '/home/register' || path === '/home/signUpForm/';
+  const isSignUpPage = path === '/home/register';
   const isLoginPage = path === '/home/login';
   // header画像インデックス
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

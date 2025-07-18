@@ -5,14 +5,20 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
-
-  const { user, setUser, logout } = useAuth(); // user情報を取得、logoutを使用
+  const { user, setUser, logout, isLoading } = useAuth(); // user情報を取得、logoutを使用
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // Navigateを使用してリダイレクト
 
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+
+  useEffect(() => {
+    if (!user) {
+      // ユーザーがログインしていない場合、ログインページにリダイレクト
+      navigate('/home/login');
+    }
+  }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
   useEffect(() => {
 
