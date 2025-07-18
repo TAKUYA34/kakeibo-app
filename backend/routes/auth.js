@@ -29,8 +29,6 @@ router.post('/login', async (req, res) => {
 
     // パスワード照合
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('user password:', user.password); // ユーザーパスワードをログ出力
-    console.log('Password match:', isMatch); // パスワード照合結果をログ出力
     // ログ出力
     if (!isMatch) {
       return res.status(401).json({ message: 'パスワードが間違っています。' });
@@ -68,10 +66,16 @@ router.get('/me', authenticate, async (req, res) => {
 router.post('/register', async (req, res) => {
   const { user_name, email, password } = req.body;
   try {
+    console.log('🪪 req.user:', req.user); // ここでどのユーザーと認識されているか確認
     // ユーザー名とメールアドレスの重複チェック
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ message: 'このメールアドレスは既に登録されています。' });
+    const allUsers = await User.find({}, 'password');
+
+    for (const user of allUsers) {
+      const isSame = await bcrypt.compare(password, user.password);
+
+      if (isSame) {
+        return res.status(409).json({ message: 'このパスワードは既に使われています。他のパスワードを設定してください。'});
+      }
     }
     // 必須フィールドのチェック
     if (!user_name || !email || !password) {
