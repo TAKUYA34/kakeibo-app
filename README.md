@@ -24,6 +24,7 @@
 | method      | endpoint                | explanation            |
 |:------------|:------------------------|:-----------------------|
 | GET         | /home                   | ユーザー画面             |
+| GET         | /home/notices?limit=3   | 最大3件取得(トップページ用)|
 | GET         | /summary/monthly        | 収支／支出データ取得       |
 | GET         | /summary/categories     | カテゴリデータ取得        |
 | POST        | /home/register          | ユーザー登録画面          |
@@ -65,11 +66,14 @@
 | **ユーザー全体の統計(完成)** | 全体の概要／統計             |
 | **ユーザー管理**      | ユーザー一覧と編集／削除           |
 | **全取引一覧**       | 全ユーザーの取引一覧               |
-| **お知らせ**         | トップ画面に表示される内容の編集     |
+| **お知らせ(完成)**    | トップ画面に表示される内容の編集     |
 | **システム設定(仮)**  | アプリの基本設定や運用制御          |
 
 ## データ構造
-**既存テーブルを流用する**
+
+| entity(データの種類)          | field(データ名)                      | 詳細                |
+|:----------------------------|:------------------------------------|:-------------------|
+| **Notice**                  | user_id（PK）, title, content, notice_date, created_at, update_at                     | ユーザーID、タイトル、内容、日付、登録日時、更新日時             |
 
 ## API設計
 
@@ -83,12 +87,14 @@
 | GET         | admin/home/logout       | ログアウト               |
 | GET         | admin/home/users        | ユーザー管理画面          |
 | POST        | admin/home/users/search | ユーザー検索             |
-| PUT         | admin/home/users/edit:id       | ユーザー編集      |
-| DELETE      | admin/home/users/delete:id       | ユーザー削除    |
-| GET         | admin/home/dashboard/allList    | 全取引一覧画面   |
-| GET         | admin/home/report         | お知らせ管理画面        |
-| PUT         | admin/home/report/edit:id      | お知らせ編集      |
-| DELETE      | admin/home/report/delete:id      | お知らせ削除    |
+| PUT         | admin/home/users/edit:id        | ユーザー編集     |
+| DELETE      | admin/home/users/delete:id      | ユーザー削除     |
+| GET         | admin/home/dashboard/allList    | 全取引一覧画面    |
+| GET         | admin/home/report       | お知らせ管理画面          |
+| GET         | admin/home/report/all?limit=3   | 全てのお知らせデータ取得   |
+| POST        | admin/home/report/register      | 新しいお知らせ投稿|
+| PUT         | admin/home/report/edit:id       | お知らせ編集     |
+| DELETE      | admin/home/report/delete:id     | お知らせ削除     |
 | GET         | admin/home/options      | システム設定画面          |
 
 ## 画面設計
