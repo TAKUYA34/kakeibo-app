@@ -4,7 +4,6 @@ const adminOnlyScreenService = require('../services/adminOnlyScreenService');
 const UserAllSelectData = async (req, res) => {
   try {
     const data = await adminOnlyScreenService.fetchUserAllSelectData();
-    console.log("data:", data);
     res.json(data);
   } catch (err) {
     console.error("データの取得に失敗:", err);

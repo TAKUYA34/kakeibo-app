@@ -5,6 +5,7 @@ const User = require('../models/User');
 
 // 管理者専用のミドルウェア user.role が 'admin' の場合のみアクセスを許可
 const adminOnly = async (req, res, next) => {
+
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
