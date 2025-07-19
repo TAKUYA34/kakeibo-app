@@ -1,4 +1,4 @@
-const adminOnlyScreenRepository = require('../repositorys/adminOnlyScreenRepository');
+const adminOnlyScreenRepository = require('../repositories/adminOnlyScreenRepository');
 
 // 中項目データ
 const middleSelNameMap = {

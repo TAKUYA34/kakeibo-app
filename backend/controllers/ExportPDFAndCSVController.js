@@ -1,4 +1,4 @@
-const ExportPDFAndCSVService = require('../services/ExportPDFAndCSVService');
+const ExportPDFAndCSVService = require('../services/exportPDFAndCSVService');
 
 async function exportData(req, res) {
   try {

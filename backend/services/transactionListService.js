@@ -1,4 +1,4 @@
-const transactionListRipository = require('../repositorys/transactionListRepository');
+const transactionListRipository = require('../repositories/transactionListRepository');
 
 const extractYearsAndMonths = async () => {
   const transactions = await transactionListRipository.getAllTransactionDates();

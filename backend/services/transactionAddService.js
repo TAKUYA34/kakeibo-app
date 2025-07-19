@@ -1,4 +1,4 @@
-const transactionAddRepository = require('../repositorys/transactionAddRepository');
+const transactionAddRepository = require('../repositories/transactionAddRepository');
 const { mapToTransaction } = require('../mappers/transactionAddMapper');
 
 async function toAddUserTransactions(transactions, userId) {

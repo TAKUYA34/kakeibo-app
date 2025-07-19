@@ -1,4 +1,4 @@
-const transactionSummaryRepository = require('../repositorys/currentMoneyGraphRepository');
+const transactionSummaryRepository = require('../repositories/currentMoneyGraphRepository');
 
 async function getMonthlySummary(userId) {
   return await transactionSummaryRepository.aggregateMonthlySummary(userId);

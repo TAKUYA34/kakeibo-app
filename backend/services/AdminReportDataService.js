@@ -1,5 +1,5 @@
-const adminReportDataRepository = require('../repositorys/AdminReportDataRepository');
-const adminReportDataMapper = require('../mappers/AdminReportDataMapper');
+const adminReportDataRepository = require('../repositories/adminReportDataRepository');
+const adminReportDataMapper = require('../mappers/adminReportDataMapper');
 
 async function fetchPaginatedAllNotices(page, limit) {
   const skip = (page - 1) * limit; // 1 = 0件, 2 = 5件, 3 = 10件

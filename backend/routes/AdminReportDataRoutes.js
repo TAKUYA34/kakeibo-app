@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/adminAuth_situation');
-const adminReportDataController = require('../controllers/AdminReportDataController');
+const adminReportDataController = require('../controllers/adminReportDataController');
 
 router.get('/notices/all', adminAuth.adminOnly, adminReportDataController.getPaginatedAllNotices);
 router.post('/notices/register', adminAuth.adminOnly, adminReportDataController.createNotice);

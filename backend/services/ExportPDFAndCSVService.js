@@ -1,7 +1,7 @@
 const { Parser } = require('json2csv'); // CSVデータ
 const PDFDocument = require('pdfkit'); // PDFデータ
 const path = require('path'); // パス操作
-const ExportPDFAndCSVRepository = require('../repositorys/ExportPDFAndCSVRepository');
+const ExportPDFAndCSVRepository = require('../repositories/exportPDFAndCSVRepository');
 
 // 大項目データ
 const majorSelMap = {

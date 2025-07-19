@@ -7,13 +7,14 @@ const authRoutes = require('../routes/auth'); // 認証関連のルーティン�
 const transactionAddRoutes = require('../routes/transactionAddRoutes'); // トランザクション追加
 const transactionListRoutes = require('../routes/transactionListRoutes'); // トランザクションリスト
 const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes'); // homeグラフ
-const ExportPDFAndCSV = require('../routes/ExportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
+const whatsNewRoutes = require('../routes/whatsNewRoutes'); // お知らせ表示
+const ExportPDFAndCSV = require('../routes/exportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
 const profileEditRoutes = require('../routes/profileEditRoutes'); // プロフィール編集
 
 // 管理者用
 const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者ログイン認証
 const adminOnlyScreen = require('../routes/adminOnlyScreenRoutes'); // 管理者home画面の統計データ
-const AdminReportData = require('../routes/AdminReportDataRoutes'); // 管理者お知らせ画面の各処理
+const AdminReportData = require('../routes/adminReportDataRoutes'); // 管理者お知らせ画面の各処理
 
 require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
@@ -47,6 +48,7 @@ app.use('/api/home', authRoutes); // 認証関連のルーティングを使用
 app.use('/api/transactions', transactionAddRoutes); // トランザクション追加のルーティングを使用
 app.use('/api/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
 app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
+app.use('/api/home', whatsNewRoutes); // お知らせ表示のルーティングを使用
 app.use('/api/transactions', ExportPDFAndCSV); // PDF or CSV出力データのルーティングを使用
 app.use('/api/home', profileEditRoutes); // プロフィール編集のルーティングを使用
 

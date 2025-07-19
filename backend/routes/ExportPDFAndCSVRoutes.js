@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const exportController = require('../controllers/ExportPDFAndCSVController');
+const exportController = require('../controllers/exportPDFAndCSVController');
 const auth = require('../middleware/auth_situation');
 
 router.get('/export', auth.authenticate, exportController.exportData);

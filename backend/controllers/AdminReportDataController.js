@@ -1,4 +1,4 @@
-const adminReportDataService = require('../services/AdminReportDataService');
+const adminReportDataService = require('../services/adminReportDataService');
 
 // 全てのお知らせデータを取得する
 const getPaginatedAllNotices = async (req, res) => {

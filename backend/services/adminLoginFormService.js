@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt'); // bcryptを使用してパスワードをハッシュ化
 const jwt = require('jsonwebtoken'); // JWTを使用してトークンを生成
-const adminLoginFormRepository = require('../repositorys/adminLoginFormRepository');
+const adminLoginFormRepository = require('../repositories/adminLoginFormRepository');
 
 const SECRET_KEY = process.env.JWT_SECRET; // 環境変数からシークレットキーを取得
 
