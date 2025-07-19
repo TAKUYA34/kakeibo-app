@@ -13,6 +13,7 @@ const profileEditRoutes = require('../routes/profileEditRoutes'); // プロフ�
 // 管理者用
 const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者ログイン認証
 const adminOnlyScreen = require('../routes/adminOnlyScreenRoutes'); // 管理者home画面の統計データ
+const AdminReportData = require('../routes/AdminReportDataRoutes'); // 管理者お知らせ画面の各処理
 
 require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
@@ -52,6 +53,8 @@ app.use('/api/home', profileEditRoutes); // プロフィール編集のルーテ
 // 管理者用ルーティング
 app.use('/api/admin', authLoginFormRoutes); // 管理者ログイン認証のルーティングを使用
 app.use('/api/admin', adminOnlyScreen); // 管理者home画面の統計データのルーティングを使用
+app.use('/api/admin', AdminReportData); // 管理者お知らせ画面の各処理のルーティングを使用
+
 
 // サーバー起動
 app.listen(PORT, () => {
