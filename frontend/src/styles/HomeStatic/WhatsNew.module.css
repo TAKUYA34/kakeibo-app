@@ -71,7 +71,6 @@
 
 .whatsNew_container {
   position: relative; /* 相対位置 */
-  display: flex;
   max-width: 1200px;
   margin-right: 800px;
 }
@@ -85,6 +84,57 @@
   margin: 4rem 0;
   font-size: 1.2rem;
 }
+
+.paginationWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.paginationWrapper p {
+  margin: 0 auto;
+}
+
+.paginationBtnList {
+  display: flex;
+  width: 50%;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.pagination_btn {
+  width: 200px;
+  font-weight: bolder; /* 太字 */
+  padding: 12px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.pagination_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+  }
+  
+  .pagination_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+  }
+  
+  .pagination_btn span {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+  
+  .pagination_btn svg {
+    margin-left: 10px;
+  }
+
 
 .whatsNew_button {
   position: relative; /* 相対位置 */
