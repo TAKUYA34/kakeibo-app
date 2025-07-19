@@ -16,7 +16,11 @@ const AdminHeader = () => {
     <>
       <header className={!adminUser ? styles.loginHeader : ''}>
         <div className={styles.adminHeaderContainer}>
-          <h1>Kakeibo-App</h1>
+          <h1>
+            <Link to="/admin/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Kakeibo-App
+            </Link>
+          </h1>
           {adminUser && (
           <div className={styles.adminNavContainer}>
             <nav>
@@ -28,7 +32,7 @@ const AdminHeader = () => {
                   <Link to="#">ユーザー取引管理</Link>
                 </li>
                 <li>
-                  <Link to="#">お知らせ管理</Link>
+                  <Link to="/admin/home/report">お知らせ管理</Link>
                 </li>
                 <li>
                   <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>

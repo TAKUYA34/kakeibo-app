@@ -4,6 +4,7 @@ import AdminProtectedRoute from './services/AdminProtectedRoute';
 
 import AdminLogin from './pages/AdminLogin';
 import AdminHome from './pages/AdminHome';
+import AdminReport from './pages/AdminReport';
 
 const AdminApp = () => (
   <AdminAuthProvider>
@@ -17,6 +18,14 @@ const AdminApp = () => (
           element={
           <AdminProtectedRoute>
             <AdminHome />
+          </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/home/report"
+          element={
+          <AdminProtectedRoute>
+            <AdminReport />
           </AdminProtectedRoute>
           }
         />
