@@ -1,0 +1,239 @@
+/* AdminReportData.module.css */
+@import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:wght@300..900&display=swap');
+
+/* mainレイアウト部分 */
+.AdminReportDataContainer {
+  position: relative;
+  z-index: 0;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
+
+/* 背景部分 */
+.AdminReportDataImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/AdminReportData.jpeg'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1; /* 最背面 */
+}
+
+.AdminReportDataContainer h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 3rem; /* text-3xl */
+  text-align: center;
+  color: #3b3939;
+  margin: 0;
+  padding: 70px 0;
+}
+
+.AdminReportDataContainer hr {
+  width: 70%;
+}
+
+/* formレイアウト部分 */
+.reportForm_row {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  gap: 100px; /* ラベル＋入力欄の列間 */
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.reportLabel_row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.reportLabel_row label {
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.reportLabel_row input {
+  padding: 8px;
+  width: 70%;
+  border: solid 1px #3b3939;
+  border-radius: 5px;
+}
+
+.reportLabel_row textarea {
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.report_btn {
+  display: flex;
+  width: 25%;
+  margin: 0 auto;
+  margin-bottom: 80px;
+}
+
+.customize_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.customize_btn:hover {
+background: #e6e5e5; /* ホバー時に色を変える */
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+transform: translateY(-2px); /* 少し浮かせる */
+}
+
+.customize_btn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+
+.customize_btn span {
+  margin-left: 20px;
+}
+
+.customize_btn svg {
+  margin-left: 20px;
+}
+
+/* 投稿内容レイアウト部分 */
+.content_row {
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.content_row li {
+  margin-bottom: 60px;
+}
+
+.content_row strong {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 20px;
+  width: 80px;
+  margin: 10px auto;
+  display: block;
+}
+
+.notice_list {
+  display: block;
+}
+
+.notice_list li {
+  padding: 20px;
+  list-style: none;
+  background-color: #bb8baa;
+  border-radius: 40px;
+}
+
+.notice_list p {
+  font-family: "UoqMunThenKhung", serif;
+  font-size: 25px;
+}
+
+.reportNotices_btn {
+  display: flex;
+  width: 33%;
+  margin: 0 auto;
+}
+
+.customizeNotices_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.customizeNotices_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+  }
+  
+  .customizeNotices_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+  }
+  
+  .customizeNotices_btn span {
+    margin-left: 20px;
+  }
+  
+  .customizeNotices_btn svg {
+    margin-left: 20px;
+  }
+  
+/* ページ切り替えレイアウト */
+.reportPagesContainer {
+  width: auto;
+  height: auto;
+}
+
+.reportPagesContainer p {
+  margin-right: 10px;
+}
+
+.reportNoticesPage_btn {
+  display: flex;
+  width: 15%;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.customizeNoticesPage_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.customizeNoticesPage_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+  }
+  
+  .customizeNoticesPage_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+  }
+  
+  .customizeNoticesPage_btn span {
+    margin-left: 20px;
+  }
+  
+  .customizeNoticesPage_btn svg {
+    margin-left: 20px;
+  }
+
