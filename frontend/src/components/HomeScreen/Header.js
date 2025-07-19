@@ -88,7 +88,6 @@ const Header = ({ text = "Simple Money Logs..." }) => {
 
           {/* header */}
           <header className={`${styles.header} ${styles.wrapper}`}>
-          <p className={styles.htext}>{displayedText}</p>
             <div className={styles.fixation}>
               <h1 className={styles.headerTitle}>
                 <Link className={styles.navList_a} to='/home' target="_self">Kakeibo-app</Link>
@@ -143,6 +142,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                 </ul>
               </nav>
             </div>
+            <p className={styles.htext}>{displayedText}</p>
           </header>
         </main>
       )}

@@ -123,9 +123,8 @@
 
 .htext {
   position: absolute;
-  bottom: -10px; /* 画面下から調整 */
-  right: 50px;
-  margin: 20px;
+  right: 100px;
+  margin-top: 850px;
   font-family: 'Irish Grover', sans-serif; /* font-irish */
   font-size: 4rem; /* サイズ調整 */
   color: var(--header-color); /* 色調整 */
