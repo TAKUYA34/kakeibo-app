@@ -5,7 +5,6 @@
 header {
   position: fixed; /* 固定位置 */
   width: 100%; /* 画面幅 */
-  height: 100%; /* ヘッダーの高さ */
   z-index: 1100; /* ヘッダーは最前線にする */
 }
 
