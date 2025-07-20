@@ -123,6 +123,7 @@ const AdminReportData = () => {
                 type="text"
                 ref={inputRef}
                 value={title}
+                placeholder='お知らせ'
                 onChange={(e) => {
                   console.log('input changed:', e.target.value);
                   setTitle(e.target.value)}}
@@ -132,7 +133,7 @@ const AdminReportData = () => {
             <div className={styles.reportLabel_row}>
               <label htmlFor='content'>内容</label>
               <textarea
-                value={content}
+                value={content} placeholder='◯◯の機能を追加しました'
                 onChange={(e) => setContent(e.target.value)} rows={8}
                 required // 入力必須
               />

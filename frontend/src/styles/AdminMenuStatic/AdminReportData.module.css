@@ -41,7 +41,7 @@
 
 /* formレイアウト部分 */
 .reportForm_row {
-  width: 600px;
+  width: 40%;
   display: flex;
   justify-content: center;
   gap: 100px; /* ラベル＋入力欄の列間 */
