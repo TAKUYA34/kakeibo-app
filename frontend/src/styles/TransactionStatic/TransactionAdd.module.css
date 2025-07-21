@@ -1,4 +1,5 @@
 /* TransactionAdd.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
 
 /* mainコンテナ */
 .transactionAddMainContainer {
@@ -48,6 +49,7 @@
 
 .category_row h1 {
   font-family: 'Irish Grover', sans-serif; /* font-irish */
+  text-align: center;
   font-size: 2.5rem; /* text-3xl */
   color: #3b3939;
   margin-bottom: 70px; /* 下側の余白 */
@@ -80,7 +82,7 @@
 }
 
 .date_row {
-  margin: 20px 20px; /* 上下、左右の余白 */
+  margin: 20px 0; /* 上下、左右の余白 */
 }
 
 .date_row label{
@@ -116,6 +118,55 @@
   font-size: 2.5rem; /* text-3xl */
   color: #3b3939;
   margin-bottom: 50px; /* 下側の余白 */
+}
+
+.favoritesContainer {
+  margin: 0;
+}
+
+.favoritesContainer h2 {
+  font-family: "Yusei Magic", sans-serif;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.favoritesList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.favoriteBtn {
+  align-items: center;
+  background-color: #fff9e6;
+  border: 1px solid #f0c040;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.favoriteBtn:hover {
+  background-color: #fff2cc;
+}
+
+.favoriteIcon {
+  color: #f5c518;
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.favoriteLabel {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.favoriteText {
+  white-space: nowrap;
 }
 
 .select_row {
@@ -244,6 +295,117 @@ transform: translateY(2px); /* 押し込んだように */
   width: 210px; /* セルの幅を固定 */
 }
 
+.editCreateTable {
+  width: 100%;
+  margin: 0;
+}
+
+/* 編集ボタン */
+.editBtn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  width: 210px;
+  padding: 6px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 8px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.editBtn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.editBtn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+
+.editBtn span {
+  margin-left: 60px; /* アイコンとテキストの間のスペース */
+}
+  
+.editBtn svg {
+  margin-left: 50px; /* アイコンとテキストの間のスペース */
+}
+
+/* 編集完了ボタン */
+.editCreate_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  width: 105px;
+  padding: 6px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 8px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.editCreate_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.editCreate_btn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+
+.editCreate_btn span {
+  margin-left: 5px; /* アイコンとテキストの間のスペース */
+}
+  
+.editCreate_btn svg {
+  margin-left: 5px; /* アイコンとテキストの間のスペース */
+}
+
+/* キャンセルボタン */
+.editCancel_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  width: 130px;
+  padding: 6px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 8px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.editCancel_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.editCancel_btn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
+
+.editCancel_btn span {
+  margin-left: 10px; /* アイコンとテキストの間のスペース */
+}
+  
+.editCancel_btn svg {
+  margin-left: 10px; /* アイコンとテキストの間のスペース */
+}
+
+
 /* 削除ボタン */
 .deleteBtn {
   display: inline-block;
@@ -325,5 +487,11 @@ transform: translateY(2px); /* 押し込んだように */
 
 .registerBtn svg {
   margin-left: 300px; /* アイコンとテキストの間のスペース */
+}
+
+/* errレイアウト */
+.errorInput {
+  border: 1px solid red;
+  background-color: #ffeaea;
 }
   
