@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const PriceInput = ({ onChange, className, error }) => {
+const PriceInput = ({ value, onChange, className, error }) => {
+
+  // 表示用
   const [displayVal, setDisplayVal] = useState("");
+
+  // valueが変更された時に同期
+  useEffect(() => {
+    // valueがnullもしくは空の場合
+    if (value === null || value === "") {
+      setDisplayVal("");
+    } else {
+      const numericValue = String(value || "").replace(/[^\d]/g, "");
+      // numericValueが空の場合
+      if (numericValue === "") {
+        setDisplayVal("");
+      } else {
+        setDisplayVal(Number(numericValue).toLocaleString());
+      }
+    }
+  }, [value]);
 
   // 入力時の処理（数字のみ）
   const handleChange = (e) => {
     const input = e.target.value;
-    // 数字のみを許可
     const numericValue = input.replace(/[^\d]/g, "");
-    const formattedValue = Number(numericValue).toLocaleString();
+    // カンマ付き表示
+    const formattedValue = numericValue === "" ? "" : Number(numericValue).toLocaleString();
     setDisplayVal(formattedValue); // 表示用の値を更新
-    onChange(formattedValue); // 外部に渡す
+    onChange(numericValue); // カンマなし
   };
 
   // フォーカス時、カンマや円を除去して編集しやすくする
