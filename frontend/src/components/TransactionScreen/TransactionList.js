@@ -153,10 +153,21 @@ const TransactionList = () => {
       .filter(item => {
         if (!keyword) return true; // 検索フォームが空なら除外
         if (item.major_sel === 'income') return true; // 収支は検索対象から除外
-        return Array.isArray(item.memos) && 
+
+        // メモ検索
+        const inMemos = Array.isArray(item.memos) && 
           item.memos.some(memo =>
-            String(memo).toLowerCase().includes(keyword) // DBから正常にデータを取得 && 検索ワードに該当すれば大文字小文字関係なくtrueになる
-          );
+          String(memo).toLowerCase().includes(keyword) // DBから正常にデータを取得 && 検索ワードに該当すれば大文字小文字関係なくtrueになる
+        );
+
+         // 英語から日本語に変換
+        const middleJapanese = middleItems[item.middle_sel] || '';
+
+        const inMiddle = middleJapanese.includes(keyword);
+        const inMinor = item.minor_sel?.toLowerCase().includes(keyword);
+
+        return inMemos || inMiddle || inMinor;
+
       });
   }, [groupedTransactions, monthDate, searchTerm]);
 
