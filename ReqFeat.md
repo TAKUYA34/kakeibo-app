@@ -17,7 +17,7 @@
 | **User**                    | user_id（PK）, user_name, email, password, created_at, update_at, role[user, admin]            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時、[ユーザー, 管理者]  |
 | **Transaction**             | transaction_id（PK）, user_id（FK）, category_id（FK）,trans_type[income, expense], amount, total_amount                  | 取引ID、取引するユーザーID、カテゴリID、[収入, 支出]、金額、合計金額 |
 | **Transaction**             | memo, major_sel, middle_sel, minor_sel, create_at, update_at           | [収入, 支出]、詳細、大項目、中項目、小項目、取引年月、登録日時、更新日時  |
-| **Category（検討中）**         | category_id（PK）, user_id（FK）, category_name, category_type[income, expense] |  カテゴリID、ユーザー毎にカスタム、〇〇費、[収入、支出]
+| **Category**         | category_id（PK）, user_id（FK）, category_type[income, expense], major_sel, middle_sel, minor_sel |  カテゴリID、[収入, 支出]、大項目、中項目、小項目
 
 ## API設計
 
@@ -89,7 +89,7 @@
 | POST        | admin/home/users/search | ユーザー検索             |
 | PUT         | admin/home/users/edit:id        | ユーザー編集     |
 | DELETE      | admin/home/users/delete:id      | ユーザー削除     |
-| GET         | admin/home/dashboard/allList    | 全取引一覧画面    |
+| GET         | admin/home/dashboard    | 全取引一覧画面           |
 | GET         | admin/home/report       | お知らせ管理画面          |
 | GET         | admin/home/report/all?limit=3   | 全てのお知らせデータ取得   |
 | POST        | admin/home/report/register      | 新しいお知らせ投稿|
