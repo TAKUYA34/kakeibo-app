@@ -1,11 +1,13 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// // カテゴリーテーブルのスキーマ定義
-// const categorySchema = new mongoose.Schema({
-//   category_id: { type: String, required: true, unique: true },
-//   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },       // ユーザーとの紐付け
-//   category_type: { type: String, enum: ['income', 'expense'], required: true }, // 収入/支出
-//   category_name: { type: String, required: true },
-// });
+const categorySchema = new mongoose.Schema({
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  category_type: { type: String, enum: ['income', 'expense'], required: true },
+  category_major: { type: String, required: true },
+  category_middle: { type: String, required: true },
+  category_minor: { type: String }
+}, {
+  timestamps: true
+});
 
-// module.exports = mongoose.model('Category', categorySchema);
+module.exports = mongoose.model('Category', categorySchema);
