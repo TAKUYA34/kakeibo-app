@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const transactionSchema = new mongoose.Schema({
   transaction_id: { type: String, unique: true },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // ユーザーとの紐付け
-  // category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
   trans_type: { type: String, enum: ['income', 'expense'], required: true }, // 収入/支出
   amount: { type: Number, required: true }, // 金額
   total_amount: { type: Number, required: true }, // 合計金額

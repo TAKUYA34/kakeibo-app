@@ -1,5 +1,5 @@
 const transactionAddRepository = require('../repositories/transactionAddRepository');
-const { mapToTransaction } = require('../mappers/transactionAddMapper');
+const transactionAddMapper = require('../mappers/transactionAddMapper');
 
 async function toAddUserTransactions(transactions, userId) {
   const resultTransactions = []; // 箱
@@ -9,8 +9,10 @@ async function toAddUserTransactions(transactions, userId) {
   transactions.sort((a, b) => new Date(a.trans_date) - new Date(b.trans_date));
 
   for (const tx of transactions) {
+    // nullチェック
+    // console.log('[tx チェック]', tx);
     const txDate = new Date(tx.trans_date); // 各取引の日付
-    const yearMonthKey = `${txDate.getFullYear()}-${String(txDate.getMonth() + 1).padStart(2, '0')}`;
+    const yearMonthKey = `${txDate.getFullYear()}-${String(txDate.getMonth() + 1).padStart(2, '0')}`; // 2025-04-12
 
     // 月の初回はDBからその月の最新total_amountを取得
     if (!runTotalMap.hasOwnProperty(yearMonthKey)) {
@@ -24,17 +26,30 @@ async function toAddUserTransactions(transactions, userId) {
       // total_amount?? = 左側の値が null または undefined のときだけ 0 を出力する
       runTotalMap[yearMonthKey] = lastTotal?.total_amount ?? 0;
     }
-
+    
     const currentAmount = Number(tx.amount) || 0;
     const currentTotal = runTotalMap[yearMonthKey] + currentAmount;
-    const mapped = mapToTransaction(tx, userId, currentTotal); // 累計のみ渡す
+    
+    // 収支 or 支出
+    const trans_type = tx.major === 'income' ? 'income' : 'expense';
+
+    // カテゴリ取得
+    const category = await transactionAddRepository.findOrCreateCategory(
+      userId,
+      trans_type,
+      tx.major, // 'income' or 'expense'
+      tx.middle,
+      tx.minor || ''
+    );
+
+    // Transaction コンバート
+    const mapped = transactionAddMapper.mapToTransaction(tx, userId, currentTotal, category._id); // 累計、IDのみ渡す
     resultTransactions.push(mapped);
 
     // 月ごとの合計も更新しておく
     runTotalMap[yearMonthKey] = currentTotal;
   }
   
-  console.log('合計金額：')
   // 保存
   const savedata = await transactionAddRepository.insertMany(resultTransactions);
 

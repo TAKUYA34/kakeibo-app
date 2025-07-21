@@ -7,8 +7,14 @@ function parseDateTimeAndSecond(dateStr) {
   return dateStr ? new Date(dateStr) : new Date(); // 変換
 }
 
-// モデルにマッピング
-function mapToTransaction(tx, userId, runTotal) {
+// Transaction Mapped
+function mapToTransaction(tx, userId, runTotal, category_id) {
+
+  // なければバリデーション
+  if (!tx.major || !tx.middle) {
+  throw new Error('major or middle category is missing');
+  }
+
   const rawAmount = parseInt(tx.price.replace(/[^\d-]/g, ''), 10); // 数字以外の文字を除去し、整数に変換
   const txAmount = tx.major === 'expense' ? -Math.abs(rawAmount) : Math.abs(rawAmount); // 支出ならマイナス、収入ならプラス
   const txDate = parseDateTimeAndSecond(tx.date); // 日付をパース（時間・秒も対応）
@@ -16,6 +22,7 @@ function mapToTransaction(tx, userId, runTotal) {
   return new Transaction({
     transaction_id: uuidv4(), // UUIDを生成
     user_id: new mongoose.Types.ObjectId(userId), // ユーザーIDをObjectIdに変換
+    category_id: category_id, // カテゴリID
     trans_type: tx.major === 'income' ? 'income' : 'expense', // majorがincomeなら収入、expenseなら支出
     amount: txAmount, // 金額を設定
     total_amount: runTotal, // 現在の合計金額を計算
@@ -29,5 +36,5 @@ function mapToTransaction(tx, userId, runTotal) {
 }
 
 module.exports = {
-  mapToTransaction
+  mapToTransaction,
 };
