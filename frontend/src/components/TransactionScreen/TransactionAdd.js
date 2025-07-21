@@ -3,6 +3,7 @@ import styles from '../../styles/TransactionStatic/TransactionAdd.module.css';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useRef } from 'react';
 import PriceInput from '../../services/PriceInput.js'; // 価格入力コンポーネントをインポート
 
 const TransactionAdd = () => {
@@ -17,7 +18,6 @@ const TransactionAdd = () => {
     }
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
-
   // formの状態を管理するためのuseStateフックを使用
   const [majorSelect, setMajorSelect] = useState('default'); // 大項目
   const [middleSelect, setMiddleSelect] = useState('default'); // 中項目
@@ -30,11 +30,31 @@ const TransactionAdd = () => {
   // errorの状態を管理するためのuseStateフックを使用
   const [majorError, setMajorError] = useState('');
   const [middleError, setMiddleError] = useState('');
-  const [minorError, setMinorError] = useState('');
+  // const [minorError, setMinorError] = useState('');
   const [priceError, setPriceError] = useState('');
 
   // 月別オブジェクト
   const [monthlyTotals, setMonthlyTotals] = useState({}); // key: '2025-07', value: 合計金額
+
+  // 履歴機能を追加
+  const [favorites, setFavorites] = useState([]);
+
+  // 編集中フラグ
+  const [isEditing, setIsEditing] = useState(false);
+
+  // 編集用
+  const [editIndex, setEditIndex] = useState(null); // 編集中の行のインデックス
+  const [formData, setFormData] = useState({
+    major: '',
+    middle: '',
+    minor: '',
+    price: '',
+    priceNum: '',
+    memo: ''
+  });
+
+  // メモにフォーカスを当てるための定数
+  const memoInputRef = useRef(null);
 
   // 大項目データ
   const majorItems = {
@@ -70,7 +90,7 @@ const TransactionAdd = () => {
 
   // 小項目データ
   const minorItems = {
-    rent: ['家賃', '住宅ローン'],
+    rent: ['住宅ローン'],
     utility: ['電気', 'ガス', '水道'],
     food: ['食料品', 'おやつ', '飲み会'],
     dailyNecessities: ['雑貨', '衣類', '家具'],
@@ -83,6 +103,19 @@ const TransactionAdd = () => {
     insurance: ['生命保険', '医療保険', 'がん保険', '自動車保険', '火災保険'],
     entertainment: ['冠婚葬祭', 'レジャー施設', '交通費', '温泉']
   }
+
+    useEffect(() => {
+      // 編集中は初期化しない
+      if (!isEditing) {
+        // 支出・収入の選択が変わったら中項目を初期化
+        setMiddleSelect('default');
+        setFormData(prev => ({ ...prev, middle: '' }));
+      }
+    }, [majorSelect]);
+
+    useEffect(() => {
+      console.log("formDataが更新されました", formData);
+    }, [formData]);
 
   // 日付変更
   const handleDateChange = (e) => {
@@ -106,6 +139,8 @@ const TransactionAdd = () => {
     const value = event.target.value;
     setMajorSelect(value);
 
+    setFormData(prev => ({...prev, major: value}));
+
     if (value === 'income') {
       // 収入が選択された場合
       setMiddleSelect('salary'); // 中項目の初期値を設定
@@ -116,7 +151,12 @@ const TransactionAdd = () => {
   };
 
   const handleMiddleChange = (event) => {
-    setMiddleSelect(event.target.value);
+
+    const selected = event.target.value;
+    setMiddleSelect(selected);
+
+    // 変更時にsetDataをCall
+    setFormData(prev => ({...prev, middle: selected}));
 
     if (minorItems[event.target.value] && minorItems[event.target.value].length > 0) {
       // 中項目に小項目がある場合
@@ -128,7 +168,10 @@ const TransactionAdd = () => {
   };
 
   const handleMinorChange = (event) => {
-    setMinorSelect(event.target.value);
+    const value = event.target.value;
+    setMinorSelect(value);
+
+    setFormData(prev => ({...prev, minor: value}));
   };
 
   const handleAddRow = () => {
@@ -148,16 +191,16 @@ const TransactionAdd = () => {
       setMiddleError('');
     }
 
-    if (minorItems.hasOwnProperty(middleSelect)) {
-      if (!minorSelect || minorSelect === 'default') {
-        setMinorError('小項目を選択してください')
-        hasError = true;
-      } else {
-        setMinorError('');
-      }
-    } else {
-      setMinorError('');
-    }
+    // if (minorItems.hasOwnProperty(middleSelect)) {
+    //   if (!minorSelect || minorSelect === 'default') {
+    //     setMinorError('小項目を選択してください')
+    //     hasError = true;
+    //   } else {
+    //     setMinorError('');
+    //   }
+    // } else {
+    //   setMinorError('');
+    // }
 
     const numericPrice = parseInt(String(price).replace(/[^\d-]/g, ''), 10) || 0; // 数字以外の文字を除去し、整数に変換
 
@@ -186,12 +229,20 @@ const TransactionAdd = () => {
         major: majorSelect,
         middle: middleSelect,
         minor: minorSelect,
-        price: `${numericPrice.toLocaleString()}円`, // 数字をカンマ区切りで表示
+        price: `${signedPrice.toLocaleString()}円`, // 数字をカンマ区切りで表示
         priceNum: signedPrice, // 計算用
-        initialTotal: `${updatedTotal.toLocaleString()}円`, // 合計金額をカンマ区切りで表示
+        total_amount: `${updatedTotal.toLocaleString()}円`, // 合計金額をカンマ区切りで表示
         memo: memo
       }
     ]);
+
+    // お気に入り登録
+    setFavorites(prev => {
+      console.log(formData);
+      const newEntry = { major: formData.major, middle: formData.middle, price: formData.priceNum };
+      const updated = [newEntry, ...prev.filter(item => !(item.major === newEntry.major && item.middle === newEntry.middle && item.price === newEntry.price))];
+      return updated.slice(0, 3); // 最大3つ表示
+    });
 
     // 月ごとの合計金額を更新
     setMonthlyTotals(prev => ({
@@ -203,14 +254,113 @@ const TransactionAdd = () => {
     setMajorSelect('default');
     setMiddleSelect('default');
     setMinorSelect('');
-    setPrice(0);
-    setMemo('');
+    setPrice('');
     setMajorError('');
-    setMiddleError(''); 
-    setMinorError('');
+    setMiddleError('');
+    // setMinorError('');
     setPriceError('');
   };
-  
+
+  // お気に入りボタン押下でフォームにセット
+  const handleFavoriteClick = (major, middle, price) => {
+
+    setIsEditing(true);
+
+    setMajorSelect(major);
+    setMiddleSelect(middle);
+    setPrice(String(price));
+    setFormData(prev => ({
+      ...prev,
+      major: major,
+      middle: middle,
+      priceNum: price
+    }));
+
+    // 次の入力欄にフォーカスを移動したい場合はここで処理
+    memoInputRef.current?.focus();
+  };
+
+  // Row Edit
+  const handleEditClick = (index) => {
+    // 編集フラグON
+    setIsEditing(true);
+
+    const tx = rows[index];
+
+    setFormData({
+      major: tx.major,
+      middle: tx.middle,
+      minor: tx.minor,
+      priceNum: String(tx.priceNum),
+      memo: tx.memo || '',
+    });
+
+    setMajorSelect(tx.major);
+    setMiddleSelect(tx.middle);
+    setMinorSelect(tx.minor);
+    setMemo(tx.memo || '');
+    setPrice(String(tx.priceNum));
+
+    setEditIndex(index); // 編集モードを有効にする
+  };
+
+  // Cancelボタン押下時
+  const handleCancelEdit = () => {
+    setEditIndex(null);
+    setFormData({
+      major: '',
+      middle: '',
+      minor: '',
+      priceNum: '',
+      memo: '',
+    });
+    setMajorSelect('default');
+    setMiddleSelect('default');
+    setMinorSelect('');
+    setMemo('');
+    setPrice('');
+  };
+
+  // Saveボタン押下時
+  const handleSaveEdit = () => {
+    const newRows = [...rows];
+    const oldRow = newRows[editIndex];
+
+    const updatedPriceNum = Number(formData.priceNum);
+    const updatedPrice = `${updatedPriceNum.toLocaleString()}円`;
+
+    // 行の更新
+    newRows[editIndex] = {
+      ...oldRow, // date, total_amount などを維持
+      middle: formData.middle,
+      minor: formData.minor,
+      price: updatedPrice,
+      priceNum: updatedPriceNum,
+      memo: formData.memo,
+    };
+
+    // 合計金額の更新
+    const updatedTotal = newRows.reduce((acc, row) => acc + row.priceNum, 0);
+    newRows[editIndex].total_amount = `${updatedTotal.toLocaleString()}円`;
+
+    // 状態を更新
+    setRows(newRows);
+    console.log(newRows);
+    setEditIndex(null);
+    setFormData({
+      major: '',
+      middle: '',
+      minor: '',
+      priceNum: '',
+      memo: '',
+    });
+    setMajorSelect('');
+    setMiddleSelect('');
+    setMinorSelect('');
+    setMemo('');
+    setPrice('');
+  };
+
   // Row Delete
   const handleDeleteRow = (indexToDelete) => {
     const deletedRow = rows[indexToDelete]; // 削除する行を取得
@@ -280,13 +430,13 @@ const TransactionAdd = () => {
           <div className={styles.category_row}>
             <h1>Category</h1>
             <label>大項目：</label>
-            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect'>
+            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect' disabled={editIndex !== null}>
               <option value='default'>-- 大項目 --</option>
               {Object.entries(majorItems).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
               ))}
             </select>
-            {majorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{majorError}</div>}
+            {majorError && <div style={{ color: 'red', textAlign: 'center' }}>{majorError}</div>}
           </div>
 
           <div className={styles.date_row}>
@@ -310,9 +460,33 @@ const TransactionAdd = () => {
         <div className={styles.items_row}>
           <div className={styles.items_Container}>
             <h1>Items</h1>
+
+            {/* お気に入り表示 */}
+            {favorites.length > 0 && (
+              <div className={styles.favoritesContainer}>
+                <h2>お気に入りテンプレート</h2>
+                <div className={styles.favoritesList}>
+                  {favorites.map(({ major, middle, price }, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={styles.favoriteBtn}
+                      onClick={() => handleFavoriteClick(major, middle, price)}
+                    >
+                      <span className={styles.favoriteIcon}>★</span>
+                      <span className={styles.favoriteLabel}>お気に入り{i + 1}</span>
+                      <span className={styles.favoriteText}>
+                        {middle} - {price.toLocaleString()}円
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className={styles.select_row}>
               <label className={styles.label_middle}>中項目：</label>
-              <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect'>
+              <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect' className={middleError ? styles.errorInput : ''}>
                 <option value='default'>-- 中項目 --</option>
                 { majorSelect === 'income' ? (
                   <>
@@ -351,16 +525,28 @@ const TransactionAdd = () => {
                       <option value='default'>選択可能な小項目がありません</option>
                     )}
                   </select>
-                  {minorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{minorError}</div>}
+                  {/*minorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{minorError}</div>*/}
                 </>
               )}
             </div>
 
             <div className={styles.select_row2}>
-              <PriceInput value={price} onChange={setPrice} className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
+              <PriceInput value={price}
+                onChange={(value) => {
+                  setPrice(value);
+                  setFormData(prev => ({ ...prev, priceNum: value }));
+                }}
+                className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
               <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <label htmlFor='memo' className={styles.label_memo}>詳細</label>
-                <textarea name="memo" value={memo} onChange={(e) => setMemo(e.target.value)} placeholder='詳細' rows={4} cols={40} />
+                <textarea name="memo"
+                  ref={memoInputRef}
+                  value={memo}
+                  onChange={(e) => {
+                    setMemo(e.target.value);
+                    setFormData(prev => ({ ...prev, memo: e.target.value }))
+                    }}
+                    placeholder='詳細' rows={4} cols={40} />
               </div>
             </div>
           </div>
@@ -386,6 +572,7 @@ const TransactionAdd = () => {
                 <th>金額</th>
                 <th>合計</th>
                 <th>詳細</th>
+                <th>編集</th>
                 <th>削除</th>
               </tr>
             </thead>
@@ -399,8 +586,35 @@ const TransactionAdd = () => {
                   </td>
                   <td>{row.minor}</td>
                   <td>{row.price}</td>
-                  <td>{row.initialTotal}</td>
+                  <td>{row.total_amount}</td>
                   <td>{row.memo}</td>
+                  <td>
+                    {editIndex === index ? (
+                      <>
+                      <div className={styles.editCreateTable}>
+                        <button onClick={handleSaveEdit} className={styles.editCreate_btn}>
+                          <span>保存する</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                            <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+                          </svg>
+                        </button>
+                        <button onClick={handleCancelEdit} className={styles.editCancel_btn}>
+                          <span>キャンセル</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                            <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      </>
+                    ) : (
+                      <button onClick={() => handleEditClick(index)} className={styles.editBtn}>
+                        <span>編集する</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                          <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+                        </svg>
+                      </button>
+                    )}
+                  </td>
                   <td>
                     <button type="button" name="delete" className={styles.deleteBtn} onClick={() => handleDeleteRow(index)}>
                       <span>削除する</span>
