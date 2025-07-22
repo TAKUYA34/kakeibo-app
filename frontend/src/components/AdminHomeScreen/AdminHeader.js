@@ -29,7 +29,7 @@ const AdminHeader = () => {
                   <Link to="#">ユーザー管理</Link>
                 </li>
                 <li>
-                  <Link to="#">ユーザー取引管理</Link>
+                  <Link to="/admin/home/dashboard">ユーザー取引管理</Link>
                 </li>
                 <li>
                   <Link to="/admin/home/report">お知らせ管理</Link>
