@@ -21,7 +21,7 @@ const getMonthlySummary = async () => {
         month: "$_id.month",
         income: "$totalIncome",
         expense: "$totalExpense",
-        difference: { $subtract: ["$totalIncome", "$totalExpense"] }
+        difference: { $add: ["$totalIncome", "$totalExpense"] } // そのまま足す
       }
     },
     { $sort: { month: 1 } }

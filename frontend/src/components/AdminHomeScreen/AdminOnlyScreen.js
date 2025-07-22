@@ -23,7 +23,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const AdminOnlyScreen = ({ children }) => {
 
   // useState
-  const { adminUser, loading } = useAdminAuth();
+  const { adminUser } = useAdminAuth();
   const [monthlyData, setMonthlyData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
