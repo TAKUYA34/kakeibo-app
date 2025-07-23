@@ -54,7 +54,7 @@ const OverView = () => {
       </div>
 
       <button className={styles.overview_button} onClick={handleButtonClick}>
-        <span className={styles.button_text}>Transaction Add...</span>
+        <span className={styles.button_text}>家計簿を登録する.</span>
         <div className={styles.arrow}>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
             <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>

@@ -1,4 +1,7 @@
 /* ↓↓↓ main1 ↓↓↓ */
+/* OverView.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
+
 .main {
   width: var(--header-width); /* w-full */
   height: 100vh;  /* h-screen */
@@ -67,8 +70,8 @@
 
 .overview_button {
   width: 760px; /* ボタンの幅 */
-  font-family: 'Inspiration', sans-serif; /* フォント */
-  font-weight: bolder; /* 太字 */
+  font-family: "Yusei Magic", sans-serif;
+  font-weight: 300; /* 太字 */
   margin: 100px auto; /* 上マージン + 中央寄せ */
   padding: 20px; /* 余白 */
   border: 1px solid gray; /* 細いボーダー */
