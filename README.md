@@ -65,7 +65,7 @@
 | **管理者認証(完成)**  | ログイン／ログアウト               |
 | **ユーザー全体の統計(完成)** | 全体の概要／統計             |
 | **ユーザー管理**      | ユーザー一覧と編集／削除           |
-| **全取引一覧**       | 全ユーザーの取引一覧               |
+| **全取引一覧**       | 全ユーザーの取引一覧と編集／削除     |
 | **お知らせ(完成)**    | トップ画面に表示される内容の編集     |
 | **システム設定(仮)**  | アプリの基本設定や運用制御          |
 
@@ -73,7 +73,7 @@
 
 | entity(データの種類)          | field(データ名)                      | 詳細                |
 |:----------------------------|:------------------------------------|:-------------------|
-| **Notice**                  | user_id（PK）, title, content, notice_date, created_at, update_at                     | ユーザーID、タイトル、内容、日付、登録日時、更新日時             |
+| **Notice**                  | user_id（PK）, title, content, notice_date, created_at, update_at | ユーザーID、タイトル、内容、日付、登録日時、更新日時 |
 
 ## API設計
 
@@ -87,24 +87,27 @@
 | GET         | admin/home/logout       | ログアウト               |
 | GET         | admin/home/users        | ユーザー管理画面          |
 | POST        | admin/home/users/search | ユーザー検索             |
-| PUT         | admin/home/users/edit:id        | ユーザー編集     |
-| DELETE      | admin/home/users/delete:id      | ユーザー削除     |
-| GET         | admin/home/dashboard    | 全取引一覧画面           |
+| PUT         | admin/home/users/edit/:id       | ユーザー編集     |
+| DELETE      | admin/home/users/delete/:id     | ユーザー削除     |
+| GET         | admin/home/dashboard    | ユーザー取引一覧画面      |
+| POST        | admin/home/dashboard/search     | ユーザー取引検索  |
+| PUT         | admin/home/dashboard/edit/:id   | ユーザー取引編集  |
+| DELETE      | admin/home/dashboard/delete/:id | ユーザー取引削除  |
 | GET         | admin/home/report       | お知らせ管理画面          |
 | GET         | admin/home/report/all?limit=3   | 全てのお知らせデータ取得   |
 | POST        | admin/home/report/register      | 新しいお知らせ投稿|
-| PUT         | admin/home/report/edit:id       | お知らせ編集     |
-| DELETE      | admin/home/report/delete:id     | お知らせ削除     |
+| PUT         | admin/home/report/edit/:id      | お知らせ編集     |
+| DELETE      | admin/home/report/delete/:id    | お知らせ削除     |
 | GET         | admin/home/options      | システム設定画面          |
 
 ## 画面設計
 
-| window(画面)                  | explanation(説明)                  |
-|:-----------------------------|:-----------------------------------|
-| **ログイン画面**                | 管理者がログインを行う                 |
-| **管理者画面**                 | ユーザー全体の概要／統計を表示          |
-| **ユーザー管理画面**            | 一般ユーザーの一覧表示・検索・編集・削除  | 
-| **全取引一覧画面**             | 新しい収入・支出を複数表示              |
-| **お知らせ管理画面**            | お知らせ管理の作成・編集・削除           |
-| **システム設定画面(仮)**        | アプリの基本設定や運用制御              |
+| window(画面)                  | explanation(説明)                     |
+|:-----------------------------|:--------------------------------------|
+| **ログイン画面**                | 管理者がログインを行う                   |
+| **管理者画面**                 | ユーザー全体の概要／統計を表示            |
+| **ユーザー管理画面**            | 一般ユーザーの一覧表示・検索・編集・削除    | 
+| **全取引一覧画面**             | 新しい収入・支出を複数表示・検索・編集・削除 |
+| **お知らせ管理画面**            | お知らせ管理の作成・編集・削除             |
+| **システム設定画面(仮)**        | アプリの基本設定や運用制御                |
 
