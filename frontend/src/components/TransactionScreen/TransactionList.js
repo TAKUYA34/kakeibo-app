@@ -177,7 +177,7 @@ const TransactionList = () => {
         <div className={styles.TransactionListImg} />
           <h1>KAKEIBO LIST</h1>
           <div className={styles.List_row}>
-            <label>年</label>
+            <label>年：</label>
             <select value={yearDate} onChange={(e) => setYearDate(e.target.value)}>
               <option value="">-- 年を選択 --</option>
               {yearOptions.map((year) => (
@@ -185,7 +185,7 @@ const TransactionList = () => {
               ))}
             </select>
 
-            <label>月</label>
+            <label>月：</label>
             <select value={monthDate} onChange={(e) => setMonthDate(e.target.value)}>
               <option value="">-- 月を選択 --</option>
               {monthOptions.map((month) => (
@@ -194,7 +194,7 @@ const TransactionList = () => {
             </select>
           
             {/* 検索入力欄 */}
-            <label htmlFor="search">検索</label>
+            <label htmlFor="search">検索：</label>
             <input
               type="text"
               id="search" // ← labelと対応
