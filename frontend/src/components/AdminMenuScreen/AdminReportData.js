@@ -51,7 +51,7 @@ const AdminReportData = () => {
     if (isEditing) {
       // 更新処理
       try {
-        await axios.put(`http://localhost:5001/api/admin/notices/${editingId}`, {
+        await axios.put(`http://localhost:5001/api/admin/notices/edit/${editingId}`, {
           title,
           content },
           { headers: { Authorization: `Bearer ${adminToken}` } // token追加
@@ -91,7 +91,7 @@ const AdminReportData = () => {
       const confirmDelete = window.confirm('本当に投稿を削除しますか？');
 
       if (confirmDelete) {
-        await axios.delete(`http://localhost:5001/api/admin/notices/${id}`, {
+        await axios.delete(`http://localhost:5001/api/admin/notices/delete/${id}`, {
           headers: { Authorization: `Bearer ${adminToken}` } // token追加
         });
         fetchNotices(); // 再取得

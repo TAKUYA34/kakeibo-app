@@ -5,7 +5,7 @@ const adminReportDataController = require('../controllers/adminReportDataControl
 
 router.get('/notices/all', adminAuth.adminOnly, adminReportDataController.getPaginatedAllNotices);
 router.post('/notices/register', adminAuth.adminOnly, adminReportDataController.createNotice);
-router.put('/notices/:id', adminAuth.adminOnly, adminReportDataController.updateNotice);
-router.delete('/notices/:id', adminAuth.adminOnly, adminReportDataController.deleteNotice);
+router.put('/notices/edit/:id', adminAuth.adminOnly, adminReportDataController.updateNotice);
+router.delete('/notices/delete/:id', adminAuth.adminOnly, adminReportDataController.deleteNotice);
 
 module.exports = router;
