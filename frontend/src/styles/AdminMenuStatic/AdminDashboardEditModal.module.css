@@ -1,0 +1,135 @@
+/* AdminDashboardEditModal.module.css */
+@import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
+
+/* メインコンテナ */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #f0d7ffdd;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 600px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.modalContent h2 {
+  font-family: "UoqMunThenKhung", serif;
+  font-size: 2.5rem; /* text-3xl */
+  text-align: center;
+  color: #825e5e;
+  margin: 0;
+  padding: 20px 0;
+}
+
+/* select Form コンテナ */
+.modalSelectFormContainer {
+  background-color: #b9d0ebdd;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 60%;
+  margin: 20px auto;
+  padding-bottom: 50px;
+}
+
+.modalSelect_row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.modalSelect_row label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  margin-bottom: 6px;
+}
+
+.modalSelect_row select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px; /* 内側の余白 */
+  border: 1px solid #272626; /* 枠線 */ 
+  background-color: #c8c8c8e9; /* 背景色 */
+  border-radius: 10px; /* 角を丸くする */
+  font-size: 1rem; /* フォントサイズ */
+  margin: 10px; /* 左側の余白 */
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23272626' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* 矢印の位置 */
+  background-size: 12px; /* 矢印のサイズ */
+}
+
+.modalSelect_row input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modalSelect_row input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  outline: none;
+}
+
+.modalActionsBtn {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.modalFormCustomize_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 12px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 12px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.modalFormCustomize_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.modalFormCustomize_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.modalFormCustomize_btn span {
+  margin-left: 20px;
+}
+
+.modalFormCustomize_btn svg {
+  margin-left: 20px;
+}
+
+.modalActionsBtn {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}

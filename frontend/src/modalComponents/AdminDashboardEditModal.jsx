@@ -99,45 +99,63 @@ export default function EditModal({ transaction, onClose, onSave }) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h2>取引の編集</h2>
-        <label>大項目</label>
-        <select name="major_sel" value={formValues.major_sel} onChange={handleChange}>
-          {Object.entries(majorItemsENToJA).map(([key, label]) => (
-            <option key={key} value={key}>{label}</option>
-          ))}
-        </select>
-
-        <label>中項目</label>
-        <select name="middle_sel" value={formValues.middle_sel} onChange={handleChange}>
-          <option value="">--選択してください--</option>
-          {getMiddleItems().map(([key, label]) => (
-            <option key={key} value={key}>{label}</option>
-          ))}
-        </select>
-
-        <label>小項目</label>
-        <select name="minor_sel" value={formValues.minor_sel} onChange={handleChange}>
-          <option value="">--選択してください--</option>
-          {getMinorItems().map((item, index) => (
-            <option key={index} value={item}>{item}</option>
-          ))}
-        </select>
-        
-        <label>金額</label>
-        <input
-          name="amount"
-          value={formValues.amount}
-          onChange={handleChange}
-        />
-        <label>メモ</label>
-        <input
-          name="memo"
-          value={formValues.memo}
-          onChange={handleChange}
-        />
-
+        <div className={styles.modalSelectFormContainer}>
+          <div className={styles.modalSelect_row}>
+            <label>大項目</label>
+            <select name="major_sel" value={formValues.major_sel} onChange={handleChange}>
+              {Object.entries(majorItemsENToJA).map(([key, label]) => (
+                <option key={key} value={key}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.modalSelect_row}>
+          <label>中項目</label>
+            <select name="middle_sel" value={formValues.middle_sel} onChange={handleChange}>
+              <option value="">-- 中項目 --</option>
+              {getMiddleItems().map(([key, label]) => (
+                <option key={key} value={key}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.modalSelect_row}>
+            <label>小項目</label>
+            <select name="minor_sel" value={formValues.minor_sel} onChange={handleChange}>
+              <option value="">-- 小項目 --</option>
+              {getMinorItems().map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.modalSelect_row}>
+            <label>金額</label>
+            <input
+              name="amount"
+              value={formValues.amount}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.modalSelect_row}>
+            <label>メモ</label>
+            <input
+              name="memo"
+              value={formValues.memo}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
         <div className={styles.modalActionsBtn}>
-          <button onClick={handleSubmit}>保存</button>
-          <button onClick={onClose}>キャンセル</button>
+          <button onClick={handleSubmit} className={styles.modalFormCustomize_btn}>
+            <span>更新する</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+              <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+            </svg>
+          </button>
+          <button onClick={onClose} className={styles.modalFormCustomize_btn}>
+            <span>キャンセル</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+              <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
