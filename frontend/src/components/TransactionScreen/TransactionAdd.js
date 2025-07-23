@@ -370,14 +370,19 @@ const TransactionAdd = () => {
     const numericPrice = deletedRow.priceNum || 0; // 行の金額を取得
     const delDate = new Date(deletedRow.date); // 日付
     const yearMonthKey = `${delDate.getFullYear()}-${String(delDate.getMonth() + 1).padStart(2, '0')}`;
-  
-    setMonthlyTotals(prev => ({
-      ...prev,
-      [yearMonthKey]: (prev[yearMonthKey] || 0) - numericPrice
-    }));
 
-    // 指定されたインデックスの行を削除
-    setRows(prevRows => prevRows.filter((_, idx) => idx !== indexToDelete));
+    const deleteAlertMessage = window.confirm('データを削除しますか？')
+    
+    // OKボタン押下したら削除する
+    if (deleteAlertMessage) {
+      setMonthlyTotals(prev => ({
+        ...prev,
+        [yearMonthKey]: (prev[yearMonthKey] || 0) - numericPrice
+      }));
+
+      // 指定されたインデックスの行を削除
+      setRows(prevRows => prevRows.filter((_, idx) => idx !== indexToDelete));
+    }
   };
 
   /* 登録するボタン押下時 */
