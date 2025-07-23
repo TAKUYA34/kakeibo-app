@@ -26,7 +26,7 @@ const AdminHeader = () => {
             <nav>
               <ul>
                 <li>
-                  <Link to="#">ユーザー管理</Link>
+                  <Link to="/admin/home/users">ユーザー管理</Link>
                 </li>
                 <li>
                   <Link to="/admin/home/dashboard">ユーザー取引管理</Link>

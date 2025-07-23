@@ -7,6 +7,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminHome from './pages/AdminHome';
 import AdminReport from './pages/AdminReport';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminUsers from './pages/AdminUsers';
 
 
 const AdminApp = () => (
@@ -37,6 +38,14 @@ const AdminApp = () => (
           element={
           <AdminProtectedRoute>
             <AdminDashboard />
+          </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/home/users"
+          element={
+          <AdminProtectedRoute>
+            <AdminUsers />
           </AdminProtectedRoute>
           }
         />
