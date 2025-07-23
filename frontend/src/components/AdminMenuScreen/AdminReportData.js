@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useAdminAuth } from '../../services/AdminAuthContext';
+import { useNavigate } from 'react-router-dom';
 import styles from "../../styles/AdminMenuStatic/AdminReportData.module.css";
 import axios from 'axios';
 
 const AdminReportData = () => {
 
   // useState
+  const { adminUser, loading } = useAdminAuth();
   const [title, setTitle] = useState(''); // タイトル
   const [content, setContent] = useState(''); // お知らせ内容
   const [notices, setNotices] = useState([]); // 全てのお知らせ取得用
@@ -20,15 +23,24 @@ const AdminReportData = () => {
   // input要素参照
   const inputRef = useRef(null);
 
+  // navigate 初期化
+  const navigate = useNavigate();
+
   // ページ取得 初回GETのみ
   useEffect(() => {
+
+    // tokenが切れたらloginページへ
+    if (!adminUser && !loading) {
+      navigate('/admin/login');
+    }
+
     fetchNotices(page);
 
     // 編集ボタンを押下した時、編集formにジャンプする
     if (editingId !== null && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [editingId]);
+  }, [editingId, adminUser, loading]);
 
   // ページごとのお知らせデータを取得
   const fetchNotices = async (pageNumber = 1) => {

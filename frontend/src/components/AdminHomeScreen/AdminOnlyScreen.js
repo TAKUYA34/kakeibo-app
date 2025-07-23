@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAdminAuth } from '../../services/AdminAuthContext';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/AdminHomeStatic/AdminOnlyScreen.module.css';
 
 // ダミーデータに difference を追加
@@ -23,7 +24,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const AdminOnlyScreen = ({ children }) => {
 
   // useState
-  const { adminUser } = useAdminAuth();
+  const { adminUser, loading } = useAdminAuth();
   const [monthlyData, setMonthlyData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,11 +32,15 @@ const AdminOnlyScreen = ({ children }) => {
   // 統計useState
   const [stats, setStats] = useState(null);
 
+  // navigate 初期化
+  const navigate = useNavigate();
+  
   // 一般ユーザー全てのデータを取得し、カテゴリ毎に分ける
   useEffect(() => {
-    if (!adminUser) {
+    // tokenが切れたらloginページへ
+    if (!adminUser && !loading) {
       setIsLoading(false);
-      return; // 未ログイン時は処理しない
+      navigate('/admin/login');
     }
 
     // token取得
@@ -67,7 +72,7 @@ const AdminOnlyScreen = ({ children }) => {
       }
     };
     fetchData();
-  }, [adminUser]);
+  }, [adminUser, loading]);
 
   useEffect(() => {
     if (!adminUser) {

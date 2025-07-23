@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useAdminAuth } from '../../services/AdminAuthContext';
+import { useNavigate } from 'react-router-dom';
 import AdminDashboardEditModal from '../../modalComponents/AdminDashboardEditModal'; // 編集用画面
 import styles from "../../styles/AdminMenuStatic/AdminDashboardData.module.css";
 
 const AdminDashboardData = () => {
 
   // useState
-  const { adminUser } = useAdminAuth(); // ログイン認証
+  const { adminUser, loading } = useAdminAuth(); // ログイン認証
   const [transactions, setTransactions] = useState([]); // 全取引一覧データを格納する箱
   const [isLoading, setIsLoading] = useState(true); // ログインフラグ
 
@@ -25,6 +26,9 @@ const AdminDashboardData = () => {
 
   // token取得
   const adminToken = localStorage.getItem("admin_token");
+
+  // navigate 初期化
+  const navigate = useNavigate();
 
   // en → jaに変更（Table表示用）
   const majorItemsENToJA = {
@@ -82,12 +86,12 @@ const AdminDashboardData = () => {
   };
 
   useEffect(() => {
-    // 未ログイン時は処理しない
-    if (!adminUser) {
+    // tokenが切れたらloginページへ
+    if (!adminUser && !loading) {
       setIsLoading(false);
-      return;
+      navigate('/admin/login');
     }
-  
+    
     /* 全取引一覧 */
     const fetchAllTransactions = async () => {
       try {
@@ -102,7 +106,7 @@ const AdminDashboardData = () => {
       }
     };
     fetchAllTransactions(); // 初期ロード
-  }, [adminUser, adminToken]);
+  }, [adminUser, adminToken, loading]);
 
 
   /* ユーザ名、カテゴリ名、メモ名で検索 */
