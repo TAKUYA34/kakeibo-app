@@ -75,6 +75,12 @@ const CurrentMoneyGraph = () => {
       <div className={styles.moneyGraph_layer}>
         <h2 className={styles.moneyGraph_title}>Current MoneyGraph.</h2>
         <p className={styles.moneyGraph_content}>現在の収支・支出</p>
+
+        <div className={styles.graphTitle_row}>
+          <span>当月の収入と支出の合計金額が棒グラフで表示されます.</span>
+          <span>当月の各カテゴリ毎に登録したデータの合計金額が円グラフで表示されます.</span>
+        </div>
+        
         <div className={styles.graphs}>
           <ResponsiveContainer width="45%" height={500}>
             <BarChart data={barData.length ? barData : dummyBarData}>

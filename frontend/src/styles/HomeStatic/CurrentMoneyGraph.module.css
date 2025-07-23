@@ -1,4 +1,7 @@
 /* ↓↓↓ Graph ↓↓↓ */
+/* CurrentMoneyGraph.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
+
 .moneyGraph {
   width: var(--main2-width); /* w-full */
   height: 100vh;  /* h-screen */
@@ -27,12 +30,28 @@
   font-size: 1.2rem; /* text-lg */
   color: var(--mainSub-color);
   bottom: 70px;
+  margin-bottom: 200px;
+}
+
+/* グラフタイトル */
+.graphTitle_row {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.graphTitle_row span {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 20px;
+  width: 100%;
+  padding: 0 200px;
 }
   
 .graphs {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 200px;
 }
 /* ↑↑↑ Graph ↑↑↑ */
