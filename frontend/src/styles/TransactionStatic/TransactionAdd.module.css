@@ -234,7 +234,7 @@
 
 /* Table */
 .table_row {
-  font-family: "Kiwi Maru", serif;
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
   font-size: 1.2rem; /* text-3xl */
   color: #424141;
   margin: 20px 20px 35px; /* 上、左右、下の余白 */
@@ -292,6 +292,7 @@ transform: translateY(2px); /* 押し込んだように */
 }
 
 .transactionTable td {
+  font-family: "Kiwi Maru", serif;
   background-color: #ffffff;
   width: 210px; /* セルの幅を固定 */
 }
