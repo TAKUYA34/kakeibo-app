@@ -139,7 +139,7 @@ transform: translateY(2px); /* 押し込んだように */
 .notice_list li {
   padding: 20px;
   list-style: none;
-  background-color: #bb8baa;
+  background-color: #bb8baadd;
   border-radius: 40px;
 }
 
