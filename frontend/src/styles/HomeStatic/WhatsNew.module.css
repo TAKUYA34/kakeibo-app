@@ -1,4 +1,7 @@
 /* ↓↓↓ main2 ↓↓↓ */
+@import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:wght@300..900&display=swap');
+
 .main2 {
   width: var(--main2-width); /* w-full */
   height: 100vh;  /* h-screen */
@@ -83,6 +86,14 @@
   color: #ffffff;
   margin: 4rem 0;
   font-size: 1.2rem;
+}
+
+.whatsNew_item strong {
+  font-family: "Winky Rough", sans-serif;
+}
+
+.whatsNew_item div {
+  font-family: "UoqMunThenKhung", serif;
 }
 
 .paginationWrapper {

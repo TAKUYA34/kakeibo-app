@@ -84,7 +84,7 @@ const WhatsNew = () => {
             { notices.map((notice) => (
               <li className={styles.whatsNew_item}>
                 <strong>{new Date(notice.notice_date).toLocaleDateString()}</strong><br />
-                {notice.content}
+                <div>{notice.content}</div>
               </li>
             ))}
           </ul>
