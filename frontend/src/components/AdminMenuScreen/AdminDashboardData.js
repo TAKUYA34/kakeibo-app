@@ -193,75 +193,97 @@ const AdminDashboardData = () => {
   return (    
     <main>
       <div className={styles.AdminDashboardDataContainer}>
+        <div className={styles.AdminDashboardDataImage} />
         <h1>Admin Dashboard</h1>
 
-        <div className={styles.search_row}>
-          <label>ユーザー検索</label>
-          <input
-            type="text"
-            value={userKeyword}
-            onChange={(e) => setUserKeyword(e.target.value)}
-            placeholder="ユーザー名で検索">
-          </input>
-        </div>
+        <div className={styles.searchContainer}>
+          <h2 className={styles.searchTitle}>検索フィルター</h2>
+          <div className={styles.search_row}>
+            <label>
+              ユーザー検索
+              <span>必須</span>
+              </label>
+            <input
+              type="text"
+              value={userKeyword}
+              onChange={(e) => setUserKeyword(e.target.value)}
+              placeholder="ユーザー名で検索">
+            </input>
+          </div>
 
-        <div className={styles.search_row}>
-          <label>カテゴリ検索（大項目）</label>
-          <input
-            type="text"
-            value={categoryMajorKeyword}
-            onChange={(e) => setCategoryMajorKeyword(e.target.value)}
-            placeholder="例: 収支／支出"
-          />
-        </div>
+          <div className={styles.search_row}>
+            <label>
+              カテゴリ検索（大項目）
+              <span>任意</span>
+            </label>
+            <input
+              type="text"
+              value={categoryMajorKeyword}
+              onChange={(e) => setCategoryMajorKeyword(e.target.value)}
+              placeholder="例: 収支／支出"
+            />
+          </div>
 
-        <div className={styles.search_row}>
-          <label>カテゴリ検索（中項目）</label>
-          <input
-            type="text"
-            value={categoryMiddleKeyword}
-            onChange={(e) => setCategoryMiddleKeyword(e.target.value)}
-            placeholder="例: 光熱費"
-          />
-        </div>
+          <div className={styles.search_row}>
+            <label>
+              カテゴリ検索（中項目）
+              <span>任意</span>
+            </label>
+            <input
+              type="text"
+              value={categoryMiddleKeyword}
+              onChange={(e) => setCategoryMiddleKeyword(e.target.value)}
+              placeholder="例: 光熱費"
+            />
+          </div>
 
-        <div className={styles.search_row}>
-          <label>カテゴリ検索（小項目）</label>
-          <input
-            type="text"
-            value={categoryMinorKeyword}
-            onChange={(e) => setCategoryMinorKeyword(e.target.value)}
-            placeholder="例: 電気"
-          />
-        </div>
+          <div className={styles.search_row}>
+            <label>
+              カテゴリ検索（小項目）
+              <span>任意</span>
+            </label>
+            <input
+              type="text"
+              value={categoryMinorKeyword}
+              onChange={(e) => setCategoryMinorKeyword(e.target.value)}
+              placeholder="例: 電気"
+            />
+          </div>
 
-        <div className={styles.search_row}>
-          <label>月検索</label>
-          <input
-            type="text"
-            value={transDateKeyword}
-            onChange={(e) => setTransDateKeyword(e.target.value)}
-            placeholder="例: 07"
-          />
-        </div>
+          <div className={styles.search_row}>
+            <label>
+              月検索
+              <span>任意</span>
+            </label>
+            <input
+              type="text"
+              value={transDateKeyword}
+              onChange={(e) => setTransDateKeyword(e.target.value)}
+              placeholder="例: 07"
+            />
+          </div>
 
-        <div className={styles.search_row}>
-          <label>メモ検索</label>
-          <input
-            type="text"
-            value={memoKeyword}
-            onChange={(e) => setMemoKeyword(e.target.value)}
-            placeholder="メモ名で検索">
-          </input>
-        </div>
+          <div className={styles.search_row}>
+            <label>
+              メモ検索
+              <span>任意</span>
+            </label>
+            <input
+              type="text"
+              value={memoKeyword}
+              onChange={(e) => setMemoKeyword(e.target.value)}
+              placeholder="メモ名で検索">
+            </input>
+          </div>
 
-        <div className={styles.searchBtn_row}>
-          <button onClick={handleSearch} className={styles.search_btn}>
-            <span>検索する</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
-                <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
-              </svg>
-          </button>
+          <div className={styles.searchBtn_row}>
+            <button onClick={handleSearch} className={styles.search_btn}>
+              <span>検索する</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                  <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
+                </svg>
+            </button>
+          </div>
         </div>
 
         <div className={styles.table_row}>
@@ -295,8 +317,8 @@ const AdminDashboardData = () => {
                   <td>{tx.total_amount !== null ? tx.total_amount : "-"}円</td>
                   <td>{tx.memo || "-"}</td>
                   <td>
-                    <div className={styles.reportNotices_btn}>
-                      <button className={styles.customizeNotices_btn} onClick={() => {
+                    <div className={styles.tableRowBtn}>
+                      <button className={styles.customizeRow_btn} onClick={() => {
                         setSelectedTransaction(tx);
                         setIsModalOpen(true);
                       }}>
@@ -308,12 +330,14 @@ const AdminDashboardData = () => {
                     </div>
                   </td>
                   <td>
-                    <button className={styles.customizeNotices_btn} onClick={() => handleDeleteTransaction(tx._id, tx.user_id?.user_name)}>
+                  <div className={styles.tableRowBtn}>
+                    <button className={styles.customizeRow_btn} onClick={() => handleDeleteTransaction(tx._id, tx.user_id?.user_name)}>
                       <span>削除する</span>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
                         <path stroke="currentColor" strokeWidth="0.8" d="m5.791 3.5 3.709 3H2"></path>
                       </svg>
                     </button>
+                  </div>
                   </td>
                 </tr>
               ))}
