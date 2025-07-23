@@ -1,5 +1,6 @@
-
 /* Mainコンテナ */
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
 .TransactionListMainContainer {
   position: relative;
   z-index: 0;
@@ -65,8 +66,17 @@
 }
 
 /* テーブル全体 */
+.listTableContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Kiwi Maru", serif;
+  font-size: 16px;
+}
+
 .listTable {
-  width: auto;
+  width: 90%;
   height: auto;
   table-layout: fixed; /* 均等に配置 */
   border-collapse: collapse; /* セルの間の隙間をなくす */
@@ -92,7 +102,7 @@
 .category_rowColor td {
   font-weight: bold;
   background-color: #c4c5c4;
-  text-align: start;
+  text-align: center;
 }
 
 .total_row {

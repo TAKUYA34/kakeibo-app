@@ -204,192 +204,194 @@ const TransactionList = () => {
             />
           </div>
         
-        <table className={styles.listTable}>
-          <thead>
-            <tr>
-              <th rowSpan={3} colSpan={4}>合計・実績</th>
-              <th rowSpan={2} colspan={12}>{yearDate}年</th>
-              <th rowSpan={4} colSpan={2}>集計</th>
-            </tr>
-            <tr>
-              <th hidden></th>
-            </tr>
-            <tr>
-              <th rowSpan={1} colspan={12}>TableList</th>
-            </tr>
-            <tr>
-              <th>大項目</th>
-              <th>中項目</th>
-              <th>小項目</th>
-              <th>詳細</th>
-              {[...Array(12)].map((_, i) => (
-                <th key={i}>{i + 1}月</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTransactions.map((item, index) => {
-              // 次が別の middle_sel か、末尾なら合計表示対象
-              const isLastMiddle = index === filteredTransactions.length - 1 || filteredTransactions[index + 1]?.middle_sel !== item.middle_sel;
+        <div className={styles.listTableContainer}>
+          <table className={styles.listTable}>
+            <thead>
+              <tr>
+                <th rowSpan={3} colSpan={4}>合計・実績</th>
+                <th rowSpan={2} colspan={12}>{yearDate}年</th>
+                <th rowSpan={4} colSpan={2}>集計</th>
+              </tr>
+              <tr>
+                <th hidden></th>
+              </tr>
+              <tr>
+                <th rowSpan={1} colspan={12}>TableList</th>
+              </tr>
+              <tr>
+                <th>大項目</th>
+                <th>中項目</th>
+                <th>小項目</th>
+                <th>詳細</th>
+                {[...Array(12)].map((_, i) => (
+                  <th key={i}>{i + 1}月</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTransactions.map((item, index) => {
+                // 次が別の middle_sel か、末尾なら合計表示対象
+                const isLastMiddle = index === filteredTransactions.length - 1 || filteredTransactions[index + 1]?.middle_sel !== item.middle_sel;
 
-              return (
-                <React.Fragment key={index}>
-                  <tr className={styles.category_List}>
-                    <td>{majorItems[item.major_sel] || item.major_sel}</td>
-                    <td>{middleItems[item.middle_sel] || item.middle_sel}</td>
-                    <td>{item.minor_sel}</td>
-                    {/* memo.trim() !== '' でnullやundefined、''(空文字)を除外 */}
-                    <td>
-                      {Array.isArray(item.memos)
-                      ? item.memos
-                          .map(memo => String(memo).trim())
-                          .filter(memo => memo !== '')
-                          .join(', ')
-                      : ''} 
-                    </td>
-                    {item.monthly.map((amount, i) => (
-                      <td key={i}>
-                        {(() => {
-                          const shouldShow = !item.highlightMonthOnly || i === item.highlightMonthOnly - 1;
-                          return shouldShow && amount !== 0 ? amount : '';
-                        })()}
+                return (
+                  <React.Fragment key={index}>
+                    <tr className={styles.category_List}>
+                      <td>{majorItems[item.major_sel] || item.major_sel}</td>
+                      <td>{middleItems[item.middle_sel] || item.middle_sel}</td>
+                      <td>{item.minor_sel}</td>
+                      {/* memo.trim() !== '' でnullやundefined、''(空文字)を除外 */}
+                      <td>
+                        {Array.isArray(item.memos)
+                        ? item.memos
+                            .map(memo => String(memo).trim())
+                            .filter(memo => memo !== '')
+                            .join(', ')
+                        : ''} 
                       </td>
-                    ))}
-                    <td colSpan={2}>{item.total}</td>
-                  </tr>
-
-                  {/* middle項目毎の合計行 */}
-                  {isLastMiddle && (
-                    <tr className={styles.category_rowColor}>
-                      <td colSpan={4}>
-                        {middleItems[item.middle_sel] || item.middle_sel} 合計
-                      </td>
-                      {[...Array(12)].map((_, i) => {
-                        const middleTotal = filteredTransactions
-                        .filter(tx => tx.middle_sel === item.middle_sel)
-                        .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
-
-                        return (
-                          <td key={i} className={styles.total_row}>
-                            {(!monthDate || i === Number(monthDate) - 1) ? middleTotal.toLocaleString() : ''}
-                          </td>
-                        );
-                      })}
-                      {/* ← この2列分の合計を表示 */}
-                      <td colSpan={2} className={styles.total_row}>
-                        {
-                          (() => {
-                            // 月検索した時の集計金額
-                            if (monthDate) {
-                              const i = Number(monthDate) - 1;
-                              const monthlySum = filteredTransactions
-                                .filter(tx => tx.middle_sel === item.middle_sel)
-                                .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
-                              return monthlySum.toLocaleString();
-                            } else {
-                              // 全体の集計金額（12ヶ月分合計）
-                              return filteredTransactions
-                                .filter(tx => tx.middle_sel === item.middle_sel)
-                                .reduce(
-                                  (totalSum, tx) => totalSum + tx.monthly.reduce((sum, val) => sum + val, 0),
-                                  0
-                                )
-                                .toLocaleString();
-                            }
-                          })()
-                        }
-                      </td>
+                      {item.monthly.map((amount, i) => (
+                        <td key={i}>
+                          {(() => {
+                            const shouldShow = !item.highlightMonthOnly || i === item.highlightMonthOnly - 1;
+                            return shouldShow && amount !== 0 ? amount : '';
+                          })()}
+                        </td>
+                      ))}
+                      <td colSpan={2}>{item.total}</td>
                     </tr>
-                  )}
-                </React.Fragment>
-              );
-            })}
 
-            {/* 支出合計行（末尾） */}
-            {yearDate && (
-            <>
-              <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>
-                <td colSpan={4}>
-                  {monthDate ? `支出 合計（${monthDate}月）` : '支出 合計'}
-                </td>
-                {[...Array(12)].map((_, i) => {
-                  const total = filteredTransactions
-                    .filter(item => item.major_sel === 'expense')
-                    .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+                    {/* middle項目毎の合計行 */}
+                    {isLastMiddle && (
+                      <tr className={styles.category_rowColor}>
+                        <td colSpan={4}>
+                          {middleItems[item.middle_sel] || item.middle_sel} 合計
+                        </td>
+                        {[...Array(12)].map((_, i) => {
+                          const middleTotal = filteredTransactions
+                          .filter(tx => tx.middle_sel === item.middle_sel)
+                          .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
 
-                  return (
-                    <td key={i} className={styles.total_row}>
-                      {(!monthDate || i === Number(monthDate) - 1)
-                        ? total.toLocaleString()
-                        : ''}
-                    </td>
-                  );
-                })}
-                <td colSpan={2} className={styles.total_row}>
-                  {
-                    (() => {
-                      if (monthDate) {
-                        const i = Number(monthDate) - 1;
-                        return filteredTransactions
-                          .filter(item => item.major_sel === 'expense')
-                          .reduce((sum, item) => sum + (item.monthly[i] || 0), 0)
-                          .toLocaleString();
-                      } else {
-                        return filteredTransactions
-                          .filter(item => item.major_sel === 'expense')
-                          .reduce((totalSum, item) =>
-                            totalSum + item.monthly.reduce((sum, val) => sum + val, 0), 0
-                          )
-                          .toLocaleString();
-                      }
-                    })()
-                  }
-                </td>
-              </tr>
+                          return (
+                            <td key={i} className={styles.total_row}>
+                              {(!monthDate || i === Number(monthDate) - 1) ? middleTotal.toLocaleString() : ''}
+                            </td>
+                          );
+                        })}
+                        {/* ← この2列分の合計を表示 */}
+                        <td colSpan={2} className={styles.total_row}>
+                          {
+                            (() => {
+                              // 月検索した時の集計金額
+                              if (monthDate) {
+                                const i = Number(monthDate) - 1;
+                                const monthlySum = filteredTransactions
+                                  .filter(tx => tx.middle_sel === item.middle_sel)
+                                  .reduce((sum, tx) => sum + (tx.monthly[i] || 0), 0);
+                                return monthlySum.toLocaleString();
+                              } else {
+                                // 全体の集計金額（12ヶ月分合計）
+                                return filteredTransactions
+                                  .filter(tx => tx.middle_sel === item.middle_sel)
+                                  .reduce(
+                                    (totalSum, tx) => totalSum + tx.monthly.reduce((sum, val) => sum + val, 0),
+                                    0
+                                  )
+                                  .toLocaleString();
+                              }
+                            })()
+                          }
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              })}
 
-              {/* トータル合計（収支 + 支出） */}
-              <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0' }}>
-                <td colSpan={4}>収支 + 支出 = 合計金額</td>
-                {[...Array(12)].map((_, i) => {
-                  const income = filteredTransactions
-                    .filter(item => item.major_sel === 'income')
-                    .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+              {/* 支出合計行（末尾） */}
+              {yearDate && (
+              <>
+                <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#f5f5f5' }}>
+                  <td colSpan={4}>
+                    {monthDate ? `支出 合計（${monthDate}月）` : '支出 合計'}
+                  </td>
+                  {[...Array(12)].map((_, i) => {
+                    const total = filteredTransactions
+                      .filter(item => item.major_sel === 'expense')
+                      .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
 
-                  const expense = filteredTransactions
-                    .filter(item => item.major_sel === 'expense')
-                    .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+                    return (
+                      <td key={i} className={styles.total_row}>
+                        {(!monthDate || i === Number(monthDate) - 1)
+                          ? total.toLocaleString()
+                          : ''}
+                      </td>
+                    );
+                  })}
+                  <td colSpan={2} className={styles.total_row}>
+                    {
+                      (() => {
+                        if (monthDate) {
+                          const i = Number(monthDate) - 1;
+                          return filteredTransactions
+                            .filter(item => item.major_sel === 'expense')
+                            .reduce((sum, item) => sum + (item.monthly[i] || 0), 0)
+                            .toLocaleString();
+                        } else {
+                          return filteredTransactions
+                            .filter(item => item.major_sel === 'expense')
+                            .reduce((totalSum, item) =>
+                              totalSum + item.monthly.reduce((sum, val) => sum + val, 0), 0
+                            )
+                            .toLocaleString();
+                        }
+                      })()
+                    }
+                  </td>
+                </tr>
 
-                  const total = income + expense;
+                {/* トータル合計（収支 + 支出） */}
+                <tr className={styles.category_rowColor} style={{ fontWeight: 'bold', backgroundColor: '#e0e0e0' }}>
+                  <td colSpan={4}>収支 + 支出 = 合計金額</td>
+                  {[...Array(12)].map((_, i) => {
+                    const income = filteredTransactions
+                      .filter(item => item.major_sel === 'income')
+                      .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
 
-                  return (
-                    <td key={i} className={styles.total_row}>
-                      {(!monthDate || i === Number(monthDate) - 1)
-                        ? total.toLocaleString()
-                        : ''}
-                    </td>
-                  );
-                })}
-                <td colSpan={2} className={styles.total_row}>
-                  {
-                    (() => {
-                      if (monthDate) {
-                        const i = Number(monthDate) - 1;
-                        const total = filteredTransactions.reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
-                        return total.toLocaleString();
-                      } else {
-                        const total = filteredTransactions.reduce(
-                          (sum, item) => sum + item.monthly.reduce((acc, val) => acc + val, 0), 0
-                        );
-                        return total.toLocaleString();
-                      }
-                    })()
-                  }
-                </td>
-              </tr>
-            </>
-            )}
-          </tbody>
-        </table>
+                    const expense = filteredTransactions
+                      .filter(item => item.major_sel === 'expense')
+                      .reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+
+                    const total = income + expense;
+
+                    return (
+                      <td key={i} className={styles.total_row}>
+                        {(!monthDate || i === Number(monthDate) - 1)
+                          ? total.toLocaleString()
+                          : ''}
+                      </td>
+                    );
+                  })}
+                  <td colSpan={2} className={styles.total_row}>
+                    {
+                      (() => {
+                        if (monthDate) {
+                          const i = Number(monthDate) - 1;
+                          const total = filteredTransactions.reduce((sum, item) => sum + (item.monthly[i] || 0), 0);
+                          return total.toLocaleString();
+                        } else {
+                          const total = filteredTransactions.reduce(
+                            (sum, item) => sum + item.monthly.reduce((acc, val) => acc + val, 0), 0
+                          );
+                          return total.toLocaleString();
+                        }
+                      })()
+                    }
+                  </td>
+                </tr>
+              </>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   );

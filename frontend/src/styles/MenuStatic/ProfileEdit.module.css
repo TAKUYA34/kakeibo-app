@@ -1,3 +1,6 @@
+/* ProfileEdit.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
+
 .profileEditContainer {
   position: relative;
   z-index: 0;
@@ -34,6 +37,7 @@
 }
 
 .profile_row label {
+  font-family: "Yusei Magic", sans-serif;
   font-size: 1.2rem; /* ラベルのフォントサイズ */
   font-weight: bold; /* ラベルの太さ */
   margin-bottom: 0.5rem; /* ラベルと入力フィールドの間のスペース */

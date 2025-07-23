@@ -128,13 +128,13 @@ const Header = ({ text = "Simple Money Logs..." }) => {
                     { showMenu && (
                       <ul className={styles.dropdownMenu}>
                         <li className={styles.dropdownItem}>
-                          <Link className={styles.dropdownLink} to='#' target='_self'>Inventory</Link>
-                        </li>
-                        <li className={styles.dropdownItem}>
                           <Link className={styles.dropdownLink} to='/home/export' target='_self'>Export</Link>
                         </li>
                         <li className={styles.dropdownItem}>
                           <Link className={styles.dropdownLink} to='/home/profile' target='_self'>profile</Link>
+                        </li>
+                        <li className={styles.dropdownItem}>
+                          <Link className={styles.dropdownLink} to='#' target='_self'>coming soon...</Link>
                         </li>
                       </ul>
                     )}
