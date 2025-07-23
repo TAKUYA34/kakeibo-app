@@ -1,6 +1,8 @@
 /* ↓↓↓ main2 ↓↓↓ */
+/* WhatsNew.module.css */
 @import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Winky+Rough:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap');
 
 .main2 {
   width: var(--main2-width); /* w-full */
@@ -132,26 +134,25 @@
   transform: translateY(-2px); /* 少し浮かせる */
   }
   
-  .pagination_btn:active {
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
-  transform: translateY(2px); /* 押し込んだように */
-  }
-  
-  .pagination_btn span {
-    font-size: 15px;
-    margin-left: 10px;
-  }
-  
-  .pagination_btn svg {
-    margin-left: 10px;
-  }
+.pagination_btn:active {
+box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+transform: translateY(2px); /* 押し込んだように */
+}
 
+.pagination_btn span {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.pagination_btn svg {
+  margin-left: 10px;
+}
 
 .whatsNew_button {
   position: relative; /* 相対位置 */
   width: 760px; /* ボタンの幅 */
-  font-family: 'Inspiration', sans-serif; /* フォント */
-  font-weight: bolder; /* 太字 */
+  font-family: "Yusei Magic", sans-serif;
+  font-weight: 300;
   margin: 100px auto; /* 上マージン + 中央寄せ */
   padding: 20px; /* 余白 */
   border: 1px solid gray; /* 細いボーダー */
