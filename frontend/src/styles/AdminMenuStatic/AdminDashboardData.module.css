@@ -1,0 +1,227 @@
+/* AdminDashboardData.module.css */
+@import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+/* Mainコンテナ */
+.AdminDashboardDataContainer {
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+  padding-bottom: 50px;
+}
+
+/* 背景部分 */
+.AdminDashboardDataImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/AdminDashboardData.jpeg'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1; /* 最背面 */
+}
+
+
+.AdminDashboardDataContainer h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 3rem; /* text-3xl */
+  text-align: center;
+  color: #fefefe;
+  margin: 0;
+  padding: 70px 0;
+}
+
+/* 検索フォームコンテナ */
+.searchContainer {
+  background-color: #b9caebdd;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 60%;
+  margin: 20px auto;
+  padding-bottom: 50px;
+}
+
+.searchTitle {
+  font-size: 25px;
+  font-family: "UoqMunThenKhung", serif;
+  color: #333;
+  text-align: center;
+}
+
+.search_row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.search_row label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  margin-bottom: 6px;
+}
+
+.search_row span {
+  display: inline-block;
+  width: 5%; /* 幅は固定推奨 */
+  background-color: #ec8e62;
+  text-align: center;
+  margin-left: 8px;
+  border-radius: 4px;
+}
+
+.search_row input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search_row input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  outline: none;
+}
+
+.searchBtn_row {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.search_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.search_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.search_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.search_btn span {
+  margin-left: 20px;
+}
+
+.search_btn svg {
+  margin-left: 20px;
+}
+
+  /* テーブルフォームコンテナ */
+.table_row {
+  width: 100%;
+  height: 100%;
+}
+
+.tableContainer {
+  width: 90%;
+  margin: 0 auto;
+  font-family: "Kiwi Maru", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px #0000001a;
+}
+
+.tableContainer th,
+.tableContainer td {
+  background-color: #ffffff33;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.tableContainer th {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.tableContainer thead th {
+  background-color: #666397dd;
+}
+
+tbody tr:hover {
+  background-color: #16daf44d;
+}
+
+tbody td {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+
+tbody td:hover::before {
+  content: "";
+  position: absolute;
+  background-color: #0ae8b84d;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 背景として表示されるように */
+  border-radius: 4px; /* 任意: 丸み */
+}
+
+.tableRowBtn {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.customizeRow_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 8px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 10px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.customizeRow_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.customizeRow_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.customizeRow_btn span {
+  margin-left: 20px;
+}
+
+.customizeRow_btn svg {
+  margin-left: 20px;
+}
