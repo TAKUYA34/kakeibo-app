@@ -11,6 +11,7 @@ const TransactionAdd = () => {
   const { user, isLoading } = useAuth(); // useAuthフックを使用して認証情報を取得
   const navigate = useNavigate(); // useNavigateフックを使用してページ遷移を管理
 
+  /* 未ログイン時はログイン画面にリダイレクト */
   useEffect(() => {
     if (!user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
@@ -55,6 +56,9 @@ const TransactionAdd = () => {
 
   // メモにフォーカスを当てるための定数
   const memoInputRef = useRef(null);
+
+  // 編集ボタンを押したら大項目にフォーカスを当てる
+  const majorInputRef = useRef(null);
 
   // 大項目データ
   const majorItems = {
@@ -104,20 +108,17 @@ const TransactionAdd = () => {
     entertainment: ['冠婚葬祭', 'レジャー施設', '交通費', '温泉']
   }
 
-    useEffect(() => {
-      // 編集中は初期化しない
-      if (!isEditing) {
-        // 支出・収入の選択が変わったら中項目を初期化
-        setMiddleSelect('default');
-        setFormData(prev => ({ ...prev, middle: '' }));
-      }
-    }, [majorSelect]);
+  /* 編集モード時は大項目フィルタON */
+  useEffect(() => {
+    // 編集中は初期化しない
+    if (!isEditing) {
+      // 支出・収入の選択が変わったら中項目を初期化
+      setMiddleSelect('default');
+      setFormData(prev => ({ ...prev, middle: '' }));
+    }
+  }, [majorSelect]);
 
-    useEffect(() => {
-      console.log("formDataが更新されました", formData);
-    }, [formData]);
-
-  // 日付変更
+  /* 日付変更 */
   const handleDateChange = (e) => {
     const selectedDate = e.target.value; // '2025-01-29'
     const [year, month, day] = selectedDate.split('-').map(Number);
@@ -127,7 +128,7 @@ const TransactionAdd = () => {
     setDate(newDate);
   };
 
-  // 時間変更 (hiddenで使用)
+  /* 時間変更 (hiddenで使用) */
   const handleTimeChange = (e) => {
     const [hourStr, minuteStr] = e.target.value.split(':');
     const newDate = new Date(date);
@@ -135,6 +136,7 @@ const TransactionAdd = () => {
     setDate(newDate);
   };
 
+  /* major Select */
   const handleMajorChange = (event) => {
     const value = event.target.value;
     setMajorSelect(value);
@@ -150,6 +152,7 @@ const TransactionAdd = () => {
     }
   };
 
+  /* middle Select */
   const handleMiddleChange = (event) => {
 
     const selected = event.target.value;
@@ -157,23 +160,17 @@ const TransactionAdd = () => {
 
     // 変更時にsetDataをCall
     setFormData(prev => ({...prev, middle: selected}));
-
-    if (minorItems[event.target.value] && minorItems[event.target.value].length > 0) {
-      // 中項目に小項目がある場合
-      setMinorSelect('default'); // 小項目の初期値を設定
-    } else {
-      // 他の中項目が選択された場合
-      setMinorSelect('');
-    }
   };
 
+  /* minor Select */
   const handleMinorChange = (event) => {
     const value = event.target.value;
     setMinorSelect(value);
 
     setFormData(prev => ({...prev, minor: value}));
   };
-
+  
+  /* 追加ボタン押下時 */
   const handleAddRow = () => {
     let hasError = false;
 
@@ -222,6 +219,7 @@ const TransactionAdd = () => {
     const currentMonthTotal = monthlyTotals[yearMonthKey] || 0;
     const updatedTotal = currentMonthTotal + signedPrice;
 
+    // formのデータをTableに渡す
     setRows([
       ...rows,
       {
@@ -236,19 +234,20 @@ const TransactionAdd = () => {
       }
     ]);
 
-    // お気に入り登録
+    /* お気に入り登録 */
     setFavorites(prev => {
-      console.log(formData);
+      // console.log(formData);
       const newEntry = { major: formData.major, middle: formData.middle, price: formData.priceNum };
       const updated = [newEntry, ...prev.filter(item => !(item.major === newEntry.major && item.middle === newEntry.middle && item.price === newEntry.price))];
       return updated.slice(0, 3); // 最大3つ表示
     });
 
-    // 月ごとの合計金額を更新
+    /* 月ごとの合計金額を更新 */
     setMonthlyTotals(prev => ({
       ...prev,
       [yearMonthKey]: updatedTotal
     }));
+    console.log(minorSelect);
 
     // 入力フィールドをリセット
     setMajorSelect('default');
@@ -259,9 +258,10 @@ const TransactionAdd = () => {
     setMiddleError('');
     // setMinorError('');
     setPriceError('');
+
   };
 
-  // お気に入りボタン押下でフォームにセット
+  /* お気に入りボタン押下でフォームにセット */
   const handleFavoriteClick = (major, middle, price) => {
 
     setIsEditing(true);
@@ -280,7 +280,7 @@ const TransactionAdd = () => {
     memoInputRef.current?.focus();
   };
 
-  // Row Edit
+  /* 編集ボタン押下時 */
   const handleEditClick = (index) => {
     // 編集フラグON
     setIsEditing(true);
@@ -302,9 +302,11 @@ const TransactionAdd = () => {
     setPrice(String(tx.priceNum));
 
     setEditIndex(index); // 編集モードを有効にする
+
+    majorInputRef.current?.focus();
   };
 
-  // Cancelボタン押下時
+  /* Cancelボタン押下時 */
   const handleCancelEdit = () => {
     setEditIndex(null);
     setFormData({
@@ -321,7 +323,7 @@ const TransactionAdd = () => {
     setPrice('');
   };
 
-  // Saveボタン押下時
+  /* Saveボタン押下時 */
   const handleSaveEdit = () => {
     const newRows = [...rows];
     const oldRow = newRows[editIndex];
@@ -361,7 +363,7 @@ const TransactionAdd = () => {
     setPrice('');
   };
 
-  // Row Delete
+  /* 削除ボタン押下時 */
   const handleDeleteRow = (indexToDelete) => {
     const deletedRow = rows[indexToDelete]; // 削除する行を取得
 
@@ -378,6 +380,7 @@ const TransactionAdd = () => {
     setRows(prevRows => prevRows.filter((_, idx) => idx !== indexToDelete));
   };
 
+  /* 登録するボタン押下時 */
   const handleRegister = async () => {
 
     if (rows.length === 0) {
@@ -410,7 +413,7 @@ const TransactionAdd = () => {
         throw new Error('サーバーエラーが発生しました。' + errorText);
       }
       
-      alert('テーブルの登録が完了しました。');
+      alert(`${rows.length}件のデータ登録が完了しました。`);
       setRows([]); // 登録後にテーブルをクリア
     } catch (error) {
       alert('テーブルの登録に失敗しました。');
@@ -430,7 +433,7 @@ const TransactionAdd = () => {
           <div className={styles.category_row}>
             <h1>Category</h1>
             <label>大項目：</label>
-            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect' disabled={editIndex !== null}>
+            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect' disabled={editIndex !== null} ref={majorInputRef}>
               <option value='default'>-- 大項目 --</option>
               {Object.entries(majorItems).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
@@ -515,14 +518,14 @@ const TransactionAdd = () => {
                 <>
                   <label className={styles.label_minor}>小項目：</label>
                   <select value={minorSelect} onChange={handleMinorChange} name='minorSelect'>
-                    <option value='default'>-- 小項目 --</option>
+                    <option value=''>-- 小項目 --</option>
                     { minorItems[middleSelect] && minorItems[middleSelect].length > 0 ? (
                       minorItems[middleSelect].map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                       ))
                       /* 中項目の選択に応じて小項目を表示 */
                       ) : (
-                      <option value='default'>選択可能な小項目がありません</option>
+                      <option value=''>選択可能な小項目がありません</option>
                     )}
                   </select>
                   {/*minorError && <div style={{ color: 'red', textAlign: 'center', marginTop: '8px' }}>{minorError}</div>*/}
