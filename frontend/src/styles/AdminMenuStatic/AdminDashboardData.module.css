@@ -150,9 +150,14 @@
   box-shadow: 0 0 20px #00000033;
 }
 
-.tableContainer th,
-.tableContainer td {
+.tableContainer th {
   background-color: #ffffff33;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.tableContainer td {
+  text-align: center;
   padding: 10px;
   color: #ffffff;
 }

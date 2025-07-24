@@ -29,7 +29,7 @@
 }
 
 .modalContent {
-  background: #f0d7ffdd;
+  background: #180d1fdd;
   padding: 2rem;
   border-radius: 8px;
   min-width: 600px;
@@ -41,14 +41,14 @@
   font-family: "UoqMunThenKhung", serif;
   font-size: 2.5rem; /* text-3xl */
   text-align: center;
-  color: #825e5e;
+  color: #f6f3f3;
   margin: 0;
   padding: 20px 0;
 }
 
 /* select Form コンテナ */
 .modalSelectFormContainer {
-  background-color: #b9d0ebdd;
+  background-color: #ffffffdf;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
