@@ -3,6 +3,9 @@ import { createContext, useState, useContext, useEffect } from "react";
 // ログイン状態を管理するためのコンテキストを作成
 const AuthContext = createContext();
 
+// token
+  const token = localStorage.getItem("token");
+
 // アプリ全体にログイン状態を提供するプロバイダーコンポーネント
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -46,7 +49,6 @@ export const AuthProvider = ({ children }) => {
   };
   // ローカルストレージにトークンがあればログイン状態を復元する
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       // ユーザー情報を取得
       fetch(`${API_URL}/api/home/me`, {
@@ -77,9 +79,30 @@ export const AuthProvider = ({ children }) => {
   }, [API_URL]);
 
   // ログアウト処理
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("token"); // ローカルストレージからトークン削除
+  const logout = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/home/logout/flag`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('ログアウト失敗');
+      }
+      
+      const data = await response.json();
+      console.log('ログアウト成功', data.message);
+
+      // ローカルのログイン状態をクリア
+      setUser(null);
+      localStorage.removeItem("token"); // ローカルストレージからトークン削除
+
+    } catch (err) {
+      console.error('ログアウトAPIエラー:', err.message);
+    }
   };
 
   return (

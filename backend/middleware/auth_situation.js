@@ -5,7 +5,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // ユーザーチェック
 const authenticate = (req, res, next) => {
   const authHeader = req.headers['authorization']; 
-  const token = authHeader && authHeader.split(' ')[1]; 
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) return res.sendStatus(401);
 
@@ -14,6 +14,7 @@ const authenticate = (req, res, next) => {
     req.user = decoded; // { email, id, role }
     next();
   } catch (err) {
+    // console.error('JWT verification error:', err);
     return res.sendStatus(403); // トークンが無効または期限切れ
   }
 };

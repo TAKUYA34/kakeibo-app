@@ -27,6 +27,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'ユーザーが見つかりません。' });
     }
 
+    // ログイン中にステータスを変更する
+    await User.updateOne({ _id: user._id }, { $set: { is_logged_in: true } });
+
     // パスワード照合
     const isMatch = await bcrypt.compare(password, user.password);
     // ログ出力
@@ -63,10 +66,11 @@ router.get('/me', authenticate, async (req, res) => {
   }
 });
 
+/* ユーザー登録 */
 router.post('/register', async (req, res) => {
   const { user_name, email, password } = req.body;
   try {
-    console.log('🪪 req.user:', req.user); // ここでどのユーザーと認識されているか確認
+    console.log('req.user:', req.user); // ここでどのユーザーと認識されているか確認
     // ユーザー名とメールアドレスの重複チェック
     const allUsers = await User.find({}, 'password');
 
@@ -96,6 +100,21 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.error('登録エラー:', err);
     res.status(500).json({ message: 'サーバーエラーが発生しました。' });
+  }
+});
+
+/* ログアウト */
+router.post('/logout/flag', authenticate, async (req, res) => {
+  try {
+    const userId = req.user.id; // JWTから取得されたID
+
+    // 未ログイン状態に変更
+    await User.updateOne({ _id: userId }, { $set: { is_logged_in: false } });
+    
+    return res.status(200).json({ message: 'ログアウトしました' });
+  } catch (err) {
+    console.error('ログアウトエラー', err);
+    return res.status(500).json({ message: 'ログアウト処理中にエラーが発生しました' });
   }
 });
 

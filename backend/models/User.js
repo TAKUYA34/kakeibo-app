@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['user', 'admin'],
     default: 'user'
-  }
+  },
+  is_logged_in: { type: Boolean, default: false } // ログインフラグ
 });
 
 module.exports = mongoose.model('User', userSchema);

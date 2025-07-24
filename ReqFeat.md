@@ -31,6 +31,7 @@
 | POST        | /home/login             | ログイン画面             |
 | POST        | /home/me                | 認証                    |
 | GET         | /home/logout            | ログアウト               |
+| POST        | /home/logout/flag       | ログイン状態             |
 | GET         | /home/profile           | ユーザー情報画面          |
 | PUT         | /home/profile/edit:id   | ユーザー情報編集          |
 | DELETE      | /home/profile/delete:id | ユーザー情報削除          |
