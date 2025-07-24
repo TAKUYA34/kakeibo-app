@@ -26,6 +26,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
   // 条件設定
   const isSignUpPage = path === '/home/register';
   const isLoginPage = path === '/home/login';
+  const isPasswordResetPage = path === '/home/login/password/reset';
   // header画像インデックス
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showImage, setShowImage] = useState(true); // 画像表示フラグ
@@ -73,7 +74,7 @@ const Header = ({ text = "Simple Money Logs..." }) => {
   return (
     // headerScreen
     <>
-      {(!isSignUpPage && !isLoginPage) && (
+      {(!isSignUpPage && !isLoginPage && !isPasswordResetPage) && (
         <main className={styles.mainContainer}>
 
           {/* 画像のコンテナ */}
