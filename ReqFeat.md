@@ -3,6 +3,7 @@
 | features(機能)            | detail(詳細)                    |
 |:-------------------------|:--------------------------------|
 | **ユーザー認証(完成)**      | ユーザー登録／ログイン／ログアウト   |
+| **パスワード初期化**         | パスワードを初期化する            |
 | **プロフィール編集(完成)**    | ユーザー情報編集／ユーザー情報削除   |
 | **取引追加(完成)**         | 収支・支出の登録／削除             |
 | **在庫管理(検討中)**       | 在庫管理を作成／編集／削除          |
@@ -14,7 +15,7 @@
 
 | entity(データの種類)          | field(データ名)                      | 詳細                |
 |:----------------------------|:------------------------------------|:-------------------|
-| **User**                    | user_id（PK）, user_name, email, password, created_at, update_at, role[user, admin]            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時、[ユーザー, 管理者]  |
+| **User**                    | user_id（PK）, user_name, email, password, created_at, update_at, role[user, admin], is_logged_in, resetPasswordToken, resetPasswordExpires            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時、[ユーザー, 管理者]、ログインステータス、パスワード初期化用token、token有効期限  |
 | **Transaction**             | transaction_id（PK）, user_id（FK）, category_id（FK）,trans_type[income, expense], amount, total_amount                  | 取引ID、取引するユーザーID、カテゴリID、[収入, 支出]、金額、合計金額 |
 | **Transaction**             | memo, major_sel, middle_sel, minor_sel, create_at, update_at           | [収入, 支出]、詳細、大項目、中項目、小項目、取引年月、登録日時、更新日時  |
 | **Category**         | category_id（PK）, user_id（FK）, category_type[income, expense], major_sel, middle_sel, minor_sel |  カテゴリID、[収入, 支出]、大項目、中項目、小項目
