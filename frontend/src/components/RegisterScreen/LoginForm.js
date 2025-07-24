@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../services/AuthContext";
+import { Link } from "react-router-dom";
 import styles from '../../styles/RegisterStatic/LoginForm.module.css'; // スタイルシートのインポート
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
@@ -72,10 +73,14 @@ const Login = () => {
         <button type="submit" className={styles.LoginBtn} disabled = {loading || !email || !password}>{loading ? "ログイン中..." : "ログイン"}</button>
       </form>
       <p className={styles.navFooter_main}>
-        <a className={styles.navFooter_a} href="/home/register" target="_self">アカウントをお持ちでない方はこちら</a>
+        <Link className={styles.navFooter_a} to="/home/register" target="_self">アカウントをお持ちでない方はこちら</Link>
       </p>
+      <p className={styles.passwordResetContent}>
+        <Link className={styles.navFooter_a} to="/home/login/password/reset" target="_self">パスワードを忘れた方はこちら</Link>
+      </p>
+
     </div>
   );
 };
 
-export default Login;
+export default LoginForm;

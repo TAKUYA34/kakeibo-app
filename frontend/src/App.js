@@ -10,6 +10,7 @@ import Transactions from "./pages/Transactions.js";
 import TransDataList from "./pages/TransDataList.js";
 import ExportData from "./pages/ExportData.js";
 import UsersEdit from "./pages/UsersEdit.js";
+import PasswordReset from "./pages/PasswordReset.js";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/home/login" element={<Login />} />
           <Route path="/home/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/home/login/password/reset" element={<PasswordReset />} />
           <Route path="/" element={<Navigate to="/home" /> }/>
 
           {/* 一般ユーザー画面 認証が必要 */}
