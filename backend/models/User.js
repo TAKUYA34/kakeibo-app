@@ -14,7 +14,9 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user'
   },
-  is_logged_in: { type: Boolean, default: false } // ログインフラグ
+  is_logged_in: { type: Boolean, default: false }, // ログインフラグ
+  resetPasswordToken: { type: String }, // パスワードリセット用 token
+  resetPasswordExpires: { type: Date } // token有効期限
 });
 
 module.exports = mongoose.model('User', userSchema);
