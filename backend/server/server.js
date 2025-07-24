@@ -8,14 +8,15 @@ const transactionAddRoutes = require('../routes/transactionAddRoutes'); // ト�
 const transactionListRoutes = require('../routes/transactionListRoutes'); // トランザクションリスト
 const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes'); // homeグラフ
 const whatsNewRoutes = require('../routes/whatsNewRoutes'); // お知らせ表示
-const ExportPDFAndCSV = require('../routes/exportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
+const exportPDFAndCSV = require('../routes/exportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
 const profileEditRoutes = require('../routes/profileEditRoutes'); // プロフィール編集
 
 // 管理者用
 const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者ログイン認証
 const adminOnlyScreen = require('../routes/adminOnlyScreenRoutes'); // 管理者home画面の統計データ
-const AdminReportData = require('../routes/adminReportDataRoutes'); // 管理者お知らせ画面の各処理
-const AdminDashboardData = require('../routes/adminDashboardDataRoutes'); // 管理者ユーザー取引管理画面の各処理
+const adminReportData = require('../routes/adminReportDataRoutes'); // 管理者お知らせ画面の各処理
+const adminDashboardData = require('../routes/adminDashboardDataRoutes'); // 管理者ユーザー取引管理画面の各処理
+const adminUsersManagementData = require('../routes/adminUsersManagementDataRoutes'); // 管理者ユーザー管理画面の各処理
 
 require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
@@ -50,14 +51,15 @@ app.use('/api/transactions', transactionAddRoutes); // トランザクション�
 app.use('/api/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
 app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
 app.use('/api/home', whatsNewRoutes); // お知らせ表示のルーティングを使用
-app.use('/api/transactions', ExportPDFAndCSV); // PDF or CSV出力データのルーティングを使用
+app.use('/api/transactions', exportPDFAndCSV); // PDF or CSV出力データのルーティングを使用
 app.use('/api/home', profileEditRoutes); // プロフィール編集のルーティングを使用
 
 // 管理者用ルーティング
 app.use('/api/admin', authLoginFormRoutes); // 管理者ログイン認証のルーティングを使用
 app.use('/api/admin', adminOnlyScreen); // 管理者home画面の統計データのルーティングを使用
-app.use('/api/admin', AdminReportData); // 管理者お知らせ画面の各処理のルーティングを使用
-app.use('/api/admin', AdminDashboardData); // 管理者ユーザー取引管理画面の各処理のルーティングを使用
+app.use('/api/admin', adminReportData); // 管理者お知らせ画面の各処理のルーティングを使用
+app.use('/api/admin', adminDashboardData); // 管理者ユーザー取引管理画面の各処理のルーティングを使用
+app.use('/api/admin', adminUsersManagementData); // 管理者ユーザー管理画面の各処理のルーティングを使用
 
 
 // サーバー起動
