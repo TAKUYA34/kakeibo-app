@@ -44,7 +44,7 @@ const AdminHeader = () => {
         </div>
       </header>
       <div style={{
-        height: '200px',
+        height: '150px',
         background: 'linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%)',
         display: 'flex',
         alignItems: 'center',
