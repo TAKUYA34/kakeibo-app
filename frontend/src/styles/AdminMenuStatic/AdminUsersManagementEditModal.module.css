@@ -1,0 +1,117 @@
+/* AdminUsersManagementEditModal.module.css */
+@import url('https://fonts.googleapis.com/css2?family=UoqMunThenKhung&display=swap');
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* メインコンテナ */
+.modalOverlayContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeInScale 0.3s ease-out;
+}
+
+/* フォームコンテナ */
+.modalContent {
+  background-color: rgba(60, 16, 13, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 40%;
+  height: 60%;
+  margin: 0 auto;
+  max-width: 90%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.modalContent h2 {
+  font-family: "UoqMunThenKhung", serif;
+  font-size: 2.5rem; /* text-3xl */
+  text-align: center;
+  color: #e7d8d8;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.modalContent label {
+  color: aliceblue;
+  display: block;
+  text-align: start;
+}
+
+.modalContent input {
+  width: 90%;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modalContent select {
+  width: 92.5%;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ボタンフォームコンテナ */
+.editUpdateUser_row {
+  display: flex;
+  margin: 20px auto;
+  padding-top: 20px;
+}
+
+.updateUserCustomize_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 12px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 12px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.updateUserCustomize_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.updateUserCustomize_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.updateUserCustomize_btn span {
+  margin-left: 20px;
+}
+
+.updateUserCustomize_btn svg {
+  margin-left: 20px;
+}
+

@@ -1,0 +1,250 @@
+/* AdminUsersManagementData.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+/* Mainコンテナ */
+.AdminUsersManagementDataContainer {
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+  padding-bottom: 50px;
+}
+
+/* 背景部分 */
+.AdminUsersManagementDataImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/AdminUsersManagementData.JPG'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1; /* 最背面 */
+}
+
+.AdminUsersManagementDataContainer h1 {
+  font-family: 'Irish Grover', sans-serif; /* font-irish */
+  font-size: 3rem; /* text-3xl */
+  text-align: center;
+  color: #5fffe2;
+  margin: 0;
+  padding: 70px 0;
+}
+
+/* ユーザー検索フォーム */
+.UsersSearch_row {
+  width: 60%;
+  height: 100%;
+  background-color: #9dffedaa;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 50px;
+  margin-bottom: 50px;
+}
+
+.UsersSearch_row label {
+  font-family: "UoqMunThenKhung", serif;
+  font-size: 25px;
+  display: block;
+  margin: 20px;
+}
+
+.UsersSearch_row input {
+  width: 50%;
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.UsersSearch_row input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  outline: none;
+}
+
+.userSearchSelectBtn {
+  margin: 30px auto;
+  padding-top: 40px;
+}
+
+.searchUserCustomize_btn {
+  width: 30%;
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.searchUserCustomize_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.searchUserCustomize_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.searchUserCustomize_btn span {
+  margin-left: 90px;
+}
+
+.searchUserCustomize_btn svg {
+  margin-left: 90px;
+}
+
+/* テーブルフォームコンテナ */
+.usersTable_row {
+  width: 100%;
+  height: 100%;
+}
+
+.usersTableContainer {
+  width: 90%;
+  margin: 0 auto;
+  font-family: "Kiwi Maru", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px #00000045;
+}
+
+.usersTableContainer th {
+  background-color: #ffffff67;
+  padding: 10px;
+  color: #282e08;
+}
+
+.usersTableContainer td {
+  text-align: center;
+  padding: 10px;
+  color: #114134;
+}
+
+.usersTableContainer th {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.usersTableContainer thead th {
+  background-color: #f9f8aedd;
+}
+
+.usersTableContainer tbody tr:hover {
+  background-color: #0414218d;
+}
+
+.usersTableContainer tbody td {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+
+.usersTableContainer tbody td:hover::before {
+  content: "";
+  position: absolute;
+  background-color: #a9edfbdd;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 背景として表示されるように */
+  border-radius: 4px; /* 任意: 丸み */
+}
+
+/* 編集ボタン用 */
+.editUser_row {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.editUserCustomize_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 8px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 10px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.editUserCustomize_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.editUserCustomize_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.editUserCustomize_btn span {
+  margin-left: 20px;
+}
+
+.editUserCustomize_btn svg {
+  margin-left: 20px;
+}
+
+/* 削除ボタン用 */
+.deleteUser_row {
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.deleteUserCustomize_btn {
+  font-family: 'Inspiration', sans-serif; /* フォント */
+  font-weight: bolder; /* 太字 */
+  padding: 8px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 10px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.deleteUserCustomize_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+}
+  
+.deleteUserCustomize_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+}
+  
+.deleteUserCustomize_btn span {
+  margin-left: 20px;
+}
+
+.deleteUserCustomize_btn svg {
+  margin-left: 20px;
+}
+
