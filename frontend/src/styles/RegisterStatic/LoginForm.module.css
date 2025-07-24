@@ -88,3 +88,7 @@ button {
   color: #dc5a5a; /* text-black */
   text-decoration: underline; /* 下線を付ける */
 }
+
+.passwordResetContent {
+  margin: 30px;
+}
