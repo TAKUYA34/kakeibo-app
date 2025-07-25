@@ -115,10 +115,11 @@
 }
 
 .items_row h1 {
+  margin: 0;
   font-family: 'Irish Grover', sans-serif; /* font-irish */
   font-size: 2.5rem; /* text-3xl */
   color: #3b3939;
-  margin-bottom: 50px; /* 下側の余白 */
+  margin-bottom: 20px; /* 下側の余白 */
 }
 
 .favoritesContainer {
@@ -300,6 +301,19 @@ transform: translateY(2px); /* 押し込んだように */
 .editCreateTable {
   width: 100%;
   margin: 0;
+}
+
+/* 編集中モードメッセージ */
+.editingMessage {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.editingMessage p {
+  display: inline;
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 30px;
+  color: red;
 }
 
 /* 編集ボタン */

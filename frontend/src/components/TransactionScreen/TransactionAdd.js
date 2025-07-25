@@ -58,7 +58,7 @@ const TransactionAdd = () => {
   const memoInputRef = useRef(null);
 
   // 編集ボタンを押したら大項目にフォーカスを当てる
-  const majorInputRef = useRef(null);
+  const middleInputRef = useRef(null);
 
   // 大項目データ
   const majorItems = {
@@ -303,11 +303,12 @@ const TransactionAdd = () => {
 
     setEditIndex(index); // 編集モードを有効にする
 
-    majorInputRef.current?.focus();
+    middleInputRef.current?.focus();
   };
 
   /* Cancelボタン押下時 */
   const handleCancelEdit = () => {
+    setIsEditing(false); // 編集フラグ OFF
     setEditIndex(null);
     setFormData({
       major: '',
@@ -438,7 +439,7 @@ const TransactionAdd = () => {
           <div className={styles.category_row}>
             <h1>Category</h1>
             <label>大項目：</label>
-            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect' disabled={editIndex !== null} ref={majorInputRef}>
+            <select value={majorSelect} onChange={handleMajorChange} name='majorSelect' disabled={editIndex !== null}>
               <option value='default'>-- 大項目 --</option>
               {Object.entries(majorItems).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
@@ -464,11 +465,15 @@ const TransactionAdd = () => {
           </div>
         </div>
         <hr />
-
+        {/* 編集中メッセージ表示 */}
+        {isEditing && (
+          <div className={styles.editingMessage}>
+            <p>編集中...</p>
+          </div>
+        )}
         <div className={styles.items_row}>
           <div className={styles.items_Container}>
             <h1>Items</h1>
-
             {/* お気に入り表示 */}
             {favorites.length > 0 && (
               <div className={styles.favoritesContainer}>
@@ -494,7 +499,7 @@ const TransactionAdd = () => {
 
             <div className={styles.select_row}>
               <label className={styles.label_middle}>中項目：</label>
-              <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect' className={middleError ? styles.errorInput : ''}>
+              <select value={middleSelect} onChange={handleMiddleChange} name='middleSelect' className={middleError ? styles.errorInput : ''}  ref={middleInputRef}>
                 <option value='default'>-- 中項目 --</option>
                 { majorSelect === 'income' ? (
                   <>
