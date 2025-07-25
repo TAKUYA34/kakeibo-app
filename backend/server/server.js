@@ -10,7 +10,8 @@ const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes'); //
 const whatsNewRoutes = require('../routes/whatsNewRoutes'); // お知らせ表示
 const exportPDFAndCSV = require('../routes/exportPDFAndCSVRoutes'); // PDFもしくはCSVを出力する
 const profileEditRoutes = require('../routes/profileEditRoutes'); // プロフィール編集
-const requestPasswordReset = require('../routes/requestPasswordResetRotes'); // passwordリセット申請
+const requestPasswordReset = require('../routes/requestPasswordResetRoutes'); // passwordリセット申請
+const passwordReEnrollment = require('../routes/passwordReEnrollmentRoutes'); // password再登録
 
 // 管理者用
 const authLoginFormRoutes = require('../routes/authLoginFormRoutes'); // 管理者ログイン認証
@@ -55,6 +56,7 @@ app.use('/api/home', whatsNewRoutes); // お知らせ表示のルーティング
 app.use('/api/transactions', exportPDFAndCSV); // PDF or CSV出力データのルーティングを使用
 app.use('/api/home', profileEditRoutes); // プロフィール編集のルーティングを使用
 app.use('/api/auth', requestPasswordReset); // passwordリセット申請のルーティングを使用
+app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用
 
 // 管理者用ルーティング
 app.use('/api/admin', authLoginFormRoutes); // 管理者ログイン認証のルーティングを使用
