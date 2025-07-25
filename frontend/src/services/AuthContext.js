@@ -4,7 +4,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 const AuthContext = createContext();
 
 // token
-  const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
 // アプリ全体にログイン状態を提供するプロバイダーコンポーネント
 export const AuthProvider = ({ children }) => {
@@ -80,6 +80,7 @@ export const AuthProvider = ({ children }) => {
 
   // ログアウト処理
   const logout = async () => {
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(`${API_URL}/api/home/logout/flag`, {
         method: 'POST',

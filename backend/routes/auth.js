@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
     // JWTトークン生成
     const token = jwt.sign({ email: user.email, id: user._id, role: user.role },
       JWT_SECRET, {
-      expiresIn: '7d',
+      expiresIn: '1h',
     });
 
     return res.status(200).json({ token });
