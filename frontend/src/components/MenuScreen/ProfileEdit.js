@@ -11,6 +11,11 @@ const ProfileEdit = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // Navigateを使用してリダイレクト
 
+  // バリデーションメッセージ
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
   useEffect(() => {
@@ -29,8 +34,20 @@ const ProfileEdit = () => {
     }
   }, [user]);
 
+  /* 変更ボタン押下 */
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 入力変更していない場合
+    if (username === user.user_name && email === user.email && password === "") {
+      setNameError("名前とメールアドレスが変更されていません");
+      return;
+    }
+
+    // エラーリセット
+    setNameError("");
+    setEmailError("");
+    setPasswordError("");
 
     try {
       const token = localStorage.getItem("token"); // トークンを取得
@@ -47,10 +64,19 @@ const ProfileEdit = () => {
           password: password || undefined // パスワードが空の場合はundefinedにする
         }),
       });
-      console.log("Profile updated:", res.ok ); // デバッグ用ログ
 
+      const data = await res.json(); // errorメッセージも取得する
+
+      console.log("Profile updated:", res.ok ); // デバッグ用ログ
       if (!res.ok) {
-        throw new Error("更新に失敗しました");
+        if (data.message.includes("メールアドレス")) {
+          setEmailError(data.message);
+        } else if (data.message.includes("パスワード")) {
+          setPasswordError(data.message);
+        } else {
+          setNameError(data.message);
+        }
+        return;
       }
 
       setUser({
@@ -67,6 +93,7 @@ const ProfileEdit = () => {
     }
   };
 
+  /* 削除ボタン押下 */
   const handleDelete = async (e) => {
     e.preventDefault();
 
@@ -110,6 +137,7 @@ const ProfileEdit = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
+            {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
             <div>
               <label>メールアドレス</label><br />
               <input
@@ -118,6 +146,7 @@ const ProfileEdit = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+            {emailError && <div style={{ color: 'red' }}>{emailError}</div>}
             <div>
               <label>パスワード</label><br />
               <input
@@ -127,6 +156,7 @@ const ProfileEdit = () => {
                 placeholder="空欄の場合は変更なし"
               />
             </div>
+            {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
           </div><hr />
           <div className={styles.btn_row}>
             <h1>Profile Update</h1>

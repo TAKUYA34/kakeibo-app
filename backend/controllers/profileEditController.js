@@ -1,5 +1,6 @@
 const profileEditService = require('../services/profileEditService');
 
+/* 更新 */
 const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -9,17 +10,18 @@ const updateProfile = async (req, res) => {
     const result = await profileEditService.updateUserProfile(userId, user_name, email, password);
 
     if (!result) {
-      console.log("⚠️ 更新失敗: userが見つからない or 更新不可");
+      console.log("更新失敗: userが見つからない or 更新不可");
       return res.status(404).json({ message: 'ユーザー情報の更新に失敗しました' });
     }
 
     res.json({ message: 'プロフィールを更新しました' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'サーバーエラー' });
+    res.status(500).json({ message: error.message });
   }
 };
 
+/* 削除 */
 const deleteProfile = async (req, res) => {
   try {
     const userId = req.user.id;

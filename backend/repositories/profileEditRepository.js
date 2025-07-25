@@ -2,6 +2,17 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
 
+/* ユーザーデータを取得する */
+const existingUser = async (userId) => {
+  return await User.findById(userId);
+};
+
+// 他のユーザーがこのメールアドレスを使っていないかチェック
+const emailOwner = async (email) => {
+  return await User.findOne({ email });
+};
+
+/* ユーザー情報をDBに更新する */
 const updateUserById = async (userId, updateFields) => {
   // userIdがUUID形式であることを確認
   if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -36,5 +47,7 @@ const deleteUserById = async (userId) => {
 
 module.exports = {
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  emailOwner,
+  existingUser
 };
