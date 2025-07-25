@@ -1,4 +1,4 @@
-/* RequestResetForm.js */
+/* RequestPasswordReset.js */
 import { useState } from "react";
 import axios from "axios";
 import styles from "../../styles/PasswordStatic/RequestPasswordReset.module.css";
@@ -8,8 +8,8 @@ const RequestPasswordReset = () => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = async () => {
-    await axios.post('/api/auth/password/request', { email });
-    alert('リセットメールを送信しました');
+    await axios.post('http://localhost:5001/api/auth/password/request', { email });
+    alert('パスワードをリセットするメールを送信しました');
   };
 
   return (
@@ -19,10 +19,11 @@ const RequestPasswordReset = () => {
           <h2>Kakeibo App</h2>
         </a>
       </div>
-      <h1>Reset Password</h1>
-      <p>あなたのメールアドレスを入力してください</p>
+      <h1>Request Re Password</h1>
+      <p>登録したメールアドレスを入力してください</p>
       <div className={styles.requestPasswordForm_row}>
         <form onSubmit={handleSubmit}>
+          <label>メールアドレス</label>
           <input type="email" value={email} placeholder="例：email@example.com" onChange={e => setEmail(e.target.value)} />
           <button type="submit" className={styles.requestSubmit_btn}>送信</button>
         </form>
