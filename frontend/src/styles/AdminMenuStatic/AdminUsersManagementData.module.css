@@ -6,7 +6,7 @@
   position: relative;
   z-index: 0;
   margin: 0;
-  padding: 0;
+  padding: 0; 
   width: auto;
   height: auto;
   padding-bottom: 50px;
@@ -136,7 +136,7 @@
 .usersTableContainer td {
   text-align: center;
   padding: 10px;
-  color: #114134;
+  color: #ffffff;
 }
 
 .usersTableContainer th {
