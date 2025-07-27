@@ -36,7 +36,7 @@
 .statCard {
   background: #fed9c0;
   padding: 2rem 0;
-  border-radius: 8px;
+  border-radius: 10px 40px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1; /* Flexboxでカードを均等に配置 */
   text-align: center;
