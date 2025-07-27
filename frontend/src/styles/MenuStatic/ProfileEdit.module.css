@@ -34,6 +34,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
+  margin-bottom: 100px;
 }
 
 .profile_row label {
@@ -46,10 +48,15 @@
 
 .profile_row input {
   padding: 0.5rem;
-  margin-bottom: 3rem; /* 入力フィールドの下のスペース */
   font-size: 1rem;
   border-radius: 0.5rem;
   border: 1px solid gray; /* 細いボーダー */
+}
+
+/* errorフォーム */
+.profileErrorForm {
+  color: red;
+  margin-left: 130px;
 }
 
 .btn_row {

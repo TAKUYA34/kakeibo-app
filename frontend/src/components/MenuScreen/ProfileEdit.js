@@ -137,7 +137,7 @@ const ProfileEdit = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
+            {nameError && <div className={styles.profileErrorForm}>{nameError}</div>}
             <div>
               <label>メールアドレス</label><br />
               <input
@@ -146,7 +146,7 @@ const ProfileEdit = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+            {emailError && <div className={styles.profileErrorForm}>{emailError}</div>}
             <div>
               <label>パスワード</label><br />
               <input
@@ -156,7 +156,7 @@ const ProfileEdit = () => {
                 placeholder="空欄の場合は変更なし"
               />
             </div>
-            {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+            {passwordError && <div className={styles.profileErrorForm}>{passwordError}</div>}
           </div><hr />
           <div className={styles.btn_row}>
             <h1>Profile Update</h1>
