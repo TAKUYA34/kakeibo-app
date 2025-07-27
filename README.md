@@ -2,7 +2,9 @@
 #### 一般ユーザー
 | features(機能)            | detail(詳細)                    |
 |:-------------------------|:--------------------------------|
-| **ユーザー認証(完成)**      | ユーザー登録／ログイン／ログアウト   |
+| **ユーザー認証(完成)**      | ユーザー登録／ログイン／ログアウト    |
+| **パスワードリセット(完成)**    | パスワードをリセットする            |
+| **パスワード再登録(完成)**    | パスワードを初期化して再登録する     |
 | **プロフィール編集(完成)**    | ユーザー情報編集／ユーザー情報削除   |
 | **取引追加(完成)**         | 収支・支出の登録／削除             |
 | **在庫管理(検討中)**       | 在庫管理を作成／編集／削除          |
@@ -14,7 +16,7 @@
 
 | entity(データの種類)          | field(データ名)                      | 詳細                |
 |:----------------------------|:------------------------------------|:-------------------|
-| **User**                    | user_id（PK）, user_name, email, password, created_at, update_at, role[user, admin]            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時、[ユーザー, 管理者]  |
+| **User**                    | user_id（PK）, user_name, email, password, created_at, update_at, role[user, admin], is_logged_in, resetPasswordToken, resetPasswordExpires            | ユーザーID、ユーザーネーム、メールアドレス、パスワード、登録日時、更新日時、[ユーザー, 管理者]、ログインステータス、パスワード初期化用token、token有効期限  |
 | **Transaction**             | transaction_id（PK）, user_id（FK）, category_id（FK）,trans_type[income, expense], amount, total_amount                  | 取引ID、取引するユーザーID、カテゴリID、[収入, 支出]、金額、合計金額 |
 | **Transaction**             | memo, major_sel, middle_sel, minor_sel, create_at, update_at           | [収入, 支出]、詳細、大項目、中項目、小項目、取引年月、登録日時、更新日時  |
 | **Category**         | category_id（PK）, user_id（FK）, category_type[income, expense], major_sel, middle_sel, minor_sel |  カテゴリID、[収入, 支出]、大項目、中項目、小項目
@@ -29,6 +31,8 @@
 | GET         | /summary/categories     | カテゴリデータ取得        |
 | POST        | /home/register          | ユーザー登録画面          |
 | POST        | /home/login             | ログイン画面             |
+| POST        | /home/auth/password/request        | パスワード復旧リクエスト  |
+| POST        | /home/auth/password/password-reset | パスワード再登録         |
 | POST        | /home/me                | 認証                    |
 | GET         | /home/logout            | ログアウト               |
 | POST        | /home/logout/flag       | ログイン状態             |
@@ -36,13 +40,13 @@
 | PUT         | /home/profile/edit:id   | ユーザー情報編集          |
 | DELETE      | /home/profile/delete:id | ユーザー情報削除          |
 | GET         | /home/transaction/list  | 取引一覧画面 + 年データ取得 |
-| GET         | /home/transaction/aggregate     | 取引一覧画面集計データ取得  |
-| POST        | /home/transaction/list/search   | 取引一覧画面検索  |
+| GET         | /home/transaction/aggregate        | 取引一覧画面集計データ取得  |
+| POST        | /home/transaction/list/search      | 取引一覧画面検索  |
 | GET         | /home/transaction/add   | 取引追加画面             |
-| POST        | /home/transaction/add/register  | 取引追加画面追加  |
+| POST        | /home/transaction/add/register     | 取引追加画面追加  |
 | GET         | /home/inventory         | 在庫管理画面             |
 | POST        | /home/inventory/edit:id | 在庫管理画面編集          |
-| DELETE      | /home/inventory/delete:id       | 在庫管理画面削除  |
+| DELETE      | /home/inventory/delete:id          | 在庫管理画面削除  |
 | GET         | /home/export/csv        | CSVエクスポート          |
 | GET         | /home/export/pdf        | PDFエクスポート          |
 
@@ -51,6 +55,7 @@
 | window(画面)                  | explanation(説明)                  |
 |:-----------------------------|:-----------------------------------|
 | **ログイン／新規登録画面**        | ユーザーがログイン・登録を行う         |
+| **パスワードリクエスト／パスワードリセット画面**        | ユーザーがログイン・登録を行う  |
 | **ホーム画面**                 | 収支の概要やグラフを表示               |
 | **プロフィール画面**             | ユーザーの情報を表示                  |
 | **取引一覧画面**               | 取引の一覧表示・検索・編集・削除        | 
