@@ -140,7 +140,7 @@ transform: translateY(2px); /* 押し込んだように */
   padding: 20px;
   list-style: none;
   background-color: #bb8baadd;
-  border-radius: 40px;
+  border-radius: 140px 20px 140px;
 }
 
 .notice_list p {
