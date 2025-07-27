@@ -19,7 +19,7 @@ const CurrentMoneyGraph = () => {
     { middle: 'other', minor: 'サンプル', value: 1 },
   ];
 
-  const COLORS = ["#8b0000", "#ff4500", "#ffa500", "#32cd32", "#20b2aa"];
+  const COLORS = ["#78706cff", "#ff4500", "#ffa500", "#32cd32", "#20b2aa", "#9e48b6ff", "#d33990ff"];
   
   const { user } = useAuth(); // useAuthフックを使用して認証情報を取得
   const navigate = useNavigate();
@@ -92,8 +92,8 @@ const CurrentMoneyGraph = () => {
                   return [value, labelMap[name] || name];
                 }}
               />
-              <Bar dataKey="income" fill="#4285F4" />
-              <Bar dataKey="expense" fill="#FF3D00" />
+              <Bar dataKey="income" fill="#48628eff" />
+              <Bar dataKey="expense" fill="#f99779ff" />
             </BarChart>
           </ResponsiveContainer>
 
