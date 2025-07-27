@@ -22,4 +22,5 @@ footer p {
 
 .adminFooterMenu a:hover {
   color: rgb(66, 247, 247);
+  text-decoration: underline;
 }
