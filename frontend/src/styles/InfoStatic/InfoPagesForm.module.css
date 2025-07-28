@@ -1,0 +1,131 @@
+/* InfoStatic/InfoPagesForm.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+/* infoPagesFormコンテナ */
+.infoPagesFormContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  z-index: 0;
+}
+
+/* 背景のイメージ部分 */
+.InfoPagesFormImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../public/images/InfoPagesForm.jpeg'); /* 背景画像パス */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1; /* 最背面 */
+}
+
+/* message部分 */
+.section_row {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(255, 244, 230, 0.8);
+  border-radius: 40px 10px 40px 10px;
+}
+
+.section_row h2 {
+  margin: 0;
+  padding: 30px;
+  font-family: "Hachi Maru Pop", sans-serif;
+  font-size: 40px;
+}
+
+.section_row p {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 20px;
+}
+
+.section_row strong {
+  font-family: "Hachi Maru Pop", sans-serif;
+  display: block;
+  font-size: 25px;
+}
+
+/* 問い合わせフォーム */
+.messageSendSuccess {
+  font-family: "Yusei Magic", sans-serif;
+  color: red;
+}
+
+.contactForm {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contactForm_row {
+  margin-bottom: 20px;
+}
+
+.contactForm label {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
+  width: 30%; /* ラベル幅を統一 */
+  font-weight: bold;
+  padding-top: 6px;
+  text-align: start;
+}
+
+.contactForm input,
+.contactForm textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* sendフォーム */
+.contactFormBtn {
+  width: 60%;
+  margin: 50px auto;
+}
+
+.contactForm_btn {
+  font-weight: bolder; /* 太字 */
+  padding: 16px; /* 余白 */
+  border: 1px solid gray; /* 細いボーダー */
+  border-radius: 20px; /* 角を丸く */
+  background: white; /* 背景色 */
+  font-size: 1.2rem; /* フォントサイズ */
+  cursor: pointer; /* マウスオーバー時のカーソル */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 影で立体感 */
+  transition: all 0.2s ease-in-out;
+  text-align: start; /* テキストを左寄せ */
+}
+
+.contactForm_btn:hover {
+  background: #e6e5e5; /* ホバー時に色を変える */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影を小さくして押し感 */
+  transform: translateY(-2px); /* 少し浮かせる */
+  }
+  
+  .contactForm_btn:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内側の影 */
+  transform: translateY(2px); /* 押し込んだように */
+  }
+  
+  .contactForm_btn span {
+    margin-left: 100px;
+  }
+  
+  .contactForm_btn svg {
+    margin-left: 100px;
+  }
