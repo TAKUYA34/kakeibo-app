@@ -19,7 +19,7 @@ const dummyCategoryData = [
   { name: 'その他', value: 10000 }
 ];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#ff4842ff', '#8442ffff', '#ec42ffff'];
 
 const AdminOnlyScreen = ({ children }) => {
 
