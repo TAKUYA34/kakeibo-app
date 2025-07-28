@@ -66,13 +66,6 @@ async function aggregateCategorySummary(userId) {
     {
       // 統合
       $project: {
-        name: {
-          $cond: [
-            { $ne: ['$_id.minor', ''] },
-            { $concat: ['$_id.middle', '$_id.minor'] },
-            '$_id.middle'
-          ]
-        },
         middle: '$_id.middle',
         minor: '$_id.minor',
         value: 1,
