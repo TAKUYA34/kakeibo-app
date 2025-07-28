@@ -70,8 +70,6 @@ const CurrentMoneyGraph = () => {
         
         setBarData(barJson);
         setPieData(pieJson);
-
-        console.log('pieでーた', pieJson);
         
       } catch (err) {
         console.error('グラフデータ取得失敗:', err);
