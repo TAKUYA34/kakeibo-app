@@ -1,5 +1,6 @@
 const Notice = require('../models/Notice');
 
+/* お知らせデータを取得し、ページ数と表示数を制御する */
 async function getNoticesByPage(page, limit) {
   const skip = (page - 1) * limit; // 1 = 3件
 
