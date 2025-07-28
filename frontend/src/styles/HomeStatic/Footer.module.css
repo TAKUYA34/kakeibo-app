@@ -3,50 +3,52 @@ footer {
   margin: 0 auto;
 }
 
+/* footer side left */
 .footerContent {
-  height: 550px;
-  position: relative; /* 相対位置 */
+  height: auto;
+  width: auto;
   background: #a19d9d; /* 背景色 */
   color: white;
   margin: 0;
+  padding: 0;
 }
 
 .footerTop_Content {
-  display: flex;
-  margin: -1.5rem 2rem; /**/
-  flex-direction: column; /* 縦並び */
+  display: flex; /* 横並びにする */
+  justify-content: space-between; /* 幅寄せ */
+  margin: 0;
+  padding: 1rem;
+  padding-left: 4rem;
 }
 
 .footerTop_Title {
-  padding-top: 30px;
+  width: 40%;
   font-size: 3.2rem; /* text-lg */
   font-weight: 100; /* font-thin */
-  max-width: 300px; /* 最大幅 */
-  word-wrap: break-word; /* 長い文字列を折り返す */
   font-family: 'Inspiration', sans-serif; /* font-inspiration */
 }
 
-.footer_a {
-  padding: 0 3rem;
+.footerTop_Title a {
+  all: unset;
   color: black; /* テキストの色を白に変更 */
   text-decoration: none; /* 下線を取り除く */
+
+}
+
+.footer_a {
 }
 
 .footerTop_Nav {
-  padding: 0 3rem;
+  width: 40%;
   font-size: 0.7rem; /* text-base */
 }
 
 .footerLeft_NavNest {
   font-size: 0.7rem; /* text-base */
-  position: absolute; /* 絶対位置 */
-  padding: 2.5rem 3rem; 
-  top: 13.75rem; /* 220px */
 }
 
 .footerTop_SNS {
-  max-width: 0 10px; /* 最大幅 */
-  padding: 0 3.5rem; /* 内側に余白を追加 */
+  width: 40%;
 }
 
 .footerLeftContainer_NavNest {
@@ -64,14 +66,15 @@ footer {
 }
 
 .css_footerLeftList_FoZ1V {
-  display: flex; /* 横並び */
+  display:  grid; /* 横並び */
+  grid-template-columns: repeat(3, 7.5rem);
+  gap: 10px;
   margin-top: 20px; /* 上マージン */
   column-gap: 100px; /* アイテム間隔 */
   list-style-type: none; /* リストスタイルをなしに */
 }
 
 .css_link_VFSq {
-  display: inline-block;
   color: white; /* リンクの色を白に変更 */
   text-decoration: none; /* 下線を取り除く */
 }
@@ -92,20 +95,36 @@ footer {
 
 .css_link svg {
   transition: fill 0.3s ease; /* SVGの色を変えるアニメーション */
+  padding-bottom: 30px;
+}
+
+.footerTop_SNS {
+  flex: 0 0 auto;       /* サイズ固定、縮まない */
+  width: 40%;           /* 必要に応じて調整 */
+}
+
+/* footer side Right */
+.footerMenuFormContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerRight_Container {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
 }
 
 .footerRight_TitleContainer {
+  margin-top: 50px;
+  padding-bottom: 30px;
+  width: 100%;
   display: flex; /* 横並び */
-  justify-content: end; /* 横方向に配置 */
-  gap: 8.8rem; /* アイテム間隔 */           
-  align-items: center; /* 縦方向に中央寄せ */
-  margin: 0 10px; /* 左右の余白 */
+  gap: 9rem; /* アイテム間隔 */
 }
 
 .footerRight_NavTitle {
-  position: relative; /* 相対位置 */
-  right: 5rem;;
-  bottom: 8.75rem;
   font-size: 1.25rem; /* text-xl */
 }
 
@@ -122,14 +141,10 @@ footer {
 .footerRight_Container{
   display: grid; /* グリッドレイアウト */
   grid-template-columns: repeat(3, 12.5rem); /* 3列 */
-  gap: 30px; /* アイテム間隔 */
-  justify-content: end; /* 右寄せ */
-  align-items: flex-start; /* 上寄せ */
-  margin: 0 10px; /* 左右の余白 */  
+  gap: 25px; /* アイテム間隔 */
 }
 
 .footerRight_Nav {
-  position: relative; /* 相対位置 */
   font-size: 1.25rem; /* text-xl */
   bottom: 6rem;
 }
@@ -145,17 +160,19 @@ footer {
   text-decoration: underline; /* ホバー時に下線を追加 */
 }
 
+/* コピーライト部分 */
 .footerRight_Underline {
   display: block; /* ブロック要素 */
   text-align: center; /* 中央寄せ */
   border-bottom: 1px solid white; /* 下線を追加 */
   width: 95%; /* 横幅 */
-  margin-left: 2.5rem;
+  margin: 0 auto;
 }
 
 .footerEnd_Content {
   max-width: var(--main2-width); /* w-full */
-  margin: 3.5rem 3.75rem; /* 自動で左右に余白を作り、中央に配置 */
+  margin: 0 3.75rem; /* 自動で左右に余白を作り、中央に配置 */
+  padding: 25px;
   display: flex; /* 横並び */
   align-items: center; /* 縦方向に中央寄せ */
   font-family: 'Irish Grover', sans-serif; /* font-irish */

@@ -1,5 +1,5 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/HomeStatic/Footer.module.css';
 
 const Footer = () => {
@@ -16,10 +16,11 @@ const Footer = () => {
       {(!isSignUpPage && !isLoginPage) && (
         <footer className={styles.footerContent}>
           <div className={styles.footerTop_Content}>
-            <h1 className={styles.footerTop_Title}>
-              <a className={styles.footer_a} href='#' target="_blank">Kakeibo-app</a>
-            </h1>
-            <div className={styles.footerTop_Nav}>Follow us on SNS.</div>
+            <div className={styles.footerTop_Nav}>
+              <h1 className={styles.footerTop_Title}>
+                <a className={styles.footer_a} href='#' target="_blank">Kakeibo-app</a>
+              </h1>
+              <span>Follow us on SNS.</span>
               <div className={styles.footerTop_SNS}>
                 <ul className={styles.css_linkList_FoZ1V}>
                   <li>
@@ -71,67 +72,75 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-            <div className={styles.footerLeft_NavNest}>Customer Service.
-              <div className={styles.footerLeftContainer_NavNest}>
-                <ul className={styles.css_footerLeftList_FoZ1V}>
-                  <li>
-                    <a className={styles.css_link_VFSq} href="#" target="_blank">よくある質問</a>
-                  </li>
-                  <li>
-                    <a className={styles.css_link_VFSq} href="#" target="_blank">運営方針</a>
-                  </li>
-                  <li>
-                    <a className={styles.css_link_VFSq} href="#" target="_blank">お問い合わせ</a>
-                  </li>
-                </ul>
+              <div className={styles.footerLeft_NavNest}>Customer Service.
+                <div className={styles.footerLeftContainer_NavNest}>
+                  <ul className={styles.css_footerLeftList_FoZ1V}>
+                    <li>
+                      <Link className={styles.css_link_VFSq} to="/home/info#kakeibo" target="_self">Kakeibo-Appについて</Link>
+                    </li>
+                    <li>
+                      <Link className={styles.css_link_VFSq} to="/home/info#question" target="_self">よくある質問</Link>
+                    </li>
+                    <li>
+                      <Link className={styles.css_link_VFSq} to="/home/info#policy" target="_self">運営方針</Link>
+                    </li>
+                    <li>
+                      <Link className={styles.css_link_VFSq} to="/home/info#contact" target="_self">お問い合わせ</Link>
+                    </li>
+                    <li>
+                      <Link className={styles.css_link_VFSq} to="/home/info#privacy" target="_self">プライバシーポリシー</Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div className={styles.footerRight_TitleContainer}>
-              <div className={styles.footerRight_NavTitle}>
-                <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>サービス</a>
+            <div className={styles.footerMenuFormContainer}>
+              <div className={styles.footerRight_TitleContainer}>
+                <div className={styles.footerRight_NavTitle}>
+                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>サービス</a>
+                </div>
+                <div className={styles.footerRight_NavTitle}>
+                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>利用方法</a>
+                </div>
+                <div className={styles.footerRight_NavTitle}>
+                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>私たちに関して</a>
+                </div>
               </div>
-              <div className={styles.footerRight_NavTitle}>
-                <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>利用方法</a>
-              </div>
-              <div className={styles.footerRight_NavTitle}>
-                <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>私たちに関して</a>
+              <div className={styles.footerRight_Container}>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
+                <div className={styles.footerRight_Nav}>
+                  <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
+                </div>
               </div>
             </div>
-            <div className={styles.footerRight_Container}>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-              <div className={styles.footerRight_Nav}>
-                <a className={styles.footerRight_Nav_a} href='#' target='_blank'>coming soon...</a>
-              </div>
-            </div>
-            <div className={styles.footerRight_Underline}>
-            </div>
-            <div className={styles.footerEnd_Content}>
-              <p className={styles.footerText}>© Copyright All Rights Reserved. Kakeibo-App {new Date().getFullYear()}.</p>
-              <a className={styles.footerLink} href="#">Page Top.</a>
-            </div>
+          </div>
+          <div className={styles.footerRight_Underline}></div>
+          <div className={styles.footerEnd_Content}>
+            <p className={styles.footerText}>© Copyright All Rights Reserved. Kakeibo-App {new Date().getFullYear()}.</p>
+            <a className={styles.footerLink} href="#">Page Top.</a>
           </div>
         </footer>
       )}
