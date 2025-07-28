@@ -1,5 +1,6 @@
 const ExportPDFAndCSVService = require('../services/exportPDFAndCSVService');
 
+/* 年、月、形式ごとにデータを取得する */
 async function exportData(req, res) {
   try {
     const { year, month, format } = req.query; // 年、月、形式を取得
@@ -12,6 +13,7 @@ async function exportData(req, res) {
 
     // フォーマットの検証
     const fileBuffer = await ExportPDFAndCSVService.generateExportFile(userId, year, month, format);
+    console.log('back', fileBuffer);
 
     // 設定、自動ダウンロード
     const paddedMonth = month != null ? String(month).padStart(2, '0') : '';
@@ -27,11 +29,12 @@ async function exportData(req, res) {
   }
 }
 
-// 年月のオプションを取得
+/* 年月のオプションを取得 */
 async function getDateOptions(req, res) {
   try {
     const userId = req.user.id;
     const options = await ExportPDFAndCSVService.fetchDateOptions(userId);
+    // console.log('back', options);
     res.json(options);
   } catch (err) {
     console.error(err);

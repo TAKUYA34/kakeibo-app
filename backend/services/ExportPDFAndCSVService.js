@@ -63,20 +63,55 @@ async function generateExportFile(userId, year, month, format) { // ID, 年, 出
     doc.registerFont('jp', fontPath);
     doc.font('jp');
 
+    // 月のデータを取得
     const monthLabel = month ? `${month}月` : '年間';
-    doc.fontSize(16).text(`${year}年 ${monthLabel} 家計簿データ`, { align: 'center' }).moveDown(); // ヘッダーフォーマットカスタマイズ
 
-    // 詳細データのフォーマットカスタマイズ
-    data.forEach(tx => {
-      const majorLabel = majorSelMap[tx.major_sel] || tx.major_sel; // マッピングあれば変換、なければそのまま
+    // ヘッダー色を紺系に、行間を1.5に調整する
+    doc
+      .fontSize(18)
+      .fillColor('#333399')
+      .text(`${year}年 ${monthLabel} 家計簿データ`, { align: 'center' })
+      .moveDown(1.5);
+
+    // ヘッダー
+    doc.fontSize(11).fillColor('#555')
+      .text('日付', 50, doc.y, { continued: true, lineBreak: false })
+      .text('大項目', 110, doc.y, { continued: true, lineBreak: false })
+      .text('中項目', 170, doc.y, { continued: true, lineBreak: false })
+      .text('小項目', 230, doc.y, { continued: true, lineBreak: false })
+      .text('金額', 290, doc.y, { continued: true, lineBreak: false })
+      .text('合計金額', 350, doc.y, { continued: true, lineBreak: false })
+      .text('メモ', 430, doc.y ) // 最後はcontinued不要
+      .moveDown(1);
+
+    // データ行
+    data.forEach((tx, i) => {
+      const majorLabel = majorSelMap[tx.major_sel] || tx.major_sel;
       const middleLabel = middleSelMap[tx.middle_sel] || tx.middle_sel;
-      doc
-        .fontSize(10)
-        .text(`日付: ${tx.trans_date.toISOString().slice(0, 10)} | 大項目: ${majorLabel} | 中項目: ${middleLabel} | 小項目: ${tx.minor_sel} | 金額: ${tx.amount} | 合計金額: ${tx.total_amount} | メモ: ${tx.memo || ''}`);
+      const memoText = tx.memo || '';
+
+      // カラム
+      doc.fontSize(10).fillColor('black')
+        .text(tx.trans_date.toISOString().slice(0, 10), 50, doc.y, { continued: true, lineBreak: false })
+        .text(majorLabel, 110, doc.y, { continued: true, lineBreak: false })
+        .text(middleLabel, 170, doc.y, { continued: true, lineBreak: false })
+        .text(tx.minor_sel, 230, doc.y, { continued: true, lineBreak: false })
+        .text(`${tx.amount}円`, 290, doc.y, { continued: true, lineBreak: false })
+        .text(`${tx.total_amount}円`, 350, doc.y, { continued: true, lineBreak: false })
+        .text(memoText, 430, doc.y ) // 最後はcontinued不要
+        
+      // 区切り線
+      doc.moveDown(1).strokeColor('#ddd').lineWidth(0.3).moveTo(50, doc.y).lineTo(550, doc.y).stroke();
+
+      // 改ページ処理
+      if (doc.y > 750) {
+        doc.addPage();
+      }
     });
 
     doc.end();
 
+    // 結合して出力する
     return await new Promise((resolve, reject) => {
       doc.on('end', () => resolve(Buffer.concat(buffers))); // PDF結合完了
       doc.on('error', reject);
@@ -86,7 +121,7 @@ async function generateExportFile(userId, year, month, format) { // ID, 年, 出
   throw new Error('未対応のフォーマットです');
 }
 
-// 年月のオプションを取得
+/* 年月のオプションを取得 */
 async function fetchDateOptions(userId) {
   const dates = await ExportPDFAndCSVRepository.getTransactionDates(userId);
 
