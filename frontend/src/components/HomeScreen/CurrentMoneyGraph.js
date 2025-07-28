@@ -1,8 +1,7 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LabelList } from "recharts";
+import { motion } from 'framer-motion';
 import styles from '../../styles/HomeStatic/CurrentMoneyGraph.module.css';
 import { useAuth } from '../../services/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -20,9 +19,19 @@ const CurrentMoneyGraph = () => {
   ];
 
   const COLORS = ["#78706cff", "#ff4500", "#ffa500", "#32cd32", "#20b2aa", "#9e48b6ff", "#d33990ff"];
+
+  // Graph アニメーション設定
+  const animationVariant = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
   
+  // useState
   const { user } = useAuth(); // useAuthフックを使用して認証情報を取得
-  const navigate = useNavigate();
   const [barData, setBarData] = useState([]);
   const [pieData, setPieData] = useState([]);
 
@@ -61,6 +70,8 @@ const CurrentMoneyGraph = () => {
         
         setBarData(barJson);
         setPieData(pieJson);
+
+        console.log('pieでーた', pieJson);
         
       } catch (err) {
         console.error('グラフデータ取得失敗:', err);
@@ -82,44 +93,79 @@ const CurrentMoneyGraph = () => {
         </div>
         
         <div className={styles.graphs}>
-          <ResponsiveContainer width="45%" height={500}>
-            <BarChart data={barData.length ? barData : dummyBarData}>
+        <motion.div
+          className={styles.graphItem}
+          variants={animationVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          >
+          <ResponsiveContainer width="100%" height={500}>
+            <BarChart data={barData.length ? barData : dummyBarData} margin={{ top: 20, right: 40, left: 40, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis tickFormatter={(value) => `${value}円`}/>
               <Tooltip 
                 formatter={(value, name) => {
                   const labelMap = { income: '収入', expense: '支出' };
-                  return [value, labelMap[name] || name];
+                  return [`¥${value.toLocaleString()}円`, labelMap[name] || name];
                 }}
               />
-              <Bar dataKey="income" fill="#48628eff" />
-              <Bar dataKey="expense" fill="#f99779ff" />
+              <Legend verticalAlign="top" />
+              <Bar dataKey="income" name="収入" fill="#48628eff">
+                <LabelList dataKey="income" position="top" formatter={(val) => `${val}円`} />
+              </Bar>
+              <Bar dataKey="expense" name="収入" fill="#f99779ff">
+                <LabelList dataKey="expense" position="top" formatter={(val) => `${val}円`} />
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
+        </motion.div>
 
-          <ResponsiveContainer width="45%" height={500}>
+        <motion.div
+          className={styles.graphItem}
+          variants={animationVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <ResponsiveContainer width="100%" height={500}>
             <PieChart>
               <Pie
                 data={pieData.length ? pieData : dummyPieData}
                 dataKey="value"
-                nameKey="middle"  
-                outerRadius={200}
-                label
-              >
+                nameKey="minor"
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={150}
+                paddingAngle={2} // 各ピースの間のスペース
+                label={({ name, percent, payload }) => {
+                  const displayName = payload.minor || labelPieMap[payload.middle] || name;
+                  return `${displayName} (${(percent * 100).toFixed(0)}%)`;
+                }}
+                >
                 {Array.isArray(pieData) && pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} /> // 色
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value, name, entry) => {
-                  const { middle, minor } = entry?.payload || {};
-                  const labelMiddle = labelPieMap[middle] || middle || '不明';
-                  const labelMinor = minor || '未分類';
-                  return [`¥${value.toLocaleString()}`, `${labelMiddle} / ${labelMinor}`];
+                formatter={(value) => {
+                  const isValid = value !== null && value !== undefined && value !== '';
+                  const formattedValue = isValid ? `${value}円` : ''; // valueがnull/undefined/空文字なら非表示
+                  return [formattedValue];
+                }}
+              />
+              <Legend
+                verticalAlign="bottom"
+                formatter={(_, entry) => {
+                  const middle = entry.payload.middle; // middleを取得
+                  return labelPieMap[middle] || middle;
                 }}
               />
             </PieChart>
           </ResponsiveContainer>
+        </motion.div>
         </div>
       </div>
     </section>

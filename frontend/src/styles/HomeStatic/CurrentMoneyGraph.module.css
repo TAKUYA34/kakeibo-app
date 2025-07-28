@@ -30,7 +30,7 @@
   font-size: 1.2rem; /* text-lg */
   color: var(--mainSub-color);
   bottom: 70px;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 
 /* グラフタイトル */
@@ -40,6 +40,19 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.graphItem {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.graphItem:hover {
+  transform: translateY(-4px);
 }
 
 .graphTitle_row span {
@@ -51,7 +64,15 @@
   
 .graphs {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center; /* 子要素を中央に配置 */
+  align-items: flex-start; /* 上揃え */
+  width: 90%;
+  margin: 0 auto; /* 親の中央に配置 */
+  gap: 50px;
+}
+
+.graphs > * {
+  flex: 1 1 50%;
+  min-width: 400px;
 }
 /* ↑↑↑ Graph ↑↑↑ */
