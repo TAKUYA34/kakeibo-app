@@ -3,12 +3,21 @@ const Transaction = require('../models/Transaction');
 
 async function getExportTransactions(userId, year, month) {
   
-  // monthがあれば月単位、なければ年全体
-  const start = new Date(`${year}-${month || '01'}-01T00:00:00.000Z`);
-  const end = month
-    ? new Date(new Date(year, Number(month), 0, 23, 59, 59, 999)) // 月末 最終日＋時間
-    : new Date(`${year}-12-31T23:59:59.999Z`); // 1月 ~ 12月末まで
   const ObjectId = new mongoose.Types.ObjectId(userId);
+
+  // monthがあれば月単位、なければ年全体
+  let start, end;
+
+  if (month) {
+    // 月指定あり → 月初〜月末の23:59:59.999
+    const m = Number(month) - 1; // JS Dateは0-indexed月
+    start = new Date(year, m, 1, 0, 0, 0, 0); // 例: 2025-02-01 00:00
+    end = new Date(year, m + 1, 0, 23, 59, 59, 999); // 例: 2025-02-28 23:59:59
+  } else {
+    // 月指定なし → 年初〜年末
+    start = new Date(year, 0, 1, 0, 0, 0, 0); // 2025-01-01
+    end = new Date(year, 11, 31, 23, 59, 59, 999); // 2025-12-31
+  }
 
   const dateResult = await Transaction.aggregate([
     {
@@ -41,7 +50,7 @@ async function getExportTransactions(userId, year, month) {
   return dateResult;
 }
 
-// 年月のdateのみ取得
+/* 年月のdateのみ取得 */
 async function getTransactionDates(userId) {
   return await Transaction.find({ user_id: userId }, { trans_date: 1, _id: 0 });
 }
