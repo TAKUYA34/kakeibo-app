@@ -12,6 +12,7 @@ import ExportData from "./pages/ExportData.js";
 import UsersEdit from "./pages/UsersEdit.js";
 import PasswordReset from "./pages/PasswordReset.js";
 import PasswordReRegister from "./pages/PasswordReRegister.js";
+import InfoPage from "./pages/InfoPage.js";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/home/login/password/reset" element={<PasswordReset />} />
           <Route path="/home/login/password/reset/confirm" element={<PasswordReRegister />} />
+          <Route path="/home/info" element={<InfoPage />} />
           <Route path="/" element={<Navigate to="/home" /> }/>
 
           {/* 一般ユーザー画面 認証が必要 */}
