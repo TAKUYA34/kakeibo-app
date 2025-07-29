@@ -1,5 +1,5 @@
 // jest.config.js
 module.exports = {
-  moduleDirectories: ['node_modules', 'backend', './'],
+  // moduleDirectories: ['node_modules'],
   testEnvironment: 'node',
 };
