@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
-// DBからtrans_dateのみ取得する
+/* DBからtrans_dateのみ取得する */
 const getAllTransactionDates = async () => {
   return await Transaction.find({}, 'trans_date');
 }
 
-// 年度とユーザーIDなどでフィルター可能な大項目・中項目・小項目ごとの月別合計を返す
+/* 年度とユーザーIDなどでフィルター可能な大項目・中項目・小項目ごとの月別合計を返す */
 // MongoDBのAggregation Pipeline構文で処理
 const aggregateMonthlyByCategory = async (year, userId) => {
   const matchFilter = {
