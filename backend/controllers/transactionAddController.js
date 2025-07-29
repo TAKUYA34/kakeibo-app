@@ -1,8 +1,9 @@
 const transactionAddService = require('../services/transactionAddService');
 
+/* 家計簿データを登録する */
 async function handleTransactionAdd(req, res) {
   try {
-    console.log('リクエスト受信:', req.body);
+    // console.log('リクエスト受信:', req.body);
     const { transactions, userId } = req.body;
     if (!userId) {
       return res.status(400).json({ message: 'ユーザーIDが見つかりません。' });
@@ -12,7 +13,7 @@ async function handleTransactionAdd(req, res) {
     res.status(200).json({ message: '登録成功しました！', initialTotal, transactions: saved });
 
   } catch (error) {
-    console.error('[handleTransactionAdd] Error:', error);
+    // console.error('[handleTransactionAdd] Error:', error);
     res.status(500).json({
     message: '登録に失敗しました。',
     error: error.message || '不明なエラー'

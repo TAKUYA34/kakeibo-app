@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 const Category = require('../models/Category');
 
-// 取得データ保存
+/* 取得データ保存 */
 async function insertMany(transactions) {
   return await Transaction.insertMany(transactions);
 }
 
-// 取引全体を新しい順で返す
+/* 取引全体を新しい順で返す */
 async function getLatestTransactionByMonth(userId, startOfMonth, endOfMonth) {
   
   const objectUserId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
@@ -23,8 +23,8 @@ async function getLatestTransactionByMonth(userId, startOfMonth, endOfMonth) {
   return lastTransaction; // total_amountではなく、取引全体を返す
 }
 
-// カテゴリ検索、なければ作成する
-async function findOrCreateCategory(userId, type, major, middle, minor = '') {
+/* カテゴリ検索、なければ作成する */
+async function findOrCreateCategory(userId, type, major, middle, minor) {
   // nullチェック
   // console.log('[findOrCreateCategory] 引数の内容:', { userId, type, major, middle, minor });
 
