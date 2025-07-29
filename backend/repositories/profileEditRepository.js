@@ -7,7 +7,7 @@ const existingUser = async (userId) => {
   return await User.findById(userId);
 };
 
-// 他のユーザーがこのメールアドレスを使っていないかチェック
+/* 他のユーザーがこのメールアドレスを使っていないかチェック */
 const emailOwner = async (email) => {
   return await User.findOne({ email });
 };
@@ -27,6 +27,7 @@ const updateUserById = async (userId, updateFields) => {
   );
 };
 
+/* ユーザー情報を削除する */
 const deleteUserById = async (userId) => {
   // userIdがUUID形式であることを確認
   if (!mongoose.Types.ObjectId.isValid(userId)) {

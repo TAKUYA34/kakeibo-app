@@ -4,7 +4,6 @@ const profileEditService = require('../services/profileEditService');
 const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-
     const { user_name, email, password } = req.body;
 
     const result = await profileEditService.updateUserProfile(userId, user_name, email, password);
