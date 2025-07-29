@@ -18,7 +18,7 @@ const Footer = () => {
           <div className={styles.footerTop_Content}>
             <div className={styles.footerTop_Nav}>
               <h1 className={styles.footerTop_Title}>
-                <a className={styles.footer_a} href='#' target="_blank">Kakeibo-app</a>
+                <Link className={styles.footer_a} to='/' target="_self">Kakeibo-app</Link>
               </h1>
               <span>Follow us on SNS.</span>
               <div className={styles.footerTop_SNS}>
