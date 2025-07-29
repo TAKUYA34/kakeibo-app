@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 // 一般ユーザー用
-const authRoutes = require('../routes/auth'); // 認証関連のルーティング
+// const authRoutes = require('../routes/auth'); // 認証関連のルーティング
+const loginFormRoutes = require('../routes/loginFormRoutes'); // ログイン画面
+const signUpFormRoutes = require('../routes/signUpFormRoutes'); // 新規登録画面
 const transactionAddRoutes = require('../routes/transactionAddRoutes'); // トランザクション追加
 const transactionListRoutes = require('../routes/transactionListRoutes'); // トランザクションリスト
 const currentMoneyGraphRoutes = require('../routes/currentMoneyGraphRoutes'); // homeグラフ
@@ -27,7 +29,7 @@ const app = express();
 const PORT = process.env.BACKEND_PORT || 5001;
 const mongoUri = process.env.MONGO_URI || 'mongodb://mongo:27017/my_database';
 
-// MongoDB接続
+/* MongoDB接続 */
 mongoose.connect(mongoUri).then(() => {
   console.log('MongoDB に接続しました');
 }).catch((err) => {
@@ -35,21 +37,23 @@ mongoose.connect(mongoUri).then(() => {
 });
 
 // CORSの設定（順番に注意）
-// フロントエンドのポート3000からのリクエストを許可
+/* フロントエンドのポート3000からのリクエストを許可 */
 app.use(cors({
   origin: process.env.FRONTEND_PORT || 'http://localhost:3000', // 'https://kake-ibo-app.com', // 本番環境ではフロントエンドのURLを指定
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
-// プリフライトリクエストへの対応（★重要）
+/* プリフライトリクエストへの対応（★重要）*/
 app.options('*', cors());
 
-// JSON形式のリクエストボディをパース
+/* JSON形式のリクエストボディをパース */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 一般ユーザー用ルーティング
-app.use('/api/home', authRoutes); // 認証関連のルーティングを使用
+/* 一般ユーザー用ルーティング */
+// app.use('/api/home', authRoutes); // 認証関連のルーティングを使用
+app.use('/api/home', loginFormRoutes); // ログイン画面のルーティングを使用
+app.use('/api/home', signUpFormRoutes); // 新規登録画面のルーティングを使用
 app.use('/api/transactions', transactionAddRoutes); // トランザクション追加のルーティングを使用
 app.use('/api/transactions', transactionListRoutes); // トランザクションリストのルーティングを使用
 app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
@@ -60,7 +64,7 @@ app.use('/api/auth', requestPasswordReset); // passwordリセット申請のル�
 app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用
 app.use('/api/info', infoPagesForm); // 問い合わせフォームのルーティングを使用
 
-// 管理者用ルーティング
+/* 管理者用ルーティング */
 app.use('/api/admin', authLoginFormRoutes); // 管理者ログイン認証のルーティングを使用
 app.use('/api/admin', adminOnlyScreen); // 管理者home画面の統計データのルーティングを使用
 app.use('/api/admin', adminReportData); // 管理者お知らせ画面の各処理のルーティングを使用
@@ -68,7 +72,7 @@ app.use('/api/admin', adminDashboardData); // 管理者ユーザー取引管理�
 app.use('/api/admin', adminUsersManagementData); // 管理者ユーザー管理画面の各処理のルーティングを使用
 
 
-// サーバー起動
+/* サーバー起動 */
 app.listen(PORT, () => {
   console.log(`サーバーがポート ${PORT} で起動しました`);
 });
