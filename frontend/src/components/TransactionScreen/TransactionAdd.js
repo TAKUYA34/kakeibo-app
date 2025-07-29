@@ -264,8 +264,6 @@ const TransactionAdd = () => {
   /* お気に入りボタン押下でフォームにセット */
   const handleFavoriteClick = (major, middle, price) => {
 
-    setIsEditing(true);
-
     setMajorSelect(major);
     setMiddleSelect(middle);
     setPrice(String(price));
