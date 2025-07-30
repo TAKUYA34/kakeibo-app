@@ -10,10 +10,12 @@ const fetchUsersByName = async (name) => {
   return await adminUsersManagementDataRepository.findUserByName(name);
 };
 
+/* ユーザーのデータを編集する */
 const updateUserById = async (userId, updatedData) => {
   return await adminUsersManagementDataRepository.getUpdateUserById(userId, updatedData);
 };
 
+/* ユーザーのデータを削除する */
 const deleteUserById = async (userId) => {
   return await adminUsersManagementDataRepository.getDeleteUserById(userId);
 };

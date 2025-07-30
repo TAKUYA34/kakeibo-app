@@ -15,10 +15,12 @@ const findUserByName = async (name) => {
   }).select('-password');
 };
 
+/* ユーザーのデータを編集する */
 const getUpdateUserById = async (userId, updatedData) => {
   return await Users.findByIdAndUpdate(userId, updatedData, { new: true });
 };
 
+/* ユーザーのデータを削除する */
 const getDeleteUserById = async (userId) => {
   return await Users.findByIdAndDelete(userId);
 };
