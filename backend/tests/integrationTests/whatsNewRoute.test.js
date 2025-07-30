@@ -33,25 +33,30 @@ describe('GET /api/home/notices', () => {
 
   /* 正常系 */
   it('3件のお知らせとtotalCountを返す', async () => {
+    // supertestを使用してリクエスト
     const res = await request(appTest)
       .get('/api/home/notices?page=1&limit=3');
 
-    expect(res.statusCode).toBe(200);
-    expect(res.body.notices).toHaveLength(3);
-    expect(typeof res.body.totalCount).toBe('number');
-    expect(res.body.totalCount).toBeGreaterThanOrEqual(4);
+    // 検証
+    expect(res.statusCode).toBe(200); // ステータスコード
+    expect(res.body.notices).toHaveLength(3); // 3件取得
+    expect(typeof res.body.totalCount).toBe('number'); // 合計件数（Number型）
+    expect(res.body.totalCount).toBeGreaterThanOrEqual(4); // 最低4件以上DBに登録されているか
   });
 
   /* 異常系 */
   it('DB接続エラーが起きたら500を返す', async () => {
-    await mongoose.disconnect(); // 強制的にエラー発生
+    await mongoose.disconnect(); // 強制的にエラー
 
+    // supertestを使用してリクエスト
     const res = await request(appTest)
       .get('/api/home/notices?page=1&limit=3');
 
+    // 検証
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty('message', 'サーバーエラー: お知らせの取得に失敗しました');
 
+    // 検証後、DBを元に戻す
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/integration_test');
   });
 });
