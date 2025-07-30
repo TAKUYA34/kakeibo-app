@@ -1,5 +1,6 @@
 const adminLoginFormService = require('../services/adminLoginFormService');
 
+/* 管理者ログイン成功時、管理者のデータを取得する */
 const getAdminProfile = async (req, res) => {
   try {
     // 管理者のユーザープロフィールを取得
@@ -9,11 +10,12 @@ const getAdminProfile = async (req, res) => {
     }
     res.json({ user });
   } catch (error) {
-    console.error('管理者情報取得エラー:', error);
+    // console.error('管理者情報取得エラー:', error);
     res.status(500).json({ message: 'サーバーエラー' });
   }
 };
 
+/* 管理者の登録データを検索する */
 const adminLogin = async (req, res) => {
   // 管理者ログインのメールアドレスとパスワードを取得
   const { email, password } = req.body;
@@ -21,9 +23,9 @@ const adminLogin = async (req, res) => {
   try {
     const result = await adminLoginFormService.loginAdminUser(email, password);
     res.json(result);
-    console.log("Login successful:", result);
+    // console.log("Login successful:", result);
   } catch (err) {
-    console.error("Login error:", err.message);
+    // console.error("Login error:", err.message);
     res.status(401).json({ message: "認証失敗: " + err.message });
   }
 };

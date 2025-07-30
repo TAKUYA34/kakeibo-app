@@ -4,16 +4,16 @@ const adminLoginFormRepository = require('../repositories/adminLoginFormReposito
 
 const SECRET_KEY = process.env.JWT_SECRET; // 環境変数からシークレットキーを取得
 
-// 管理者のユーザープロフィールを取得する関数
+/* 管理者のユーザープロフィールを取得する関数 */
 const fetchAdminProfile = async (userPayload) => {
   if (userPayload?.role !== 'admin') return null;
 
-  // データベースから最新の管理者情報を取得する
+  /* DBから最新の管理者情報を取得する */
   const user = await adminLoginFormRepository.findAdminById(userPayload._id);
   return user;
 };
 
-// 管理者ログイン処理
+/* 管理者ログイン処理 */
 const loginAdminUser = async (email, password) => {
   const admin = await adminLoginFormRepository.findAdminByEmail(email);
 
