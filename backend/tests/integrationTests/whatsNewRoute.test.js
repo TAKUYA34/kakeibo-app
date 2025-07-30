@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const appTest = require('../testServer/app.test'); // テスト用
 const NoticeTest = require('../../models/Notice');
 
-/* end API */
+/* 全お知らせ表示画面 API */
 describe('GET /api/home/notices', () => {
   let dummyUserId;
 
