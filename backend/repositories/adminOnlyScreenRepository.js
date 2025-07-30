@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const Transaction = require('../models/Transaction'); // Mongooseモデル
 
-// グラフデータを取得する
+/* グラフデータを取得する */
 const getMonthlySummary = async () => {
   return await Transaction.aggregate([
     {
@@ -28,7 +28,7 @@ const getMonthlySummary = async () => {
   ]);
 };
 
-// カテゴリデータを取得する
+/* カテゴリデータを取得する */
 const getCategoryBreakdown = async () => {
   return await Transaction.aggregate([
     { $match: { trans_type: "expense" } },
@@ -48,12 +48,12 @@ const getCategoryBreakdown = async () => {
   ]);
 };
 
-// ユーザ数の合計を取得する
+/* ユーザ数の合計を取得する */
 const getUsersAllCount = async () => {
   return await User.countDocuments();
 }
 
-// 今月の取引数を取得する
+/* 今月の取引数を取得する */
 const getMonthlyTransactionsCount = async () => {
 
   const start = new Date();
@@ -68,7 +68,7 @@ const getMonthlyTransactionsCount = async () => {
   });
 };
 
-// 今月の総支出を取得する
+/* 今月の総支出を取得する */
 const getSumMonthlyExpenses = async () => {
 
   const start = new Date();

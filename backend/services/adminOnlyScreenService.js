@@ -22,7 +22,7 @@ const middleSelNameMap = {
   other: 'その他'
 };
 
-// 棒グラフと円グラフの各データを取得する
+/* 棒グラフと円グラフの各データを取得する */
 const fetchUserAllSelectData = async () => {
   const monthly = await adminOnlyScreenRepository.getMonthlySummary();
   const categoryRaw = await adminOnlyScreenRepository.getCategoryBreakdown();
@@ -39,7 +39,7 @@ const fetchUserAllSelectData = async () => {
   };
 };
 
-// Userの統計データを取得する
+/* Userの統計データを取得する */
 const getUserAllStatsData = async () => {
   const [userCount, transactionCount, monthlyExpense] = await Promise.all([
     adminOnlyScreenRepository.getUsersAllCount(), // 総ユーザー数
