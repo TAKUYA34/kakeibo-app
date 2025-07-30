@@ -36,6 +36,11 @@ function isValidDate(date) {
 
 /* 集計したデータを取得 */
 const fetchMonthlyAggregateByCategory = async (year, userId) => {
+
+  if(isNaN(year)) {
+    throw new Error('年は数値である必要があります');
+  }
+
   return await transactionListRepository.aggregateMonthlyByCategory(year, userId);
 }
 
