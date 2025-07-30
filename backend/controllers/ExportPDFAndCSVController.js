@@ -13,7 +13,7 @@ async function exportData(req, res) {
 
     // フォーマットの検証
     const fileBuffer = await ExportPDFAndCSVService.generateExportFile(userId, year, month, format);
-    console.log('back', fileBuffer);
+    // console.log('back', fileBuffer);
 
     // 設定、自動ダウンロード
     const paddedMonth = month != null ? String(month).padStart(2, '0') : '';
@@ -24,7 +24,7 @@ async function exportData(req, res) {
     res.send(fileBuffer);
 
   } catch (error) {
-    console.error('エクスポートエラー:', error);
+    // console.error('エクスポートエラー:', error);
     res.status(500).json({ message: 'エクスポートに失敗しました', error: error.message });
   }
 }
@@ -37,7 +37,7 @@ async function getDateOptions(req, res) {
     // console.log('back', options);
     res.json(options);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.status(500).json({ message: 'サーバーエラー' });
   }
 }

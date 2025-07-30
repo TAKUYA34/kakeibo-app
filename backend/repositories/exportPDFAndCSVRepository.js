@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
+/* 家計簿データをパイプラインで整形して取得する */
 async function getExportTransactions(userId, year, month) {
   
   const ObjectId = new mongoose.Types.ObjectId(userId);
@@ -43,10 +44,10 @@ async function getExportTransactions(userId, year, month) {
     }
   ]);
 
-  console.log(`取得件数: ${dateResult.length}`);
-  if (dateResult.length > 0) {
-    console.log('取得データ例:', dateResult[0]);
-  }
+  // console.log(`取得件数: ${dateResult.length}`);
+  // if (dateResult.length > 0) {
+  //   console.log('取得データ例:', dateResult[0]);
+  // }
   return dateResult;
 }
 

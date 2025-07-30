@@ -31,6 +31,7 @@ const middleSelMap = {
   other: 'その他'
 };
 
+/* 家計簿データを取得し、CSVとPDFの形式にまとめる */
 async function generateExportFile(userId, year, month, format) { // ID, 年, 出力形式
   const data = await ExportPDFAndCSVRepository.getExportTransactions(userId, year, month); // パイプラインデータ取得
 
