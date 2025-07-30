@@ -50,7 +50,7 @@ async function getDeleteTransaction(req, res) {
     // console.log('backend側', deletedUpdateTransactionTx);
     res.json({ message: '削除完了しました', deletedUpdateTransactionTx });
   } catch (err) {
-    console.error('削除失敗:', err);
+    // console.error('削除失敗:', err);
     res.status(500).json({ message: '取引の削除に失敗しました' });
   }
 };

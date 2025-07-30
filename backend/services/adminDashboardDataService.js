@@ -44,11 +44,11 @@ const fetchUserAndCategoryAndMemosSearch = async (filters) => {
 /*-- ユーザーの取引データを編集する --*/
 async function updateTransactionAndRecalculateTotal(id, updatedData) {
 
-  // 対象の取引データを取得
+  /* 対象の取引データを取得 */
   const originalTransaction = await adminDashboardDataRepository.findTransactionById(id);
-  if (!originalTransaction) throw new Error('Transaction not found');
+  if (!originalTransaction) throw new Error('取引するデータがありません');
 
-  // 取引を更新する
+  /* 取引を更新する */
   await adminDashboardDataRepository.updateTransactionById(id, updatedData);
 
   // 日付データを格納
@@ -59,7 +59,7 @@ async function updateTransactionAndRecalculateTotal(id, updatedData) {
   const monthStart = new Date(originalDate.getFullYear(), originalDate.getMonth(), 1);
   const monthEnd = new Date(originalDate.getFullYear(), originalDate.getMonth() + 1, 0, 23, 59, 59, 999);
   
-  // 取引を更新した後に同じ月の全取引を取得
+  /* 取引を更新した後に同じ月の全取引を取得 */
   const monthTransactions = await adminDashboardDataRepository.findMonthlyTransactions(userId, monthStart, monthEnd);
 
   // total_amount を再計算
@@ -74,15 +74,15 @@ async function updateTransactionAndRecalculateTotal(id, updatedData) {
     };
   });
 
-  // DB一括更新
+  /* DB一括更新 */
   await adminDashboardDataRepository.bulkUpdateAndDeleteTotalAmounts(bulkOps);
 
-  // 更新された1件を取得（ユーザーIDを知るため）
+  /* 更新された1件を取得（ユーザーIDを知るため）*/
   const updatedTx = await adminDashboardDataRepository.findTransactionById(id);
 
   const updateUserId = updatedTx.user_id;
 
-  // 更新後の最新取引データを再取得
+  /* 更新後の最新取引データを再取得 */
   const allUserTransactionsTx = await adminDashboardDataRepository.findAllTransactionsByUserId(updateUserId);
   return allUserTransactionsTx;
 }
@@ -90,18 +90,18 @@ async function updateTransactionAndRecalculateTotal(id, updatedData) {
 /*-- ユーザーの取引データを削除する --*/
 async function deleteTransactionAndRecalculateTotal(id) {
 
-  // 対象の削除データを取得
+  /* 対象の削除データを取得 */
   const targetTransaction = await adminDashboardDataRepository.findTransactionById(id);
-  if (!targetTransaction) throw new Error("Transaction not found");
+  if (!targetTransaction) throw new Error("取引するデータがありません");
 
   // 削除データを格納
   const userId = targetTransaction.user_id;
   const targetDate = new Date(targetTransaction.trans_date);
 
-  // 削除する
+  /* 削除する */
   await adminDashboardDataRepository.deleteTransactionById(id);
 
-  // 削除後、同じ月の全取引を取得
+  /* 削除後、同じ月の全取引を取得 */
   const monthTransactions = await adminDashboardDataRepository.deleteAfterGetMonthTransactions(userId, targetDate);
 
   // total_amount を再計算
@@ -116,10 +116,10 @@ async function deleteTransactionAndRecalculateTotal(id) {
     };
   });
 
-  // DB一括更新
+  /* DB一括更新 */
   await adminDashboardDataRepository.bulkUpdateAndDeleteTotalAmounts(bulkOps);
 
-  // 削除後の最新取引データを再取得
+  /* 削除後の最新取引データを再取得 */
   const allUserTransactionsTx = await adminDashboardDataRepository.findAllTransactionsByUserId(userId);
   return allUserTransactionsTx;
 
