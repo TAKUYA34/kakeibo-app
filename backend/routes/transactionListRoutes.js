@@ -1,12 +1,12 @@
-// routes/transaction.js
-
 const express = require('express');
-const router = express.Router();
-const userAuthenticate = require('../middleware/auth_situation');
 const transactionListController = require('../controllers/transactionListController');
 
-// 年と月の一覧を取得するエンドポイント
-router.get('/list', userAuthenticate.authenticate, transactionListController.getYearsAndMonths);
-router.get('/list/aggregate', userAuthenticate.authenticate, transactionListController.getMonthlyAggregate);
+/* 本番とテスト用で分けるために関数化 */
+module.exports = (authMiddleware) => {
+  const router = express.Router();
+  // 年と月の一覧を取得するエンドポイント
+  router.get('/list', authMiddleware, transactionListController.getYearsAndMonths);
+  router.get('/list/aggregate', authMiddleware, transactionListController.getMonthlyAggregate);
 
-module.exports = router;
+  return router;
+}

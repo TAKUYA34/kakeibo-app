@@ -1,9 +1,11 @@
 const express = require('express');
-const router = express.Router();
 const AdminOnlyScreenContainer = require('../controllers/adminOnlyScreenController');
-const AdminScreenAuth = require('../middleware/adminAuth_situation');
 
-router.get('/home/stats', AdminScreenAuth.adminOnly, AdminOnlyScreenContainer.UserAllStatsData);
-router.get('/home/data', AdminScreenAuth.adminOnly, AdminOnlyScreenContainer.UserAllSelectData);
+/* 本番とテスト用で分けるために関数化 */
+module.exports = (adminAuthMiddleware) => {
+  const router = express.Router();
+  router.get('/home/stats', adminAuthMiddleware, AdminOnlyScreenContainer.UserAllStatsData);
+  router.get('/home/data', adminAuthMiddleware, AdminOnlyScreenContainer.UserAllSelectData);
 
-module.exports = router;
+  return router;
+};
