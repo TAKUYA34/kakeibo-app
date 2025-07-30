@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
-// 月別集計
+/* 月別集計 */
 async function aggregateMonthlySummary(userId) {
   const objectUserId = new mongoose.Types.ObjectId(userId); // 文字列をObjectIdに変換
   return await Transaction.aggregate([
@@ -49,7 +49,7 @@ async function aggregateMonthlySummary(userId) {
   ]);
 }
 
-// カテゴリ別（中項目＋小項目）集計データ
+/* カテゴリ別（中項目＋小項目）集計データ */
 async function aggregateCategorySummary(userId) {
   const objectUserId = new mongoose.Types.ObjectId(userId); // 文字列をObjectIdに変換
   return await Transaction.aggregate([

@@ -1,5 +1,6 @@
 const transactionSummaryService = require('../services/currentMoneyGraphService');
 
+/* 棒グラフ用家計簿データを取得する */
 async function getMonthlySummary(req, res) {
   try {
     const userId = req.query.userId; // userId
@@ -8,11 +9,12 @@ async function getMonthlySummary(req, res) {
     const summary = await transactionSummaryService.getMonthlySummary(userId);
     res.json(summary);
   } catch (err) {
-    console.error('[getMonthlySummary] error:', err);
+    // console.error('[getMonthlySummary] error:', err);
     res.status(500).json({ message: '集計失敗', error: err.message });
   }
 }
 
+/* 円グラフ用家計簿データをカテゴリ毎に取得する */
 async function getCategorySummery(req, res) {
   try {
     const userId = req.query.userId; // userId
@@ -21,7 +23,7 @@ async function getCategorySummery(req, res) {
     const summary = await transactionSummaryService.getCategorySummary(userId);
     res.json(summary);
   } catch (err) {
-    console.error('[getMonthlySummary] error:', err);
+    // console.error('[getMonthlySummary] error:', err);
     res.status(500).json({ message: '集計失敗', error: err.message });
   }
 }
