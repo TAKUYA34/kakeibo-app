@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-// /* メールサーバー宛に送信する処理 */
+/* メールサーバー宛に送信する処理 */
 const sendContactEmailService = async ({ name, email, message, subject }) => {
 //   const transporter = nodemailer.createTransport({
 //     host: 'smtp.ethereal.email',
