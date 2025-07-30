@@ -1,4 +1,4 @@
-// データをmongoDBに合わせる
+/* データをmongoDBにコンバートする */
 function mapToNoticeDao(notice) {
   return {
     _id: notice._id,

@@ -1,6 +1,6 @@
 const adminReportDataService = require('../services/adminReportDataService');
 
-// 全てのお知らせデータを取得する
+/* 全てのお知らせデータを取得する */
 const getPaginatedAllNotices = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -13,7 +13,7 @@ const getPaginatedAllNotices = async (req, res) => {
   }
 };
 
-// 新規投稿し、DBに保存する
+/* 新規投稿したデータをDBに保存する */
 const createNotice = async (req, res) => {
   try {
     const userId = req.user?._id ?? 'admin';
@@ -22,15 +22,15 @@ const createNotice = async (req, res) => {
       user_id: userId
     });
     
-    console.log('res.data:', newNotice);
+    // console.log('res.data:', newNotice);
     res.status(201).json(newNotice);
   } catch (err) {
-    console.error('お知らせの作成に失敗:', err);
+    // console.error('お知らせの作成に失敗:', err);
     res.status(500).json({ message: 'お知らせの作成に失敗しました' });
   }
 };
 
-// 投稿した内容を編集する
+/* 投稿した内容を編集する */
 const updateNotice = async (req, res) => {
   try {
     const updatedNotice = await adminReportDataService.updateNotice(req.params.id, req.body); // 動的にidを送る
@@ -40,7 +40,7 @@ const updateNotice = async (req, res) => {
   }
 };
 
-// 投稿したデータを削除する
+/* 投稿したデータを削除する */
 const deleteNotice = async (req, res) => {
   try {
     await adminReportDataService.removeNotice(req.params.id); // 動的にidを送る

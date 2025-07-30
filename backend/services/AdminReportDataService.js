@@ -1,6 +1,7 @@
 const adminReportDataRepository = require('../repositories/adminReportDataRepository');
 const adminReportDataMapper = require('../mappers/adminReportDataMapper');
 
+/* 全てのお知らせデータを取得する */
 async function fetchPaginatedAllNotices(page, limit) {
   const skip = (page - 1) * limit; // 1 = 0件, 2 = 5件, 3 = 10件
 
@@ -22,6 +23,7 @@ async function fetchPaginatedAllNotices(page, limit) {
   };
 }
 
+/* 新規投稿したデータをDBに保存する */
 async function registerNotice(data) {
   const created = await adminReportDataRepository.createNoticeData(data);
 
@@ -32,6 +34,7 @@ async function registerNotice(data) {
   return adminReportDataMapper.mapToNoticeDao(created);
 }
 
+/* 投稿した内容を編集する */
 async function updateNotice(id, data) {
   const updated = await adminReportDataRepository.updateNoticeData(id, data);
 
@@ -42,6 +45,7 @@ async function updateNotice(id, data) {
   return adminReportDataMapper.mapToNoticeDao(updated);
 }
 
+/* 投稿したデータを削除する */
 async function removeNotice(id) {
   return await adminReportDataRepository.deleteNoticeData(id);
 }
