@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* このままでも問題なく動くが、処理が冗長なのと、一部無駄な処理があるので時間がある時に改修する */
+
+import { useState } from 'react';
 import styles from '../../styles/TransactionStatic/TransactionAdd.module.css';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -120,7 +122,7 @@ const TransactionAdd = () => {
 
   /* 日付変更 */
   const handleDateChange = (e) => {
-    const selectedDate = e.target.value; // '2025-01-29'
+    const selectedDate = e.target.value; // 例：'2025-01-29'
     const [year, month, day] = selectedDate.split('-').map(Number);
 
     const [hour, minute] = [date.getHours(), date.getMinutes()];
@@ -397,7 +399,7 @@ const TransactionAdd = () => {
       transactions: rows.map(row => ({
         ...row,
         trans_date: row.date instanceof Date ? row.date.toISOString() : new Date(row.date).toISOString(), // Modelと合わせないとエラーになる
-        amount: row.priceNum
+        amount: row.priceNum // サーバー側でpriceはamountとして処理される
       }))
     };
 
