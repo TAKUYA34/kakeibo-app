@@ -91,7 +91,7 @@ describe('POST api/transactions/add/register', () => {
 
     const savedJuly = resJuly.body.transactions[0];
 
-    // → total_amount が -1000 でリセットスタートしていることを確認
+    // -1000でリセットスタートしていることを確認する
     expect(savedJuly.total_amount).toBe(-1000);
   });
 
