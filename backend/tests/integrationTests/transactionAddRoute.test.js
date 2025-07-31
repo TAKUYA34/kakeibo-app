@@ -4,7 +4,7 @@ const appTest = require('../testServer/app.test');
 const TransactionTest = require('../../models/Transaction');
 const CategoryTest = require('../../models/Category');
 const UserTest = require('../../models/User');
-const transactionAddTestMapper = require('./testMapper/transactionAddTestMapper');
+const transactionAddTestMapper = require('../testMapper/transactionAddTestMapper');
 
 /* 家計簿データ登録画面 API */
 describe('POST api/transactions/add/register', () => {
