@@ -7,11 +7,12 @@ async function insertMany(transactions) {
   return await Transaction.insertMany(transactions);
 }
 
-/* 取引全体を新しい順で返す */
+/* 最後に登録された取引データを一件取得する */
 async function getLatestTransactionByMonth(userId, startOfMonth, endOfMonth) {
   
   const objectUserId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
 
+  // 取得
   const lastTransaction = await Transaction.findOne({
     user_id: objectUserId,
     trans_date: { $gte: startOfMonth, $lte: endOfMonth }
@@ -20,7 +21,7 @@ async function getLatestTransactionByMonth(userId, startOfMonth, endOfMonth) {
   .limit(1) // 1件のみ
   .lean(); // 軽量化
 
-  return lastTransaction; // total_amountではなく、取引全体を返す
+  return lastTransaction;
 }
 
 /* カテゴリ検索、なければ作成する */
