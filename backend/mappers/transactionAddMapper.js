@@ -12,10 +12,11 @@ function mapToTransaction(tx, userId, runTotal, category_id) {
 
   // なければバリデーション
   if (!tx.major || !tx.middle) {
-  throw new Error('major or middle category is missing');
+  throw new Error('大項目もしくは中項目のデータがありません');
   }
 
   const rawAmount = parseInt(tx.price.replace(/[^\d-]/g, ''), 10); // 数字以外の文字を除去し、整数に変換
+  // console.log('型確認',rawAmount);
   const txAmount = tx.major === 'expense' ? -Math.abs(rawAmount) : Math.abs(rawAmount); // 支出ならマイナス、収入ならプラス
   const txDate = parseDateTimeAndSecond(tx.date); // 日付をパース（時間・秒も対応）
 
