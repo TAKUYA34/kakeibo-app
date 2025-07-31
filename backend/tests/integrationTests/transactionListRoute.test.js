@@ -1,6 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const appTest = require('../testServer/app.test'); // mockAuthを受け取ったExpress app
+const appTest = require('../testServer/app.test');
 const TransactionTest = require('../../models/Transaction');
 
 /* 家計簿データリスト画面 API */
@@ -24,40 +24,40 @@ describe('GET /api/transactions', () => {
         transaction_id: new mongoose.Types.ObjectId().toString(),
         user_id: userId,
         category_id: categoryId,
-        trans_date: new Date('2025-03-01'),
+        trans_type: 'expense',
         amount: 1000,
         total_amount: 1000,
+        memo: 'ラーメン',
         major_sel: '食費',
         middle_sel: '外食',
         minor_sel: 'ランチ',
-        memo: 'ラーメン',
-        trans_type: 'expense',
+        trans_date: new Date('2025-03-01')
       },
       {
         transaction_id: new mongoose.Types.ObjectId().toString(),
         user_id: userId,
         category_id: categoryId,
-        trans_date: new Date('2025-03-15'),
+        trans_type: 'expense',
         amount: 3000,
         total_amount: 4000,
+        memo: '買い物',
         major_sel: '食費',
         middle_sel: '自炊',
         minor_sel: 'スーパー',
-        memo: '買い物',
-        trans_type: 'expense',
+        trans_date: new Date('2025-03-15')
       },
       {
         transaction_id: new mongoose.Types.ObjectId().toString(),
         user_id: userId,
         category_id: categoryId,
-        trans_date: new Date('2025-04-10'),
+        trans_type: 'expense',
         amount: 2000,
         total_amount: 6000,
+        memo: '',
         major_sel: '交通',
         middle_sel: '電車',
         minor_sel: '通勤',
-        memo: '',
-        trans_type: 'expense',
+        trans_date: new Date('2025-04-10'),
       },
     ];
 
