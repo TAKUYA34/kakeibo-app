@@ -24,11 +24,12 @@ async function toAddUserTransactions(transactions, userId) {
         // 月の最新の total_amount を取得
         const lastTotal = await transactionAddRepository.getLatestTransactionByMonth(userId, startOfMonth, endOfMonth);
 
+        // console.log('lastTotal', lastTotal);
         // lastTotal? = null や undefined のときは undefined を返す
         // total_amount?? = 左側の値が null または undefined のときだけ 0 を出力する
         runTotalMap[yearMonthKey] = lastTotal?.total_amount ?? 0;
       }
-      
+      // 金額を加算
       const currentAmount = Number(tx.amount);
       const currentTotal = runTotalMap[yearMonthKey] + currentAmount;
       
