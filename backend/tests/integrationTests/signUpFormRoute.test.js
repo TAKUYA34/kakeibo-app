@@ -1,7 +1,7 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../../testServer/app.test');
-const User = require('../../models/User');
+const appTest = require('../testServer/app.test');
+const UserTest = require('../../models/User');
 
 describe('POST /register', () => {
 
@@ -12,7 +12,7 @@ describe('POST /register', () => {
 
   // 各テスト前にDB初期化
   beforeEach(async () => {
-    await User.deleteMany({});
+    await UserTest.deleteMany({});
   });
 
   // テスト後にMongoDB切断
@@ -20,37 +20,45 @@ describe('POST /register', () => {
     await mongoose.connection.close();
   });
 
+  /* 正常系 */
   it('新規登録が成功する', async () => {
-    const res = await request(app)
-      .post('/register')
+
+    // supertestを使用してリクエスト
+    const res = await request(appTest)
+      .post('/api/home/register')
       .send({
         user_name: 'testuser',
         email: 'test@example.com',
         password: 'securePassword123'
       });
 
-    expect(res.statusCode).toBe(200); // 登録成功レスポンス
-    const users = await User.find({});
+    // 検証
+    expect(res.statusCode).toBe(201); // 登録成功
+
+    // 確認で登録したデータを1件取得する
+    const users = await UserTest.find({});
     expect(users.length).toBe(1);
     expect(users[0].user_name).toBe('testuser');
   });
 
+  /* 異常系 */
   it('同じパスワードの再登録は拒否される', async () => {
     // 先に1人登録
-    await request(app).post('/register').send({
+    await request(appTest).post('/api/home/register').send({
       user_name: 'firstuser',
       email: 'first@example.com',
       password: 'samePassword123'
     });
 
-    // 同じパスワードで再登録（別のユーザー）
-    const res = await request(app).post('/register').send({
+    // 同じパスワードで再登録
+    const res = await request(appTest).post('/api/home/register').send({
       user_name: 'seconduser',
       email: 'second@example.com',
       password: 'samePassword123'
     });
 
-    expect(res.statusCode).toBe(500);
+    // 検証
+    expect(res.statusCode).toBe(409);
     expect(res.text).toContain('このパスワードは既に使われています。');
   });
 });
