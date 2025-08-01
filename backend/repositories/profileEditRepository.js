@@ -29,6 +29,7 @@ const updateUserById = async (userId, updateFields) => {
 
 /* ユーザー情報を削除する */
 const deleteUserById = async (userId) => {
+  // console.log('userId', userId);
   // userIdがUUID形式であることを確認
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     throw new Error('uuid形式のuserIdが無効です');

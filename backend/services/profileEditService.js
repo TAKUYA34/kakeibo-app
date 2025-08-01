@@ -36,6 +36,7 @@ const updateUserProfile = async (userId, user_name, email, password) => {
 
     // DB 更新
     const updatedUser = await userEditRepository.updateUserById(userId, updateFields);
+    // console.log('update', updatedUser);
     return updatedUser;
   } catch (err) {
     throw err;
