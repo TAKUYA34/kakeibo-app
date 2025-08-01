@@ -1,6 +1,5 @@
 // server/app.js
 const express = require('express');
-const cors = require('cors');
 const mockAuthenticateToken = require('../middlewares/mockAuthenticateToken'); // テスト用
 const mockIsAdmin = (req, res, next) => next() // テスト用
 
@@ -29,16 +28,6 @@ require('dotenv').config({ path: './.env.development' }); // 環境変数の読�
 
 const app = express();
 
-// CORSの設定（順番に注意）
-/* フロントエンドのポート3000からのリクエストを許可 */
-app.use(cors({
-  origin: process.env.FRONTEND_PORT || 'http://localhost:3000', // 'https://kake-ibo-app.com', // 本番環境ではフロントエンドのURLを指定
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
-}));
-/* プリフライトリクエストへの対応（★重要）*/
-app.options('*', cors());
-
 /* JSON形式のリクエストボディをパース */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -51,7 +40,7 @@ app.use('/api/transactions', transactionListRoutes(mockAuthenticateToken.mockAut
 app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
 app.use('/api/home', whatsNewRoutes(mockAuthenticateToken.mockAuthenticateToken)); // お知らせ表示のルーティングを使用
 app.use('/api/transactions', exportPDFAndCSV(mockAuthenticateToken.mockAuthenticateToken)); // PDF or CSV出力データのルーティングを使用
-app.use('/api/home', profileEditRoutes(mockAuthenticateToken.mockAuthenticateToken)); // プロフィール編集のルーティングを使用
+app.use('/api/home', profileEditRoutes(mockAuthenticateToken.mockAuthenticateWithTokenHeader)); // プロフィール編集のルーティングを使用
 app.use('/api/auth', requestPasswordReset); // passwordリセット申請のルーティングを使用
 app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用
 app.use('/api/info', infoPagesForm); // 問い合わせフォームのルーティングを使用
