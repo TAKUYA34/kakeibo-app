@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* 一般ユーザー用ルーティング */
-app.use('/api/home', loginFormRoutes({ authenticate: mockAuthenticateToken.mockAuthenticateToken, isAdmin: mockIsAdmin })); // ログイン画面のルーティングを使用
+app.use('/api/home', loginFormRoutes({ authenticate: mockAuthenticateToken.authenticateToken, isAdmin: mockIsAdmin })); // ログイン画面のルーティングを使用
 app.use('/api/home', signUpFormRoutes); // 新規登録画面のルーティングを使用
 app.use('/api/transactions', transactionAddRoutes(mockAuthenticateToken.mockAuthenticateToken)); // トランザクション追加のルーティングを使用
 app.use('/api/transactions', transactionListRoutes(mockAuthenticateToken.mockAuthenticateToken)); // トランザクションリストのルーティングを使用
@@ -42,7 +42,7 @@ app.use('/api/home', whatsNewRoutes(mockAuthenticateToken.mockAuthenticateToken)
 app.use('/api/transactions', exportPDFAndCSV(mockAuthenticateToken.mockAuthenticateToken)); // PDF or CSV出力データのルーティングを使用
 app.use('/api/home', profileEditRoutes(mockAuthenticateToken.mockAuthenticateWithTokenHeader)); // プロフィール編集のルーティングを使用
 app.use('/api/auth', requestPasswordReset); // passwordリセット申請のルーティングを使用
-app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用
+app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用 
 app.use('/api/info', infoPagesForm); // 問い合わせフォームのルーティングを使用
 
 /* 管理者用ルーティング */

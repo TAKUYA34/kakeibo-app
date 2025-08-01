@@ -1,5 +1,21 @@
 // middlewares/mockAuthenticateToken.js
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
+// JWT認証（ログイン／ログアウト用）
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) return res.sendStatus(401);
+
+  // jwt.verifyを使って認証する
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 // req.user.id（固定のID）を使いたいとき用
 function mockAuthenticateWithTokenHeader(req, res, next) {
@@ -47,5 +63,6 @@ function mockAuthenticateAdmin(req, res, next) {
 module.exports = {
   mockAuthenticateToken,
   mockAuthenticateAdmin,
-  mockAuthenticateWithTokenHeader
+  mockAuthenticateWithTokenHeader,
+  authenticateToken
 };
