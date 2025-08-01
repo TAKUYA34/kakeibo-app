@@ -11,6 +11,11 @@ const fetchResetPassword = async (token, newPassword) => {
     if (!user) {
       throw new Error('無効なトークンです。');
     }
+
+    if (newPassword.length < 6) {
+      throw new Error('パスワードは最低6文字以上である必要があります');
+    }
+
     // ハッシュ化
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
