@@ -33,11 +33,21 @@ async function login(email, password) {
 
 /* ログアウト時はtoken破棄し、ユーザーのデータを返却する */
 async function logout(userId) {
+
+  if (!userId) {
+    throw new Error('ログインユーザーのデータの取得に失敗しました');
+  }
+
   await loginFormRepository.updateLoginStatus(userId, false);
 }
 
 /* ログイン完了後にユーザーのデータを取得する */
 async function getMyInfo(userId) {
+
+  if (!userId) {
+    throw new Error('ログインユーザーのデータの取得に失敗しました');
+  }
+
   return await loginFormRepository.findById(userId);
 }
 

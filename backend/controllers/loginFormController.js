@@ -22,6 +22,7 @@ const logout = async (req, res) => {
     await loginFormService.logout(req.user.id);
     res.status(200).json({ message: 'ログアウトしました' });
   } catch (err) {
+    // console.log(err.message);
     res.status(500).json({ message: 'ログアウト処理中にエラーが発生しました' });
   }
 };
@@ -30,8 +31,10 @@ const logout = async (req, res) => {
 const getMyInfo = async (req, res) => {
   try {
     const user = await loginFormService.getMyInfo(req.user.id);
+    // console.log('ユーザーデータ取得後', user);
     res.json(user);
   } catch (err) {
+    // console.log(err.message);
     res.status(500).json({ message: 'サーバーエラー' });
   }
 };
@@ -42,7 +45,7 @@ const getAllUsers = async (req, res) => {
     const users = await loginFormService.getAllUsers();
     res.json(users);
   } catch (err) {
-  res.status(500).json({ message: 'サーバーエラー' });
+    res.status(500).json({ message: 'サーバーエラー' });
   }
 };
 
