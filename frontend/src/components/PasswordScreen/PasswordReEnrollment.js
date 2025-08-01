@@ -1,12 +1,12 @@
 /* PasswordReEnrollment.js */
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom'; // リクエストパラメーター(token)を取得するフック
 import axios from 'axios';
 import styles from '../../styles/PasswordStatic/PasswordReEnrollment.module.css';
 
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
+  const token = searchParams.get('token'); // token取得
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -14,6 +14,11 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+      if (newPassword.length > 6) {
+        setMessage('パスワードは6文字以上で入力してください');
+        return;
+      }
 
       if (newPassword !== confirmPassword) {
         setMessage('パスワードが一致しません。');
@@ -64,7 +69,7 @@ const ResetPasswordForm = () => {
         </form>
         <div className={styles.reEnrollmentMessage_row}>
           <p>{message}</p>
-          {message && (
+          {message && message === 'パスワードがリセットされました。ログインしてください。' (
             <a href="/home/login" className={styles.reEnrollmentHeaderAndMessageContent}>ログイン画面へ</a>
           )}
         </div>
