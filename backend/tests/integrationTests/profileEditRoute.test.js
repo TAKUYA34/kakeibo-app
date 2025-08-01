@@ -8,7 +8,7 @@ describe('PUT /api/home/profile/edit', () => {
   let token, userId, otherUserId;
 
   beforeAll(async () => {
-    // テスト用のDB
+    // 実行前にDBの保存先を指定する
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/integration_test');
   });
 

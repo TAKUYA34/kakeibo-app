@@ -9,7 +9,7 @@ jest.mock('../../utils/mailer', () => ({
 }));
 
 describe('POST /api/auth/password/request', () => {
-  // テスト用のDB
+  // 実行前にDBの保存先を指定する
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/integration_test');
   });
