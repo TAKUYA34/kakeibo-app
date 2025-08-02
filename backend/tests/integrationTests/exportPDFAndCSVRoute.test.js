@@ -9,8 +9,6 @@ describe('GET /api/transactions/export', () => {
   const userId = new mongoose.Types.ObjectId("688aa76704c50cbbd9a78652");
   const categoryId = new mongoose.Types.ObjectId();
   
-  jest.setTimeout(10000); // タイムアウトを10秒延長
-
   beforeAll(async () => {
     // 実行前にDBの保存先を指定する
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/integration_test');
