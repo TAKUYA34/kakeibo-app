@@ -22,7 +22,6 @@ async function exportData(req, res) {
     res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`); // 月を2桁で表示
     res.setHeader('Content-Type', format === 'csv' ? 'text/csv; charset=utf-8' : 'application/pdf'); // 形式に応じてContent-Typeを設定
     res.send(fileBuffer);
-
   } catch (error) {
     // console.error('エクスポートエラー:', error);
     res.status(500).json({ message: 'エクスポートに失敗しました', error: error.message });

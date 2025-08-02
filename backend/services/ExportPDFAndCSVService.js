@@ -33,6 +33,7 @@ const middleSelMap = {
 
 /* 家計簿データを取得し、CSVとPDFの形式にまとめる */
 async function generateExportFile(userId, year, month, format) { // ID, 年, 出力形式
+
   const data = await ExportPDFAndCSVRepository.getExportTransactions(userId, year, month); // パイプラインデータ取得
 
   if (format === 'csv') {
@@ -128,8 +129,14 @@ async function fetchDateOptions(userId) {
 
   const yearMonthSet = new Set();
 
-  dates.forEach(({ trans_date }) => { // ← ここ修正
-    if (!trans_date) return;
+  // 形式をXXXX-XXに変換する
+  dates.forEach(({ trans_date }) => {
+
+    // trans_dateがnullなら終了
+    if (!trans_date) {
+      return;
+    }
+
     const d = new Date(trans_date);
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
