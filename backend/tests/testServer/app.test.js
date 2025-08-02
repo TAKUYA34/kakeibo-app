@@ -39,7 +39,7 @@ app.use('/api/transactions', transactionAddRoutes(mockAuthenticateToken.mockAuth
 app.use('/api/transactions', transactionListRoutes(mockAuthenticateToken.mockAuthenticateToken)); // トランザクションリストのルーティングを使用
 app.use('/api/summary', currentMoneyGraphRoutes); // homeグラフのルーティングを使用
 app.use('/api/home', whatsNewRoutes(mockAuthenticateToken.mockAuthenticateToken)); // お知らせ表示のルーティングを使用
-app.use('/api/transactions', exportPDFAndCSV(mockAuthenticateToken.mockAuthenticateToken)); // PDF or CSV出力データのルーティングを使用
+app.use('/api/transactions', exportPDFAndCSV(mockAuthenticateToken.mockAuthenticateWithTokenHeader)); // PDF or CSV出力データのルーティングを使用
 app.use('/api/home', profileEditRoutes(mockAuthenticateToken.mockAuthenticateWithTokenHeader)); // プロフィール編集のルーティングを使用
 app.use('/api/auth', requestPasswordReset); // passwordリセット申請のルーティングを使用
 app.use('/api/auth', passwordReEnrollment); // password再登録のルーティングを使用 
