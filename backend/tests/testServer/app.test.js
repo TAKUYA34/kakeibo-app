@@ -18,7 +18,7 @@ const passwordReEnrollment = require('../../routes/passwordReEnrollmentRoutes');
 const infoPagesForm = require('../../routes/infoPagesFormRoutes'); // 問い合わせフォーム
 
 // 管理者用
-const authLoginFormRoutes = require('../../routes/authLoginFormRoutes'); // 管理者ログイン認証
+const adminLoginFormRoutes = require('../../routes/adminLoginFormRoutes'); // 管理者ログイン認証
 const adminOnlyScreen = require('../../routes/adminOnlyScreenRoutes'); // 管理者home画面の統計データ
 const adminReportData = require('../../routes/adminReportDataRoutes'); // 管理者お知らせ画面の各処理
 const adminDashboardData = require('../../routes/adminDashboardDataRoutes'); // 管理者ユーザー取引管理画面の各処理
@@ -46,7 +46,7 @@ app.use('/api/auth', passwordReEnrollment); // password再登録のルーティ�
 app.use('/api/info', infoPagesForm); // 問い合わせフォームのルーティングを使用
 
 /* 管理者用ルーティング */
-app.use('/api/admin', authLoginFormRoutes(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ログイン認証のルーティングを使用
+app.use('/api/admin', adminLoginFormRoutes(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ログイン認証のルーティングを使用
 app.use('/api/admin', adminOnlyScreen(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者home画面の統計データのルーティングを使用
 app.use('/api/admin', adminReportData(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者お知らせ画面の各処理のルーティングを使用
 app.use('/api/admin', adminDashboardData(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ユーザー取引管理画面の各処理のルーティングを使用
