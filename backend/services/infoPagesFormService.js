@@ -14,6 +14,7 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
   // 一時的なアカウントを自動生成
   const testAccount = await nodemailer.createTestAccount();
 
+  // etherealサーバーにアクセス
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
@@ -23,6 +24,7 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
     },
   });
 
+  // メールの形式
   const mailOptions = {
     from: `"${name}" <${email}>`,
     to: process.env.ETHEREAL_USER,
@@ -35,6 +37,7 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
     ${message}`.trim()
   };
 
+  // 送信
   const info = await transporter.sendMail(mailOptions);
   return nodemailer.getTestMessageUrl(info); // 表示リンクを返す（ログ用）
 };
