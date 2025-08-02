@@ -4,6 +4,7 @@ const transactionSummaryService = require('../services/currentMoneyGraphService'
 async function getMonthlySummary(req, res) {
   try {
     const userId = req.query.userId; // userId
+    // console.log('userID', userId);
     if (!userId) return res.status(400).json({ message: 'userIdが必要です' });
 
     const summary = await transactionSummaryService.getMonthlySummary(userId);
@@ -18,9 +19,11 @@ async function getMonthlySummary(req, res) {
 async function getCategorySummery(req, res) {
   try {
     const userId = req.query.userId; // userId
+    // console.log('userID', userId);
     if (!userId) return res.status(400).json({ message: 'userIdが必要です' });
 
     const summary = await transactionSummaryService.getCategorySummary(userId);
+    // console.log(summary);
     res.json(summary);
   } catch (err) {
     // console.error('[getMonthlySummary] error:', err);

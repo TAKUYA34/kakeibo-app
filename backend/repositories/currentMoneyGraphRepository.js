@@ -27,7 +27,7 @@ async function aggregateMonthlySummary(userId) {
     {
       // 統合
       $project: {
-        name: {
+        date: {
           $concat: [
             { $toString: '$_id.year' },
             '-',
@@ -45,7 +45,7 @@ async function aggregateMonthlySummary(userId) {
         _id: 0
       }
     },
-    { $sort: { name: 1 } }
+    { $sort: { date: 1 } }
   ]);
 }
 
@@ -53,6 +53,7 @@ async function aggregateMonthlySummary(userId) {
 async function aggregateCategorySummary(userId) {
   const objectUserId = new mongoose.Types.ObjectId(userId); // 文字列をObjectIdに変換
   return await Transaction.aggregate([
+    // $lt: 0 = 正の数だとマッチしない
     { $match: { user_id: objectUserId, amount: { $lt: 0 } } }, // 支出のみ
     {
       $group: {
