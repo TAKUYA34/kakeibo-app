@@ -65,7 +65,7 @@ describe('GET /api/admin/home/users', () => {
   });
 
   /* ユーザー検索 */
-  describe('GET /api/admin/home/users/search', () => {
+  describe('POST /api/admin/home/users/search', () => {
   /* 正常系 */
     it('ユーザー名を指定してユーザーを検索できる', async () => {
       // supertestを使用してリクエスト
@@ -93,7 +93,7 @@ describe('GET /api/admin/home/users', () => {
   });
 
   /* ユーザーデータ更新 */
-  describe('GET /api/admin/home/users/edit/:id', () => {
+  describe('PUT /api/admin/home/users/edit/:id', () => {
     /* 正常系 */
     it('ユーザー情報を更新できる', async () => {
       // supertestを使用してリクエスト
@@ -118,7 +118,7 @@ describe('GET /api/admin/home/users', () => {
   });
 
   /* ユーザーデータ削除 */
-  describe('GET /api/admin/home/users/delete/:id', () => {
+  describe('DELETE /api/admin/home/users/delete/:id', () => {
     /* 正常系 */
     it('ユーザーを削除できる', async () => {
       // supertestを使用してリクエスト
