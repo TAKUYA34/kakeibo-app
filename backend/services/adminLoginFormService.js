@@ -7,9 +7,10 @@ const SECRET_KEY = process.env.JWT_SECRET; // 環境変数からシークレッ�
 /* 管理者のユーザープロフィールを取得する関数 */
 const fetchAdminProfile = async (userPayload) => {
   if (userPayload?.role !== 'admin') return null;
-
+  // console.log('userPayload', userPayload);
   /* DBから最新の管理者情報を取得する */
   const user = await adminLoginFormRepository.findAdminById(userPayload._id);
+  // console.log('user', user);
   return user;
 };
 
