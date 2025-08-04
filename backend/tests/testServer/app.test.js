@@ -1,4 +1,4 @@
-// server/app.js
+// /testServer/app.js
 const express = require('express');
 const mockAuthenticateToken = require('../middlewares/mockAuthenticateToken'); // テスト用
 const mockIsAdmin = (req, res, next) => next() // テスト用
