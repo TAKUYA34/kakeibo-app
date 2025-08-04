@@ -4,6 +4,10 @@ const adminDashboardDataService = require('../services/adminDashboardDataService
 const getAllTransactions = async (req, res) => {
   try {
     const transactions = await adminDashboardDataService.fetchAllTransactions();
+    // 取引データが0件の場合
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: '取引データが見つかりませんでした' });
+    }
     res.status(200).json(transactions);
   } catch (err) {
     // console.error('Error getting transactions:', err);

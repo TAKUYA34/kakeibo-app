@@ -8,6 +8,10 @@ const fetchAllTransactions = async () => {
 /*-- ユーザー名やカテゴリ、メモでキーワード検索する --*/
 const fetchUserAndCategoryAndMemosSearch = async (filters) => {
 
+  if (!filters) {
+    throw new Error('データの取得に失敗しました');
+  }
+
   const refinedFilters = {
     // Stringで受け取ってるか
     name: typeof filters.name === 'string' ? filters.name.trim() : null,
@@ -38,8 +42,8 @@ const fetchUserAndCategoryAndMemosSearch = async (filters) => {
       ? [filters.memo.trim()]
       : []  };
 
-      return await adminDashboardDataRepository.keywordSearchTransactions(refinedFilters);
-    };
+    return await adminDashboardDataRepository.keywordSearchTransactions(refinedFilters);
+  };
     
 /*-- ユーザーの取引データを編集する --*/
 async function updateTransactionAndRecalculateTotal(id, updatedData) {
