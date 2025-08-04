@@ -7,7 +7,7 @@ const UserTest = require('../../models/User');
 describe('GET /api/admin/home/users', () => {
   let userId;
 
-  // 管理者認証ミドルウェアを無効化（スタブ化）したテスト用サーバーを使う
+  // 管理者認証ミドルウェアを無効化したテスト用サーバーを使う
   beforeAll(async () => {
     // 実行前にDBの保存先を指定する
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/integration_test');
@@ -62,7 +62,7 @@ describe('GET /api/admin/home/users', () => {
     });
 
     userId = user._id.toString();
-  })
+  });
 
   /* ユーザー検索 */
   describe('GET /api/admin/home/users/search', () => {
