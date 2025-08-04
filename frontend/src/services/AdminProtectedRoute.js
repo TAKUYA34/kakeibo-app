@@ -1,6 +1,4 @@
 // src/routes/AdminProtectedRoute.js
-
-import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAdminAuth } from "../services/AdminAuthContext";
 
