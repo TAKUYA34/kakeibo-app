@@ -46,10 +46,10 @@ app.use('/api/auth', passwordReEnrollment); // password再登録のルーティ�
 app.use('/api/info', infoPagesForm); // 問い合わせフォームのルーティングを使用
 
 /* 管理者用ルーティング */
-app.use('/api/admin', adminLoginFormRoutes(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ログイン認証のルーティングを使用
-app.use('/api/admin', adminOnlyScreen(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者home画面の統計データのルーティングを使用
+app.use('/api/admin', adminLoginFormRoutes(mockAuthenticateToken.authenticateToken)); // 管理者ログイン認証のルーティングを使用
+app.use('/api/admin', adminOnlyScreen(mockAuthenticateToken.authenticateToken)); // 管理者home画面の統計データのルーティングを使用
 app.use('/api/admin', adminReportData(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者お知らせ画面の各処理のルーティングを使用
 app.use('/api/admin', adminDashboardData(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ユーザー取引管理画面の各処理のルーティングを使用
 app.use('/api/admin', adminUsersManagementData(mockAuthenticateToken.mockAuthenticateAdmin)); // 管理者ユーザー管理画面の各処理のルーティングを使用
 
-module.exports = app;
+module.exports = app;   
