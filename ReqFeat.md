@@ -121,30 +121,31 @@
 | **システム設定画面(仮)**        | アプリの基本設定や運用制御                |
 
 ## フォルダマップ
-
-project-root/
-├── backend/                 # Express + MongoDB
-│   ├── controllers/         # ルートごとの処理
-│   ├── services/            # ビジネスロジック
-│   ├── repositories/         # DB操作
-│   ├── mappers/             # DTO変換など
-│   ├── models/              # スキーマ定義
-│   ├── routes/              # ルーティング設定
-│   ├── middleware/          # 認証などの共通処理
-│   └── server.js            # 起動エントリ
-│
-├── frontend/                # React
-│   ├── components/          # UIパーツ
-│   ├── pages/               # 各ページ
-│   ├── styles/              # CSS Modules
-│   ├── services/            # API連携
-│   └── App.js               # ルートコンポーネント
-│
-├── tests/                   # テスト群
-│   ├── unitTests/           # 単体テスト
-│   ├── integrationTests/    # 結合テスト
-│   └── testServer/          # モックサーバー
-│
-├── .env                     # 環境設定
-├── docker-compose.yml       # Docker構成
-└── README.md
+<pre>
+  project-root/
+  ├── backend/                 # Express + MongoDB
+  │   ├── controllers/         # ルートごとの処理
+  │   ├── services/            # ビジネスロジック
+  │   ├── repositories/         # DB操作
+  │   ├── mappers/             # DTO変換など
+  │   ├── models/              # スキーマ定義
+  │   ├── routes/              # ルーティング設定
+  │   ├── middleware/          # 認証などの共通処理
+  │   └── server.js            # 起動エントリ
+  │
+  ├── frontend/                # React
+  │   ├── components/          # UIパーツ
+  │   ├── pages/               # 各ページ
+  │   ├── styles/              # CSS Modules
+  │   ├── services/            # API連携
+  │   └── App.js               # ルートコンポーネント
+  │
+  ├── tests/                   # テスト群
+  │   ├── unitTests/           # 単体テスト
+  │   ├── integrationTests/    # 結合テスト
+  │   └── testServer/          # モックサーバー
+  │
+  ├── .env                     # 環境設定
+  ├── docker-compose.yml       # Docker構成
+  └── README.md
+</pre>
