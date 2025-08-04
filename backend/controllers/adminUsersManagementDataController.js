@@ -4,6 +4,10 @@ const adminUsersManagementDataService = require('../services/adminUsersManagemen
 const getAllNonAdminUsers = async (req, res) => {
   try {
     const Users = await adminUsersManagementDataService.fetchUsersExcludingAdmins();
+    // ユーザーのデータが0件の場合
+    if (Users.length === 0) {
+      return res.status(404).json({ message: 'ユーザーが見つかりませんでした' });
+    }
     // console.log('users:', Users);
     res.status(200).json(Users);
   } catch (err) {
