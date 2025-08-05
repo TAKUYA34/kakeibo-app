@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdminAuth } from "../../services/AdminAuthContext";
-import { useEffect } from "react";
+import { toast } from 'react-toastify';
 import styles from "../../styles/AdminLoginStatic/AdminLoginForm.module.css"; // スタイルをインポート
   
 const AdminLoginForm = () => {
@@ -25,7 +25,7 @@ const AdminLoginForm = () => {
       await login(email, password); // ログイン処理
       navigate("/admin/home"); // 管理画面へリダイレクト
     } catch (err) {
-      alert("ログイン失敗: " + err.message);
+      toast.error("ログイン失敗: " + err.message);
     }
   };
   

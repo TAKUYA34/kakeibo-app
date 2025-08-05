@@ -1,7 +1,7 @@
 import styles from '../../styles/MenuStatic/ProfileEdit.module.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../services/AuthContext";
-import { useEffect } from "react";
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
@@ -85,11 +85,11 @@ const ProfileEdit = () => {
         email: email
       });
 
-      alert("プロフィールを更新しました");
+      toast.success("プロフィールを更新しました");
       navigate("/home/profile");
     } catch (err) {
       console.error(err);
-      alert("プロフィールの更新中にエラーが発生しました: " + err.message);
+      toast.error("プロフィールの更新中にエラーが発生しました: " + err.message);
     }
   };
 
@@ -114,12 +114,12 @@ const ProfileEdit = () => {
         throw new Error("アカウントの削除に失敗しました");
       }
 
-      alert("アカウントを削除しました");
+      toast.success("アカウントを削除しました");
       logout(); // 認証情報をクリア
       navigate("/home/login"); // ログイン画面にリダイレクト
     } catch (err) {
       console.error(err);
-      alert("アカウントの削除中にエラーが発生しました: " + err.message);
+      toast.error("アカウントの削除中にエラーが発生しました: " + err.message);
     }
   };
 

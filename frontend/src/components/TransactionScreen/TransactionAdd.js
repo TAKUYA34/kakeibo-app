@@ -389,7 +389,7 @@ const TransactionAdd = () => {
   const handleRegister = async () => {
 
     if (rows.length === 0) {
-      toast.success('登録するデータがありません。');
+      toast.error('登録するデータがありません。');
       return;
     }
 
@@ -421,7 +421,7 @@ const TransactionAdd = () => {
       toast.success(`${rows.length}件のデータ登録が完了しました。`);
       setRows([]); // 登録後にテーブルをクリア
     } catch (error) {
-      toast.success('テーブルの登録に失敗しました。');
+      toast.error('テーブルの登録に失敗しました。');
     }
   };
 

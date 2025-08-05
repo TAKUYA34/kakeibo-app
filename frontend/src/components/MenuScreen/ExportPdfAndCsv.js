@@ -1,7 +1,8 @@
 import styles from '../../styles/MenuStatic/ExportPdfAndCsv.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const ExportPdfAndCsv = () => {
@@ -60,13 +61,13 @@ const ExportPdfAndCsv = () => {
   // ダウンロード処理
   const handleDownload = async () => {
     if (!yearDate || !format) {
-      alert('年と形式は必須です');
+      toast.warning('年と形式は必須です');
       return;
     }
 
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('ログインが必要です');
+      toast.warning('ログインが必要です');
       return;
     }
 
@@ -90,7 +91,7 @@ const ExportPdfAndCsv = () => {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('ダウンロードに失敗しました', err.response?.data?.error);
-      alert('ダウンロードに失敗しました');
+      toast.warning('ダウンロードに失敗しました');
     }
   };
 
