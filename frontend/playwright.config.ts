@@ -31,7 +31,10 @@ export default defineConfig({
     },
     {
       name: 'firefox',
-      use: { browserName: 'firefox' },
+      use: {
+        browserName: 'firefox',
+        headless: true,
+       },
     },
     {
       name: 'webkit',
