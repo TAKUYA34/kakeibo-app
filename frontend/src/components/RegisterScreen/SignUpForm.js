@@ -1,7 +1,8 @@
 // src/components/SignUpForm.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from '../../styles/RegisterStatic/SignUpForm.module.css'; // スタイルシートのインポート
 import { useNavigate } from 'react-router-dom'; // useNavigateをインポート
+import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
   // formのデータを管理
@@ -16,8 +17,8 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
-    // 空白や＠を含まない文字を一文字以上入力する正規表現チェック
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    // @より前は英数、記号限定 + @必須 + ドメイン名 + 最低ドット1つ + .com
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
   
   // 入力フィールドの変更を処理する関数
@@ -66,7 +67,7 @@ const SignUpForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('新規登録完了しました');
+        toast.success('新規登録完了しました');
         navigate('/home/login'); // サインアップ成功後にログインページへリダイレクト
       } else {
         setError(result.message || '新規登録失敗しました');
