@@ -1,4 +1,8 @@
 import { defineConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+
+// .envを読み込む
+dotenv.config({ path: '.env.development' });
 
 export default defineConfig({
   // テストファイルがあるフォルダ
