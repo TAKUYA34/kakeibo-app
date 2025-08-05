@@ -6,7 +6,6 @@
   width: var(--main2-width); /* w-full */
   height: 100vh;  /* h-screen */
   padding: 80px 0 100px 0; /* 上マージン + 下マージン */
-  position: relative; /* 相対位置 */
   background-color: #fff8f8; /* 背景色 */
 }
 

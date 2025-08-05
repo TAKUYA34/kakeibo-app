@@ -4,8 +4,8 @@
 
 .main {
   width: var(--header-width); /* w-full */
-  height: 100vh;  /* h-screen */
-  padding: 120px 0 200px 0; /* 上マージン + 下マージン */
+  height: 1100px;  /* h-screen */
+  padding: 60px 0 60px 0; /* 上マージン + 下マージン */
   background: white; /* bg-white */
 }
 
