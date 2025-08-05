@@ -177,16 +177,16 @@ const TransactionList = () => {
         <div className={styles.TransactionListImg} />
           <h1>KAKEIBO LIST</h1>
           <div className={styles.List_row}>
-            <label>年：</label>
-            <select value={yearDate} onChange={(e) => setYearDate(e.target.value)}>
+            <label htmlFor='year'>年：</label>
+            <select id='year' name='yearDate' value={yearDate} onChange={(e) => setYearDate(e.target.value)}>
               <option value="">-- 年を選択 --</option>
               {yearOptions.map((year) => (
                 <option key={year} value={year}>{year}</option>
               ))}
             </select>
 
-            <label>月：</label>
-            <select value={monthDate} onChange={(e) => setMonthDate(e.target.value)}>
+            <label htmlFor='month'>月：</label>
+            <select id='month' name='monthDate' value={monthDate} onChange={(e) => setMonthDate(e.target.value)}>
               <option value="">-- 月を選択 --</option>
               {monthOptions.map((month) => (
                 <option key={month} value={month}>{month}</option>
@@ -198,6 +198,7 @@ const TransactionList = () => {
             <input
               type="text"
               id="search" // ← labelと対応
+              name='searchTerm'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="search"
