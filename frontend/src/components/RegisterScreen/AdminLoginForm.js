@@ -35,10 +35,10 @@ const AdminLoginForm = () => {
         <h1>Admin Login</h1>
         <div className={styles.inputGroup}>
           <label htmlFor="email">メールアドレス</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
+          <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
 
           <label htmlFor="password">パスワード</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+          <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
         </div>
         <button type="submit" className={styles.login_btn}>ログイン</button>
       </div>
