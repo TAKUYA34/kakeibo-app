@@ -1,11 +1,10 @@
 /* このままでも問題なく動くが、処理が冗長なのと、一部無駄な処理があるので時間がある時に改修する */
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import styles from '../../styles/TransactionStatic/TransactionAdd.module.css';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 import PriceInput from '../../services/PriceInput.js'; // 価格入力コンポーネントをインポート
 
 const TransactionAdd = () => {
@@ -390,7 +389,7 @@ const TransactionAdd = () => {
   const handleRegister = async () => {
 
     if (rows.length === 0) {
-      alert('登録するデータがありません。');
+      toast.success('登録するデータがありません。');
       return;
     }
 
@@ -419,10 +418,10 @@ const TransactionAdd = () => {
         throw new Error('サーバーエラーが発生しました。' + errorText);
       }
       
-      alert(`${rows.length}件のデータ登録が完了しました。`);
+      toast.success(`${rows.length}件のデータ登録が完了しました。`);
       setRows([]); // 登録後にテーブルをクリア
     } catch (error) {
-      alert('テーブルの登録に失敗しました。');
+      toast.success('テーブルの登録に失敗しました。');
     }
   };
 
@@ -451,6 +450,7 @@ const TransactionAdd = () => {
           <div className={styles.date_row}>
             <label>日付：</label>
             <input
+              name='date'
               type="date"
               value={`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`}
               onChange={handleDateChange}
@@ -552,7 +552,8 @@ const TransactionAdd = () => {
                 className={styles.label_amount} error={priceError}/> {/* 価格入力コンポーネントを追加 */}
               <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <label htmlFor='memo' className={styles.label_memo}>詳細</label>
-                <textarea name="memo"
+                <textarea id="memo"
+                  name="memo"
                   ref={memoInputRef}
                   value={memo}
                   onChange={(e) => {
