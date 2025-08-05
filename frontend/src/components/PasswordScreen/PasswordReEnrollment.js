@@ -15,7 +15,7 @@ const ResetPasswordForm = () => {
     e.preventDefault();
     try {
 
-      if (newPassword.length > 6) {
+      if (newPassword.length < 6) {
         setMessage('パスワードは6文字以上で入力してください');
         return;
       }
@@ -69,7 +69,7 @@ const ResetPasswordForm = () => {
         </form>
         <div className={styles.reEnrollmentMessage_row}>
           <p>{message}</p>
-          {message && message === 'パスワードがリセットされました。ログインしてください。' (
+          {message === 'パスワードがリセットされました。ログインしてください。' && (
             <a href="/home/login" className={styles.reEnrollmentHeaderAndMessageContent}>ログイン画面へ</a>
           )}
         </div>
