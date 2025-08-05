@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AdminAuthProvider } from './services/AdminAuthContext';
 import AdminProtectedRoute from './services/AdminProtectedRoute';
 
@@ -13,6 +15,7 @@ import AdminUsers from './pages/AdminUsers';
 const AdminApp = () => (
   <AdminAuthProvider>
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         {/* 管理者画面 認証不要 */}
         <Route path="/admin/login" element={<AdminLogin />} />

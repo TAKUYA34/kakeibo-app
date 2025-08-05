@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Navigate } from "react-router-dom";
 // ユーザー用
 import { AuthProvider } from "./services/AuthContext.js";
@@ -18,6 +20,7 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
+        <ToastContainer />
         <Routes>
           {/* 一般ユーザー画面 認証不要 */}
           <Route path="/home/login" element={<Login />} />
