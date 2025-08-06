@@ -61,7 +61,7 @@ const ExportPdfAndCsv = () => {
   // ダウンロード処理
   const handleDownload = async () => {
     if (!yearDate || !format) {
-      toast.warning('年と形式は必須です');
+      toast.warning('年もしくは形式の入力が必須です');
       return;
     }
 
@@ -103,24 +103,24 @@ const ExportPdfAndCsv = () => {
           <h1>Data Export</h1>
 
           <div className={styles.select_row}>
-            <label>年：</label>
-            <select value={yearDate} onChange={(e) => setYearDate(e.target.value)}>
+            <label htmlFor='year'>年：</label>
+            <select id='year' name='yearDate' value={yearDate} onChange={(e) => setYearDate(e.target.value)}>
               <option value="">-- 年を選択 --</option>
               {yearOptions.map((year) => (
                 <option key={year} value={year}>{year}</option>
               ))}
             </select>
 
-            <label>月：</label>
-            <select value={monthDate} onChange={(e) => setMonthDate(e.target.value)}>
+            <label htmlFor='month'>月：</label>
+            <select id='month' name='monthDate' value={monthDate} onChange={(e) => setMonthDate(e.target.value)}>
               <option value="">-- 月を選択 --</option>
               {monthOptions.map((month) => (
                 <option key={month} value={month}>{month}</option>
               ))}
             </select>
 
-            <label>ファイル形式：</label>
-            <select value={format} onChange={(e) => setFormat(e.target.value)}>
+            <label htmlFor='form'>ファイル形式：</label>
+            <select id='form' name='format' value={format} onChange={(e) => setFormat(e.target.value)}>
               <option value='csv'>CSV</option>
               <option value='pdf'>PDF</option>
             </select>
