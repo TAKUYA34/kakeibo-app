@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost:3000';
 
 test.describe('最新情報セクション（WhatsNew）', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${BASE_URL}/home`); // トップページを開く（パスは適宜調整）
+    await page.goto(`${BASE_URL}/home`);
   });
 
   test('お知らせ画面が表示される', async ({ page }) => {
