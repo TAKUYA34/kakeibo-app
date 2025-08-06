@@ -101,16 +101,17 @@ export default function EditModal({ transaction, onClose, onSave }) {
         <h2>取引の編集</h2>
         <div className={styles.modalSelectFormContainer}>
           <div className={styles.modalSelect_row}>
-            <label>大項目</label>
-            <select name="major_sel" value={formValues.major_sel} onChange={handleChange}>
+            <label htmlFor="major_sel">大項目</label>
+            <select id="major_sel" name="major_sel" value={formValues.major_sel} onChange={handleChange}>
+              <option value="">-- 大項目 --</option>
               {Object.entries(majorItemsENToJA).map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
               ))}
             </select>
           </div>
           <div className={styles.modalSelect_row}>
-          <label>中項目</label>
-            <select name="middle_sel" value={formValues.middle_sel} onChange={handleChange}>
+          <label htmlFor="middle_sel">中項目</label>
+            <select id="middle_sel" name="middle_sel" value={formValues.middle_sel} onChange={handleChange}>
               <option value="">-- 中項目 --</option>
               {getMiddleItems().map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
@@ -118,8 +119,8 @@ export default function EditModal({ transaction, onClose, onSave }) {
             </select>
           </div>
           <div className={styles.modalSelect_row}>
-            <label>小項目</label>
-            <select name="minor_sel" value={formValues.minor_sel} onChange={handleChange}>
+            <label htmlFor="minor_sel">小項目</label>
+            <select id="minor_sel" name="minor_sel" value={formValues.minor_sel} onChange={handleChange}>
               <option value="">-- 小項目 --</option>
               {getMinorItems().map((item, index) => (
                 <option key={index} value={item}>{item}</option>
@@ -127,16 +128,18 @@ export default function EditModal({ transaction, onClose, onSave }) {
             </select>
           </div>
           <div className={styles.modalSelect_row}>
-            <label>金額</label>
+            <label htmlFor="amount">金額</label>
             <input
+              id="amount"
               name="amount"
               value={formValues.amount}
               onChange={handleChange}
             />
           </div>
           <div className={styles.modalSelect_row}>
-            <label>メモ</label>
+            <label htmlFor="memo">メモ</label>
             <input
+              id="memo"
               name="memo"
               value={formValues.memo}
               onChange={handleChange}
