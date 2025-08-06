@@ -4,6 +4,7 @@ const infoPagesFormService = require('../services/infoPagesFormService');
 const sendContactEmail = async (req, res) => {
   const { name, email, message, subject } = req.body;
 
+  // console.log(name, email, message, subject);
   if (!name || !email || !subject || !message) {
     return res.status(400).json({ error: '全ての項目を入力してください。' });
   }

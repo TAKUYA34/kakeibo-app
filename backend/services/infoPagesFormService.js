@@ -22,7 +22,7 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
 
   // 開発用アカウントを自動生成
   const testAccount = await nodemailer.createTestAccount();
-
+  console.log(testAccount.user, testAccount.pass);
   // etherealサーバーにアクセス
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -36,7 +36,7 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
   // メールの形式
   const mailOptions = {
     from: `"${name}" <${email}>`,
-    to: process.env.GMAIL_USER,
+    to: testAccount.user,
     subject: `【Kakeibo-App お問い合わせ】【${subject}】 ${name} 様より`,
     text: `【お名前】
     ${name}
@@ -48,8 +48,8 @@ const sendContactEmailService = async ({ name, email, message, subject }) => {
 
   // 送信
   const info = await transporter.sendMail(mailOptions);
-  return info.messageId;
-  // return nodemailer.getTestMessageUrl(info); // 表示リンクを返す（ログ用）
+  // return info.messageId;
+  return nodemailer.getTestMessageUrl(info); // 表示リンクを返す（ログ用）
 };
 
 module.exports = {
