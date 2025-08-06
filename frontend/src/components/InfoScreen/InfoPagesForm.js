@@ -67,8 +67,8 @@ const InfoPagesForm = () => {
       <section ref={kakeiboRef} id="kakeibo" className={styles.section_row}>
         <h2>Kakeibo-Appについて</h2>
         <p>「Kakeibo-App」は、<strong>家計簿データを可視化するために作ったアプリ</strong>です。<br />
-            手書き用の家計簿帳で日々管理してましたが、結構大変だと感じたので作成しました。</p>
-        <p>「Kakeibo-App」で出来ることは以下、<br />1. 家計簿データを登録する。<br />2. データをリストで表示する。<br />3. 記録したデータを月毎にCSVやPDFファイルを抽出したりできます。</p>
+            手書き用の家計簿帳で日々管理してましたが、PCでも家計簿のデータを管理したいと思い作成しました。</p>
+        <p>「Kakeibo-App」で出来ることは以下、<br />1. 家計簿データを登録する。<br />2.家計簿データをリストで表示する。<br />3. 記録した家計簿データを月毎にCSVやPDFファイルを抽出したりできます。</p>
       </section>
 
       <hr style={{ margin: '40px 0' }} />
@@ -83,8 +83,7 @@ const InfoPagesForm = () => {
         <p>A：表示可能です。<br />ホーム画面中部の「家計簿のデータリストを見る」ボタンをクリックしたらカテゴリー毎の集計データが見れます。</p>
 
         <strong>Q：ホーム画面に戻る時はどうすれば良い？</strong>
-        <p>A：ヘッダー「Kakeibo-App」の文字をクリックするとホーム画面に戻れます。</p>
-
+        <p>A：ヘッダー「Kakeibo-App」をクリックするとホーム画面に戻れます。</p>
       </section>
 
       <hr style={{ margin: '40px 0' }} />
@@ -92,7 +91,7 @@ const InfoPagesForm = () => {
       {/* 運営 */}
       <section ref={policyRef} id="policy" className={styles.section_row}>
         <h2>運営方針</h2>
-        <p>管理人はアプリ作成者1人のみなので、時間がある時に運用と保守作業をしていく予定で動きます。<br />
+        <p>管理人が、スキマ時間作って運用と保守作業をしていく予定です。<br />
            アプリ操作中に何かしらの不具合等あれば、問い合わせフォームから連絡頂けますと幸いです。<br />よろしくお願いいたします。</p>
       </section>
 
@@ -155,8 +154,9 @@ const InfoPagesForm = () => {
         <strong>著作権について</strong>
         <p>当アプリで掲載している文章や画像などにつきましては、無断転載禁止です。<br />
            著作権や肖像権に関して問題がございましたら、お問い合わせフォームよりご連絡ください。</p>
-        <strong>Cookieに関して</strong>
-        <p>当アプリはCookieを一切利用しておりません。</p>
+        <strong>Cookieの取り扱いに関して</strong>
+        <p>当アプリはCookieを取り扱っております。<br />
+           Cookieに関して、何か問題がございましたら、お問い合わせフォームよりご連絡ください。</p>
       </section>
 
     </div>
