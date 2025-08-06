@@ -8,7 +8,7 @@ test.describe('OverView（概要）画面 E2Eテスト', () => {
   });
   
   test('概要画面が表示される', async ({ page }) => {
-    // What's New タイトルが表示されること
+    // Over View タイトルが表示されること
     await expect(page.getByRole('heading', { name: "Over View." })).toBeVisible();
   });
 
