@@ -67,7 +67,7 @@ const ProfileEdit = () => {
 
       const data = await res.json(); // errorメッセージも取得する
 
-      console.log("Profile updated:", res.ok ); // デバッグ用ログ
+      // console.log("Profile updated:", res.ok ); // デバッグ用ログ
       if (!res.ok) {
         if (data.message.includes("メールアドレス")) {
           setEmailError(data.message);
@@ -130,8 +130,10 @@ const ProfileEdit = () => {
         <form onSubmit={handleSubmit}>
           <div className={styles.profile_row}>
             <div>
-              <label>お名前</label><br />
+              <label htmlFor='name'>お名前</label><br />
               <input
+                id='name'
+                name='username'
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -139,8 +141,10 @@ const ProfileEdit = () => {
             </div>
             {nameError && <div className={styles.profileErrorForm}>{nameError}</div>}
             <div>
-              <label>メールアドレス</label><br />
+              <label htmlFor='toEmail'>メールアドレス</label><br />
               <input
+                id='toEmail'
+                name='email'
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -148,8 +152,10 @@ const ProfileEdit = () => {
             </div>
             {emailError && <div className={styles.profileErrorForm}>{emailError}</div>}
             <div>
-              <label>パスワード</label><br />
+              <label htmlFor='toPassword'>パスワード</label><br />
               <input
+                id='toPassword'
+                name='password'
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
