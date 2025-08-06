@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <ToastContainer />
+        <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           {/* 一般ユーザー画面 認証不要 */}
           <Route path="/home/login" element={<Login />} />
