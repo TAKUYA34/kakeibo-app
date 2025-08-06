@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('管理者ログイン画面 E2Eテスト', () => {
 
   test('正しい資格情報でログインできる', async ({ page }) => {
-    const adminEmail = 'hakenad907@gmail.com';
+    const adminEmail = 'zhuoshanben281@gmail.com';
     // 末尾に!を付けることで常にstring型で受け取れる
     const adminPassword = process.env.ADMIN_PASSWORD!;
 
