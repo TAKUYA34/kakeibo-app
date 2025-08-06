@@ -125,25 +125,31 @@
   project-root/
   ├── backend/                 # Express + MongoDB
   │   ├── controllers/         # ルートごとの処理
-  │   ├── services/            # ビジネスロジック
-  │   ├── repositories/         # DB操作
+  │   ├── font/                # 帳票出力用
   │   ├── mappers/             # DTO変換など
-  │   ├── models/              # スキーマ定義
-  │   ├── routes/              # ルーティング設定
   │   ├── middleware/          # 認証などの共通処理
-  │   └── server.js            # 起動エントリ
-  │
+  │   ├── models/              # スキーマ定義
+  │   ├── repositories/        # DB操作
+  │   ├── routes/              # ルーティング設定
+  │   ├── server/              # API起動時設定
+  │   ├── services/            # ビジネスロジック
+  │   ├── utils/               # email設定など
+  │   └── tests/               # テスト群
+  │       ├── unitTests/           # 単体テスト
+  │       ├── integrationTests/    # 結合テスト
+  │       └── testServer/          # モックサーバー
+  │ 
   ├── frontend/                # React
-  │   ├── components/          # UIパーツ
-  │   ├── pages/               # 各ページ
-  │   ├── styles/              # CSS Modules
-  │   ├── services/            # API連携
-  │   └── App.js               # ルートコンポーネント
+  │   └── src/                 # ソースファイル
+  │       ├── components/          # UIパーツ
+  │       ├── modalComponents/     # 編集画面用UIパーツ
+  │       ├── pages/               # 各ページ
+  │       ├── services/            # ロジック連携
+  │       ├── styles/              # CSS Modules
+  │       └── App.js               # ルートコンポーネント
+  ├── e2e/                     # E2Eテスト
+  │   └── tests/                   # テストファイル 
   │
-  ├── tests/                   # テスト群
-  │   ├── unitTests/           # 単体テスト
-  │   ├── integrationTests/    # 結合テスト
-  │   └── testServer/          # モックサーバー
   │
   ├── .env                     # 環境設定
   ├── docker-compose.yml       # Docker構成
