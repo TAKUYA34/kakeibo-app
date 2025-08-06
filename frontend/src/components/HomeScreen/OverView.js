@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/HomeStatic/OverView.module.css';
