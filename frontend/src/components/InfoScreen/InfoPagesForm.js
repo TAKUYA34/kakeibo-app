@@ -105,27 +105,27 @@ const InfoPagesForm = () => {
         {submitted && <p className={styles.messageSendSuccess}>お問い合わせを受け付けました。</p>}
         <form onSubmit={handleSubmit} className={styles.contactForm}>
           <div className={styles.contactForm_row}>
-            <label>
+            <label htmlFor='name'>
               お名前
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+              <input type="text" id='name' name="name" value={formData.name} onChange={handleChange} required />
             </label>
           </div>
           <div className={styles.contactForm_row}>
-            <label>
+            <label htmlFor='email'>
               メールアドレス
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              <input type="email" id='email' name="email" value={formData.email} onChange={handleChange} required />
             </label>
           </div>
           <div className={styles.contactForm_row}>
-            <label>
+            <label htmlFor='subject'>
               件名
-              <input type="text" name="subject" value={formData.subject} onChange={handleChange} required />
+              <input type="text" id='subject' name="subject" value={formData.subject} onChange={handleChange} required />
             </label>
           </div>
           <div className={styles.contactForm_row}>
-            <label>
+            <label htmlFor='message'>
               お問い合わせ内容
-              <textarea name="message" value={formData.message} rows={10} cols={30} onChange={handleChange} required />
+              <textarea id='message' name="message" value={formData.message} rows={10} cols={30} onChange={handleChange} required />
             </label>
           </div>
           {error && <p className={styles.valError}>{error}</p>}
