@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL = 'http://localhost:3000';
 
-test.describe('最新情報セクション（WhatsNew）', () => {
+test.describe('最新情報セクション（WhatsNew）E2Eテスト', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${BASE_URL}/home`);
   });

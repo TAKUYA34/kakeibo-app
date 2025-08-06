@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL = 'http://localhost:3000';
 
-test.describe('CurrentMoneyGraph（収支・支出グラフ） E2E テスト', () => {
+test.describe('CurrentMoneyGraph（収支・支出グラフ） E2Eテスト', () => {
 
   test.beforeEach(async ({ page }) => {
     // ログイン処理
