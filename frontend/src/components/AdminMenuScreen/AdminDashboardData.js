@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useAdminAuth } from '../../services/AdminAuthContext';
 import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 import AdminDashboardEditModal from '../../modalComponents/AdminDashboardEditModal'; // 編集用画面
 import styles from "../../styles/AdminMenuStatic/AdminDashboardData.module.css";
 
@@ -151,11 +152,11 @@ const AdminDashboardData = () => {
         headers: { Authorization: `Bearer ${adminToken}` },
       });
 
-      console.log('res.data全体', res.data);
+      // console.log('res.data全体', res.data);
       
       let updatedAll = res.data.updatedData;
       
-      console.log('受け取り側', updatedAll )
+      // console.log('受け取り側', updatedAll )
 
       // ここで全体のデータを更新する
       setTransactions(prev => 
@@ -187,7 +188,7 @@ const AdminDashboardData = () => {
         // 状態を更新
         setTransactions(deletedUpdateTransactions);
 
-        console.log('削除後の最新取引データ:', deletedUpdateTransactions);
+        // console.log('削除後の最新取引データ:', deletedUpdateTransactions);
       }
     } catch (err) {
       console.error('削除に失敗しました', err);
@@ -311,7 +312,6 @@ const AdminDashboardData = () => {
                 .sort((a, b) => b.total_amount - a.total_amount) // 降順ソート
                 .map(tx => (
                   <tr key={tx._id}>
-                  {console.log('データの中身', transactions)}
                   <td>{tx.user_id?.user_name || "不明"}</td>
                   <td>{tx.trans_date !== null ? new Date(tx.trans_date).toLocaleString() : "-"}</td>
                   <td>{majorItemsENToJA[tx.category_id?.category_major]}</td>
