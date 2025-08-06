@@ -113,7 +113,7 @@ const CurrentMoneyGraph = () => {
               <Bar dataKey="income" name="収入" fill="#48628eff">
                 <LabelList dataKey="income" position="top" formatter={(val) => `${val}円`} />
               </Bar>
-              <Bar dataKey="expense" name="収入" fill="#f99779ff">
+              <Bar dataKey="expense" name="支出" fill="#f99779ff">
                 <LabelList dataKey="expense" position="top" formatter={(val) => `${val}円`} />
               </Bar>
             </BarChart>
