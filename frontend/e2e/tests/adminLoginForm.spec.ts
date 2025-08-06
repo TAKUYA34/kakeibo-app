@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+const BASE_URL = 'http://localhost:3000';
+
 test.describe('管理者ログイン画面 E2Eテスト', () => {
 
   test('正しい資格情報でログインできる', async ({ page }) => {
@@ -8,7 +10,7 @@ test.describe('管理者ログイン画面 E2Eテスト', () => {
     const adminPassword = process.env.ADMIN_PASSWORD!;
 
     // 管理者ログインページへ
-    await page.goto('http://localhost:3000/admin/login');
+    await page.goto(`${BASE_URL}/admin/login`);
 
     // ログイン情報入力
     await page.getByLabel('メールアドレス').fill(adminEmail);
@@ -23,7 +25,7 @@ test.describe('管理者ログイン画面 E2Eテスト', () => {
     ]);
 
     // 遷移先確認
-    await expect(page).toHaveURL('http://localhost:3000/admin/home');
+    await expect(page).toHaveURL(`${BASE_URL}/admin/home`);
   });
 
   test('誤った資格情報でログインに失敗する', async ({ page }) => {
