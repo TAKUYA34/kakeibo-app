@@ -97,13 +97,13 @@ const Footer = () => {
             <div className={styles.footerMenuFormContainer}>
               <div className={styles.footerRight_TitleContainer}>
                 <div className={styles.footerRight_NavTitle}>
-                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>サービス</a>
+                  <a className={styles.footerRight_NavTitle_a} href='/' target='_blank'>サービス</a>
                 </div>
                 <div className={styles.footerRight_NavTitle}>
-                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>利用方法</a>
+                  <a className={styles.footerRight_NavTitle_a} href='/' target='_blank'>利用方法</a>
                 </div>
                 <div className={styles.footerRight_NavTitle}>
-                  <a className={styles.footerRight_NavTitle_a} href='#' target='_blank'>私たちに関して</a>
+                  <a className={styles.footerRight_NavTitle_a} href='/' target='_blank'>私たちに関して</a>
                 </div>
               </div>
               <div className={styles.footerRight_Container}>
