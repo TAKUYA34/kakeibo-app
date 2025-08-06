@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useAuth } from '../../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useMemo } from 'react';
 import axios from 'axios'; // HTTP req res
 import styles from '../../styles/TransactionStatic/TransactionList.module.css'
 
@@ -24,6 +22,8 @@ const TransactionList = () => {
   const [groupedTransactions, setGroupedTransactions] = useState([]); // 集計済データ
   const [searchTerm, setSearchTerm] = useState(''); // 検索ワード
   
+  const headingRef = useRef(null);
+
   // 変換
   const majorItems = {
     income: '収支',
@@ -56,6 +56,10 @@ const TransactionList = () => {
     if (!user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
+    }
+    if (headingRef.current) {
+      // ページ開いたらData Exportにフォーカスして画面を表示する
+      headingRef.current.focus();
     }
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
   
@@ -175,7 +179,7 @@ const TransactionList = () => {
     <main>
       <div className={styles.TransactionListMainContainer}>
         <div className={styles.TransactionListImg} />
-          <h1>KAKEIBO LIST</h1>
+          <h1 ref={headingRef} tabIndex={-1}>KAKEIBO LIST</h1>
           <div className={styles.List_row}>
             <label htmlFor='year'>年：</label>
             <select id='year' name='yearDate' value={yearDate} onChange={(e) => setYearDate(e.target.value)}>

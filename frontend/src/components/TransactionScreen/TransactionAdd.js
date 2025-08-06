@@ -12,11 +12,17 @@ const TransactionAdd = () => {
   const { user, isLoading } = useAuth(); // useAuthフックを使用して認証情報を取得
   const navigate = useNavigate(); // useNavigateフックを使用してページ遷移を管理
 
+  const headingRef = useRef(null);
+
   /* 未ログイン時はログイン画面にリダイレクト */
   useEffect(() => {
     if (!user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
+    }
+    if (headingRef.current) {
+      // ページ開いたらData Exportにフォーカスして画面を表示する
+      headingRef.current.focus();
     }
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
@@ -430,7 +436,7 @@ const TransactionAdd = () => {
       <div className={styles.transactionAddMainContainer}>
         <div className={styles.transactionAddImage} />
           <div className={styles.header_row}>
-            <h1>Register your household account book</h1>
+            <h1 ref={headingRef} tabIndex={-1}>Register your household account book</h1>
             <hr />
           </div>
 

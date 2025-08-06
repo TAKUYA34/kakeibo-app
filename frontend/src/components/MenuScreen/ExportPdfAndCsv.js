@@ -16,10 +16,16 @@ const ExportPdfAndCsv = () => {
   const [monthDate, setMonthDate] = useState('');
   const [format, setFormat] = useState('csv');
 
+  const headingRef = useRef(null);
+
   useEffect(() => {
     if (!user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
+    }
+    if (headingRef.current) {
+      // ページ開いたらData Exportにフォーカスして画面を表示する
+      headingRef.current.focus();
     }
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
@@ -100,7 +106,7 @@ const ExportPdfAndCsv = () => {
       <>
         <div className={styles.exportMainContainer}>
           <div className={styles.exportPdfAndCsvImage} />
-          <h1>Data Export</h1>
+          <h1 ref={headingRef} tabIndex={-1}>Data Export</h1>
 
           <div className={styles.select_row}>
             <label htmlFor='year'>年：</label>

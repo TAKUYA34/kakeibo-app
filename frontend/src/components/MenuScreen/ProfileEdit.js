@@ -1,5 +1,5 @@
 import styles from '../../styles/MenuStatic/ProfileEdit.module.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../services/AuthContext";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
@@ -16,12 +16,18 @@ const ProfileEdit = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const headingRef = useRef(null);
+
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
   useEffect(() => {
     if (!user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
+    }
+    if (headingRef.current) {
+      // ページ開いたらData Exportにフォーカスして画面を表示する
+      headingRef.current.focus();
     }
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
@@ -126,7 +132,7 @@ const ProfileEdit = () => {
   return (
     <div className={styles.profileEditContainer}>
       <div className={styles.profileEditImage} />
-      <h1>Profile</h1>
+      <h1 ref={headingRef} tabIndex={-1}>Profile</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.profile_row}>
             <div>
