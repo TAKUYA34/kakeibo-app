@@ -1,10 +1,14 @@
+/* ルートのインポート */
+const envPath = `.env.${process.env.NODE_ENV || 'development'}`;
+require('dotenv').config({ path: envPath });
+
 // server/app.js
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const auth = require('../middleware/auth_situation');
 const adminAuth = require('../middleware/adminAuth_situation');
 
-/* ルートのインポート */
 // 一般ユーザー用
 const loginFormRoutes = require('../routes/loginFormRoutes'); // ログイン画面
 const signUpFormRoutes = require('../routes/signUpFormRoutes'); // 新規登録画面
@@ -25,9 +29,10 @@ const adminReportData = require('../routes/adminReportDataRoutes'); // 管理者
 const adminDashboardData = require('../routes/adminDashboardDataRoutes'); // 管理者ユーザー取引管理画面の各処理
 const adminUsersManagementData = require('../routes/adminUsersManagementDataRoutes'); // 管理者ユーザー管理画面の各処理
 
-require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
-
 const app = express();
+
+/* cookieを追加 */
+app.use(cookieParser());
 
 // CORSの設定（順番に注意）
 /* フロントエンドのポート3000からのリクエストを許可 */
