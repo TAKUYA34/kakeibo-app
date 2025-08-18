@@ -36,7 +36,7 @@
 | POST        | /home/auth/password/password-reset | パスワード再登録         |
 | POST        | /info/contact           | お問い合わせ             |
 | GET         | /home/me                | 認証                    |
-| GET         | /home/logout            | ログアウト               |
+| POST        | /home/logout            | ログアウト               |
 | POST        | /home/logout/flag       | ログイン状態             |
 | GET         | /home/profile           | ユーザー情報画面          |
 | PUT         | /home/profile/edit:id   | ユーザー情報編集          |
@@ -92,8 +92,8 @@
 | GET         | admin/home/data         | 全体のグラフデータ取得     |
 | GET         | admin/home/stats        | 全体の統計データ取得       |
 | POST        | admin/login             | ログイン画面             |
-| POST        | admin/me                | 認証                    |
-| GET         | admin/home/logout       | ログアウト               |
+| GET         | admin/me                | 認証                    |
+| POST        | admin/home/logout       | ログアウト               |
 | GET         | admin/home/users        | ユーザー管理画面          |
 | POST        | admin/home/users/search | ユーザー検索             |
 | PUT         | admin/home/users/edit/:id       | ユーザー編集     |
