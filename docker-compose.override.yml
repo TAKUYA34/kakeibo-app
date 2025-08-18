@@ -1,0 +1,54 @@
+services:
+  mongo:
+    image: mongo:6.0
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"  # MongoDBのデフォルトポート
+    networks:
+      - my_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./backend/.env.development
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        NGINX_CONF: dev.conf  # 開発時
+    container_name: kakeibo-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/dev.conf:/etc/nginx/conf.d/default.conf # 開発用の設定ファイル
+      # - ./certbot/www:/var/www/certbot
+      # - ./certbot/conf:/etc/letsencrypt # SSL証明書発行
+    networks:
+      - my_network

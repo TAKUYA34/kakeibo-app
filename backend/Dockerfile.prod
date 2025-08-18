@@ -1,13 +1,23 @@
 # === BUILD DTAGE ===
 FROM node:18 AS build
 
+# bcryptに必要なビルドツール（パフォーマンス向上のために一時インストールして後で削除）
+RUN apt-get update && apt-get install -y python3 g++ make \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# 作業ディレクトリを作成
 WORKDIR /app
 
-# 依存関係install
+# 依存関係のインストール
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install --omit=dev  # 本番では開発依存を除外
 
-# アプリのソースコードをコピーする
+# アプリケーションコードをコピー
 COPY . .
 
+# 本番環境変数にNODE_ENVを指定
+ENV NODE_ENV=production
+
+# アプリ起動
 CMD ["node", "server/server.js"]
