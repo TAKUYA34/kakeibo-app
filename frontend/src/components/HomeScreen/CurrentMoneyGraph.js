@@ -57,7 +57,11 @@ const CurrentMoneyGraph = () => {
   };
   
   useEffect(() => {
-    if (!user || !user._id) return;
+    if (!user || !user._id) {
+      setBarData(dummyBarData);
+      setPieData(dummyPieData);
+      return;
+    }
     const fetchData = async () => {
       try {
         const [barRes, pieRes] = await Promise.all([
@@ -79,9 +83,9 @@ const CurrentMoneyGraph = () => {
         console.error('グラフデータ取得失敗:', err);
       }
     };
-
+    // ユーザーがログインしている場合のみデータを取得
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <section className={styles.moneyGraph}>

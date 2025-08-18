@@ -16,6 +16,15 @@ const WhatsNew = () => {
 
   // DBからお知らせデータを取得する
   useEffect(() => {
+    if (!user) {
+      // ログアウトしたらクリア
+      setNotices([]);
+      setPage(1);
+      setHasMore(false);
+      return;
+    }
+
+    // APIからお知らせデータを取得
     axios.get(`http://localhost:5001/api/home/notices?page=${page}&limit=3`, {
       withCredentials: true
     })
@@ -29,10 +38,9 @@ const WhatsNew = () => {
         setHasMore(page < totalPages);
       })
       .catch(err => console.error(err));
-  }, [page]);
+  }, [page, user]);
 
   const handleButtonClick = () => {
-    
     if (!isLoading && !user) {
       // ユーザーがログインしていない場合、ログインページにリダイレクト
       navigate('/home/login');
