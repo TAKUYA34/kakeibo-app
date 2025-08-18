@@ -1,18 +1,18 @@
 // middleware/adminAuth_situation.js
-
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // 管理者専用のミドルウェア user.role が 'admin' の場合のみアクセスを許可
 const adminOnly = async (req, res, next) => {
 
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) return res.sendStatus(401);
+  // Cookieからtokenを取得
+  const admin_token = req.cookies?.admin_token;
+  
+  if (!admin_token) return res.status(401).json({ message: '認証トークンがありません' });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(admin_token, JWT_SECRET);
     const user = await User.findById(decoded.id);
 
     if (!user || user.role !== 'admin') {

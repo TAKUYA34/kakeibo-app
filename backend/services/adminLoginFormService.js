@@ -18,15 +18,21 @@ const fetchAdminProfile = async (userPayload) => {
 const loginAdminUser = async (email, password) => {
   const admin = await adminLoginFormRepository.findAdminByEmail(email);
 
+  // 管理者ロールではない
   if (!admin || admin.role !== 'admin') {
-    throw new Error('管理者情報が見つかりません');
+    const error = new Error('管理者情報が見つかりません');
+    error.code = 'ADMIN_NOT_FOUND';
+    throw error;
   }
 
+  // パスワードが一致しない
   const isMatch = await bcrypt.compare(password, admin.password);
   if (!isMatch) {
-    throw new Error('パスワードが違います');
+    const error = new Error('パスワードが違います');
+    error.code = 'INVALID_PASSWORD';
+    throw error;
   }
-
+  
   // JWTトークンを生成
   const token = jwt.sign(
     {
@@ -50,7 +56,18 @@ const loginAdminUser = async (email, password) => {
   };
 };
 
+/* 管理者ログアウト処理 */
+const logoutAdminUser = async (adminId) => {
+
+  if (!adminId) {
+    throw new Error('管理者IDが取得できません');
+  }
+
+  await adminLoginFormRepository.updateLoginAdminStatus(adminId, false);
+};
+
 module.exports = {
   fetchAdminProfile,
-  loginAdminUser
+  loginAdminUser,
+  logoutAdminUser
 };

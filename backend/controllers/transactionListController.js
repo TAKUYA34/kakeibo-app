@@ -6,7 +6,7 @@ const getYearsAndMonths = async (req, res) => {
     const data = await transactionListService.extractYearsAndMonths();
     res.json(data);
   } catch (error) {
-    // console.error('年または月の取得エラー:', error);
+    console.error('年または月の取得エラー:', error);
     res.status(500).json({ error: '年または月の取得に失敗しました'});
   }
 };

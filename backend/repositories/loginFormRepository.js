@@ -1,17 +1,24 @@
 const User = require('../models/User');
 
 /* ユーザー検索 */
-const findByEmail = (email) => User.findOne({ email });
+const findByEmail = async (email) => {
+  return await User.findOne({ email });
+} 
 
 /* ログイン状態のステータス更新 */
-const updateLoginStatus = (userId, status) =>
-  User.updateOne({ _id: userId }, { $set: { is_logged_in: status } });
+const updateLoginStatus = async (userId, status) => {
+  return await User.findByIdAndUpdate(userId, { is_logged_in: status }, { new: true });
+}
 
 /* ログインしたユーザーデータを取得する */
-const findById = (id) => User.findById(id);
+const findById = async (id) => {
+  return await User.findById(id);
+}
 
 /* 管理者がパスワード以外の一般ユーザーのデータを取得する */
-const findAllExcludingPassword = () => User.find().select('-password');
+const findAllExcludingPassword = async () => {
+  return await User.find().select('-password');
+}
 
 module.exports = {
   findByEmail,

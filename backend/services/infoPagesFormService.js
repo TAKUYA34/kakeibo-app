@@ -8,35 +8,34 @@ const nodemailer = require('nodemailer');
 // } else {
 //   dotenv.config({ path: path.resolve(__dirname, '.env.production') });
 // }
-
 /* Gmail宛に送信する処理 */
 const sendContactEmailService = async ({ name, email, message, subject }) => {
-  // const transporter = nodemailer.createTransport({
-  //   /* 本番環境用 */
-  //   service: 'gmail',
-  //   auth: {
-  //     user: process.env.GMAIL_USER,
-  //     pass: process.env.GMAIL_PASS
-  //   },
-  // });
-
-  // 開発用アカウントを自動生成
-  const testAccount = await nodemailer.createTestAccount();
-  console.log(testAccount.user, testAccount.pass);
-  // etherealサーバーにアクセス
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    /* 本番環境用 */
+    service: 'gmail',
     auth: {
-      user: testAccount.user,
-      pass: testAccount.pass,
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
     },
   });
 
+  // // 開発用アカウントを自動生成
+  // const testAccount = await nodemailer.createTestAccount();
+  // console.log(testAccount.user, testAccount.pass);
+  // // etherealサーバーにアクセス
+  // const transporter = nodemailer.createTransport({
+  //   host: 'smtp.ethereal.email',
+  //   port: 587,
+  //   auth: {
+  //     user: testAccount.user,
+  //     pass: testAccount.pass,
+  //   },
+  // });
+
   // メールの形式
   const mailOptions = {
-    from: `"${name}" <${email}>`,
-    to: testAccount.user,
+    from: `"${name}"`,
+    to: process.env.GMAIL_USER,
     subject: `【Kakeibo-App お問い合わせ】【${subject}】 ${name} 様より`,
     text: `【お名前】
     ${name}

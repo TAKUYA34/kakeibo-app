@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useAdminAuth } from '../../services/AdminAuthContext';
 import { useNavigate } from 'react-router-dom';
 import styles from "../../styles/AdminMenuStatic/AdminReportData.module.css";
@@ -16,9 +16,6 @@ const AdminReportData = () => {
 
   const [isEditing, setIsEditing] = useState(false); // 編集モードフラグ
   const [editingId, setEditingId] = useState(null); // 編集
-
-  // token取得
-  const adminToken = localStorage.getItem('admin_token');
 
   // input要素参照
   const inputRef = useRef(null);
@@ -46,9 +43,8 @@ const AdminReportData = () => {
   const fetchNotices = async (pageNumber = 1) => {
     try {
       const res = await axios.get(`http://localhost:5001/api/admin/notices/all?page=${pageNumber}&limit=5`, {
-        headers: { Authorization: `Bearer ${adminToken}` } // token追加
+        withCredentials: true
       });
-      console.log(res.data.notices);
       setNotices(res.data.notices);
       setTotalPages(res.data.totalPages);
       setPage(res.data.page);
@@ -65,9 +61,12 @@ const AdminReportData = () => {
       try {
         await axios.put(`http://localhost:5001/api/admin/notices/edit/${editingId}`, {
           title,
-          content },
-          { headers: { Authorization: `Bearer ${adminToken}` } // token追加
-        });
+          content
+        },
+        {
+          withCredentials: true
+        }
+        );
         resetForm();
         fetchNotices();
       } catch (err) {
@@ -77,10 +76,13 @@ const AdminReportData = () => {
       // 新規投稿
       try {
         await axios.post('http://localhost:5001/api/admin/notices/register', {
-          title,
-          content, notice_date: new Date() },
-          { headers: { Authorization: `Bearer ${adminToken}` } // token追加
-        });
+            title,
+            content, notice_date: new Date()
+          },
+          {
+            withCredentials: true
+          }
+        );
         resetForm();
         fetchNotices();
       } catch (err) {
@@ -104,7 +106,7 @@ const AdminReportData = () => {
 
       if (confirmDelete) {
         await axios.delete(`http://localhost:5001/api/admin/notices/delete/${id}`, {
-          headers: { Authorization: `Bearer ${adminToken}` } // token追加
+          withCredentials: true,
         });
         fetchNotices(); // 再取得
       }

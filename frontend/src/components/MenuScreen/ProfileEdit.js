@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
-  const { user, setUser, logout, isLoading } = useAuth(); // user情報を取得、logoutを使用
+  const { user, setUser, logout, isLoading, fetchUserInfo } = useAuth(); // user情報を取得、logoutを使用
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,13 +32,26 @@ const ProfileEdit = () => {
   }, [user, isLoading, navigate]); // userとisLoadingが変化したときに実行される
 
   useEffect(() => {
-
     // 初期値にユーザー情報を設定
     if (user) {
       setUsername(user.user_name);
       setEmail(user.email);
     }
   }, [user]);
+
+  /* ページアクティブ時に最新の user を取得する */
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchUserInfo(); // タブに戻ったら最新情報を取得
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [fetchUserInfo]);
 
   /* 変更ボタン押下 */
   const handleSubmit = async (e) => {
@@ -56,13 +69,11 @@ const ProfileEdit = () => {
     setPasswordError("");
 
     try {
-      const token = localStorage.getItem("token"); // トークンを取得
-
       const res = await fetch(`${API_URL}/api/home/profile/edit`, {
         method: "PUT",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // トークンで認証
         },
         body: JSON.stringify({
           user_name: username,
@@ -107,13 +118,9 @@ const ProfileEdit = () => {
     if (!confirmed) return;
 
     try {
-      const token = localStorage.getItem("token"); // トークンを取得
-
       const res = await fetch(`${API_URL}/api/home/profile/delete`, {
         method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${token}` // トークンで認証
-        }
+        credentials: 'include'
       });
 
       if (!res.ok) {

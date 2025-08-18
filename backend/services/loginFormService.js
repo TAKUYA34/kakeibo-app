@@ -2,9 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const loginFormRepository = require('../repositories/loginFormRepository');
 
-// 環境変数の読み込み
-require('dotenv').config({ path: './.env.development' });
-
 // JWTシークレットキー
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -12,10 +9,20 @@ const JWT_SECRET = process.env.JWT_SECRET;
 async function login(email, password) {
   try {
     const user = await loginFormRepository.findByEmail(email);
-    if (!user) throw new Error('ユーザーが見つかりません。');
+    // ユーザー(email)が見つからない
+    if (!user) {
+      const error =  new Error('ユーザーが見つかりません。');
+      error.code = 'USER_NOT_FOUND';
+      throw error;
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw new Error('パスワードが間違っています。');
+    // 重複したパスワードを許容しない
+    if (!isMatch){
+      const error = new Error('パスワードが間違っています。');
+      error.code = 'INVALID_PASSWORD';
+      throw error;
+    } 
 
     await loginFormRepository.updateLoginStatus(user._id, true);
 
@@ -24,8 +31,7 @@ async function login(email, password) {
       JWT_SECRET,
       { expiresIn: '1h' }
     );
-
-    return token;
+    return { token };
   } catch (err) {
     throw err;
   }

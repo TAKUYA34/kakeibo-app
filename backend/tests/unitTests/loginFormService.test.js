@@ -1,4 +1,7 @@
 // tests/unitTests/loginFormService.test.js
+const dotenv = require('dotenv');
+dotenv.config({ path: '.env.test' });
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const loginFormServiceTest = require('../../services/loginFormService');
@@ -6,6 +9,7 @@ const loginFormRepositoryTest = require('../../repositories/loginFormRepository'
 
 // 履歴をリセット
 afterEach(() => jest.clearAllMocks());
+
 
 // モックをクリア
 jest.mock('../../repositories/loginFormRepository');
@@ -24,14 +28,16 @@ describe('login', () => {
     // モック
     loginFormRepositoryTest.findByEmail.mockResolvedValue(dummyUser);
     loginFormRepositoryTest.updateLoginStatus.mockResolvedValue();
-
+    
     // 検証
     const token = await loginFormServiceTest.login('test@example.com', 'password123');
-    expect(typeof token).toBe('string');
+    const tokenString = token.token;
+    expect(typeof tokenString).toBe('string');
 
     // jwtToken のモック
     const jwtToken = process.env.JWT_SECRET;
-    const decoded = jwt.verify(token, jwtToken);
+    console.log('JWT_SECRET in test:', jwtToken);
+    const decoded = jwt.verify(tokenString, jwtToken);
     expect(decoded.email).toBe('test@example.com');
     expect(decoded.role).toBe('user');
   });

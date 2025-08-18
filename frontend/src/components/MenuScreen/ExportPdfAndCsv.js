@@ -31,9 +31,8 @@ const ExportPdfAndCsv = () => {
 
 // 年月オプションの取得
   useEffect(() => {
-    const token = localStorage.getItem('token');
     axios.get('http://localhost:5001/api/transactions/date-options', {
-      headers: { Authorization: `Bearer ${token}` }
+      withCredentials: true
     })
     .then(res => {
       const data = res.data; // axiosはレスポンスデータを `.data` に持っているため、.jsonはだめ
@@ -78,11 +77,10 @@ const ExportPdfAndCsv = () => {
     }
 
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5001/api/transactions/export', {
+        withCredentials: true,
         params: { year: yearDate, month: monthDate, format },
-        responseType: 'blob',
-        headers: { Authorization: `Bearer ${token}` }
+        responseType: 'blob'
       });
 
       const paddedMonth = monthDate ? String(monthDate).padStart(2, '0') : '';

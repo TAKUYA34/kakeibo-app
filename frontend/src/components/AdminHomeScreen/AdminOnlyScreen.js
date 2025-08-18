@@ -43,16 +43,11 @@ const AdminOnlyScreen = ({ children }) => {
       navigate('/admin/login');
     }
 
-    // token取得
-    const token = localStorage.getItem("admin_token");
-
     const fetchData = async () => {
       try {
         const res = await fetch("http://localhost:5001/api/admin/home/data", {
           method: "GET", // デフォルトはGETだが明示的に記載する
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          credentials: 'include'
         });
         if (!res.ok) {
           throw new Error("Fetch failed");
@@ -72,7 +67,7 @@ const AdminOnlyScreen = ({ children }) => {
       }
     };
     fetchData();
-  }, [adminUser, loading]);
+  }, [adminUser, loading, navigate]);
 
   useEffect(() => {
     if (!adminUser) {
@@ -80,16 +75,11 @@ const AdminOnlyScreen = ({ children }) => {
       return; // 未ログイン時は処理しない
     }
 
-    // token取得
-    const token = localStorage.getItem("admin_token");
-
     const fetchStats = async () => {
       try {
         const res = await fetch("http://localhost:5001/api/admin/home/stats", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          credentials: 'include'
         });
 
         if (!res.ok) {

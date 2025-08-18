@@ -1,7 +1,7 @@
 /* mailer.js */
 const nodemailer = require('nodemailer'); // メール生成用パッケージ
 // const path = require('path');
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
 // // 本番環境 or 開発環境
 // if (process.env.NODE_ENV !== 'production') {
@@ -14,22 +14,22 @@ const nodemailer = require('nodemailer'); // メール生成用パッケージ
 const sendTestResetEmail = async (toEmail, resetLink) => {
   try {
     /* テスト用 */
-    const testAccount = await nodemailer.createTestAccount();
+    // const testAccount = await nodemailer.createTestAccount();
     const transporter = nodemailer.createTransport({
-      // /* 本番用 */
-      // service: 'gmail',
-      // auth: {
-      //   user: process.env.GMAIL_USER,
-      //   pass: process.env.GMAIL_PASS
-      // },
-
-      /* テスト用 */
-      host: 'smtp.ethereal.email',
-      port: 587,
+      /* 本番用 */
+      service: 'gmail',
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass
-      }
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+      },
+
+      // /* テスト用 */
+      // host: 'smtp.ethereal.email',
+      // port: 587,
+      // auth: {
+      //   user: testAccount.user,
+      //   pass: testAccount.pass
+      // }
     });
 
     // この形式でメールを送信する

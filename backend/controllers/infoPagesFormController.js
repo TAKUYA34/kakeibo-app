@@ -16,7 +16,7 @@ const sendContactEmail = async (req, res) => {
 
     return res.status(200).json({ message: 'お問い合わせ内容を送信しました。', prevUrl: previewUrl });
   } catch (err) {
-    // console.error('メール送信失敗:', err.message);
+    console.error('メール送信失敗:', err.message);
     return res.status(500).json({ error: 'メール送信に失敗しました。' });
   }
 };

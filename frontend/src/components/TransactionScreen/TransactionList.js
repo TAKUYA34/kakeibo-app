@@ -67,12 +67,8 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchYearsAndMonths = async () => {
       try {
-        const token = localStorage.getItem('token');
-
         const res = await axios.get('http://localhost:5001/api/transactions/list', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          withCredentials: true
         });
 
         setYearOptions(res.data.years); // [2023, 2024, 2025]
@@ -88,12 +84,8 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchMonthlyData = async () => {
       try {
-        const token = localStorage.getItem('token');
-
         const res = await axios.get('http://localhost:5001/api/transactions/list/aggregate', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
+          withCredentials: true,
           params: {
             year: Number(yearDate), // 年フィルタ
             userId: user._id
@@ -173,6 +165,7 @@ const TransactionList = () => {
         return inMemos || inMiddle || inMinor;
 
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupedTransactions, monthDate, searchTerm]);
 
   return (

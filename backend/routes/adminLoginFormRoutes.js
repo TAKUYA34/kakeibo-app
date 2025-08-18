@@ -9,6 +9,7 @@ router.post('/login', adminLoginFormController.adminLogin);
 module.exports = (adminAuthMiddleware) => {
   // 管理者ログインフォームのルーティング
   router.get('/me', adminAuthMiddleware, adminLoginFormController.getAdminProfile);
+  router.post('/logout', adminAuthMiddleware, adminLoginFormController.logoutAdmin);
 
   return router;
 };

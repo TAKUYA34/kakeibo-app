@@ -1,6 +1,5 @@
 // src/services/AdminAuthContext.js
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 // 管理者認証のための箱を作成
 const AdminAuthContext = createContext();
@@ -15,38 +14,50 @@ export const AdminAuthProvider = ({ children }) => {
 
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
-  // 管理者としてのログイン状態をフロント側で維持し、トークンがあればログイン状態を維持
-  useEffect(() => {
-    // ローカルストレージからトークンを取得
-    const token = localStorage.getItem("admin_token");
-    if (token) {
-      fetch(`${API_URL}/api/admin/me`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => res.json())
-      .then(data => {
-        // レスポンスからユーザー情報を取得し、管理者ユーザーとして設定
-        if (data?.user?.role === 'admin') {
-          setAdminUser(data.user);
-        } else { // 管理者でない場合はログアウト
-          setAdminUser(null);
-        }
-          setLoading(false); // ローディング状態を解除
-        })
-        .catch(() => {
-          setAdminUser(null);
-          setLoading(false);
-        });
-    } else {
+  // 管理者の認証状態取得関数を useCallback で定義（再利用と安定性のため）
+  const fetchAdminInfo = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/admin/me`, {
+        credentials: 'include', // Cookieをサーバーに送る
+      });
+      if (!res.ok) throw new Error('認証されていません');
+      const data = await res.json();
+      if (data?.user?.role === 'admin') {
+        setAdminUser(data.user);
+      } else {
+        setAdminUser(null);
+      }
+    } catch {
+      setAdminUser(null);
+    } finally {
       setLoading(false);
     }
   }, [API_URL]);
+
+  // 初期読み込み ＆ タブ再表示時の再読み込み対応
+  useEffect(() => {
+    // 初期読み込み
+    fetchAdminInfo();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchAdminInfo(); // タブがアクティブになった時に再取得
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [fetchAdminInfo]);
 
   // 管理者ログイン処理
   const login = async (email, password) => {
     // APIにログインリクエストを送信
     const res = await fetch(`${API_URL}/api/admin/login`, {
       method: "POST",
+      credentials: 'include', // Cookie有効化
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
@@ -54,12 +65,20 @@ export const AdminAuthProvider = ({ children }) => {
     if (!res.ok) throw new Error("ログイン失敗");
 
     const data = await res.json();
-    localStorage.setItem("admin_token", data.token); // トークンをローカルストレージに保存
-    setAdminUser(data.user); // 認証情報を管理者ユーザーとして設定
+
+    // 認証情報を管理者ユーザーとして設定
+    setAdminUser(data.user);
   };
 
-  const logout = () => {
-    localStorage.removeItem("admin_token");
+  const logout = async () => {
+    const res = await fetch(`${API_URL}/api/admin/logout`, {
+      method: "POST",
+      credentials: 'include', // Cookie有効化
+    });
+
+    if (!res.ok) throw new Error("ログアウト失敗");
+
+    // ログアウト後はクライアント側の管理者ユーザーをリセットする
     setAdminUser(null);
   };
 

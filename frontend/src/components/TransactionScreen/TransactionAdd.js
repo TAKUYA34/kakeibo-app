@@ -409,12 +409,11 @@ const TransactionAdd = () => {
     };
 
     try {
-      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:5001/api/transactions/add/register', { // APIエンドポイントを適切に設定
         method: 'POST',
+        credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
       });

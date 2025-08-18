@@ -7,7 +7,6 @@ import axios from 'axios';
 import styles from '../../styles/AdminMenuStatic/AdminUsersManagementData.module.css';
 import AdminUsersManagementEditModal from '../../modalComponents/AdminUsersManagementEditModal';
 
-
 const AdminUsersManagementData = () => {
   // useState
   const { adminUser, loading } = useAdminAuth();
@@ -23,9 +22,6 @@ const AdminUsersManagementData = () => {
   // navigate 初期化
   const navigate = useNavigate();
 
-  // token
-  const adminToken = localStorage.getItem('admin_token');
-
   useEffect(() => {
     // tokenが切れたらloginページへ
     if (!adminUser && !loading) {
@@ -39,9 +35,7 @@ const AdminUsersManagementData = () => {
   const fetchAllUsers = async () => {
     try {
       const res = await axios.get('http://localhost:5001/api/admin/home/users', {
-        headers: {
-          Authorization: `Bearer ${adminToken}`
-        }
+        withCredentials: true
       });
       setUsers(res.data);
     } catch (err) {
@@ -53,9 +47,8 @@ const AdminUsersManagementData = () => {
   const fetchUsersByName = async (name) => {
     try {
       const res = await axios.post(`http://localhost:5001/api/admin/home/users/search`, { name },
-        { headers: {
-          Authorization: `Bearer ${adminToken}`
-          }
+        {
+          withCredentials: true
         }
       );
       setUsers(res.data); // 結果を表示
@@ -92,7 +85,7 @@ const AdminUsersManagementData = () => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(`http://localhost:5001/api/admin/home/users/edit/${editingUser._id}`, editForm, {
-        headers: { Authorization: `Bearer ${adminToken}`}
+        withCredentials: true
       });
 
       const updatedUser = res.data.user;
@@ -113,7 +106,7 @@ const AdminUsersManagementData = () => {
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:5001/api/admin/home/users/delete/${userId}`, {
-          headers: { Authorization: `Bearer ${adminToken}`}
+          withCredentials: true
         });
         
         setUsers((prev) => prev.filter((user) => user._id !== userId));

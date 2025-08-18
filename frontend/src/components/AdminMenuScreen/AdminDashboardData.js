@@ -25,9 +25,6 @@ const AdminDashboardData = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 初期はfalse
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  // token取得
-  const adminToken = localStorage.getItem("admin_token");
-
   // navigate 初期化
   const navigate = useNavigate();
 
@@ -97,9 +94,7 @@ const AdminDashboardData = () => {
     const fetchAllTransactions = async () => {
       try {
         const res = await axios.get('http://localhost:5001/api/admin/home/dashboard', {
-          headers: {
-            Authorization: `Bearer ${adminToken}`
-          }
+          withCredentials: true
         });
         setTransactions(res.data);
       } catch (err) {
@@ -107,7 +102,7 @@ const AdminDashboardData = () => {
       }
     };
     fetchAllTransactions(); // 初期ロード
-  }, [adminUser, adminToken, loading]);
+  }, [adminUser, loading]);
 
 
   /* ユーザ名、カテゴリ名、メモ名で検索 */
@@ -129,7 +124,7 @@ const AdminDashboardData = () => {
             memoKeyword.trim() : ''
         },
         {
-          headers: {Authorization: `Bearer ${adminToken}` }
+          withCredentials: true
         }
       );
       setTransactions(res.data);
@@ -149,7 +144,7 @@ const AdminDashboardData = () => {
       };
 
       const res = await axios.put(`http://localhost:5001/api/admin/home/dashboard/edit/${updatedTx._id}`, normalizedTx, {
-        headers: { Authorization: `Bearer ${adminToken}` },
+        withCredentials: true
       });
 
       // console.log('res.data全体', res.data);
@@ -162,11 +157,12 @@ const AdminDashboardData = () => {
       setTransactions(prev => 
         prev.map(tx => {
           const match = updatedAll.find(u => u._id === tx._id);
+           console.log('match', match);
           return match || tx; // 一致したら置き換え 一致しなければそのまま
         })
       );
 
-      // console.log('更新後のデータ', updated);
+      // console.log('更新後のデータ', updatedAll);
     } catch (err) {
       console.error('更新に失敗しました', err);
     }
@@ -179,7 +175,7 @@ const AdminDashboardData = () => {
     try {
       if (confirmDelete) {
         const res = await axios.delete(`http://localhost:5001/api/admin/home/dashboard/delete/${transactionId}`, {
-          headers: { Authorization: `Bearer ${adminToken}` },
+          withCredentials: true
         });
 
         // サーバーから削除後、最新の取引を受け取る
@@ -314,9 +310,9 @@ const AdminDashboardData = () => {
                   <tr key={tx._id}>
                   <td>{tx.user_id?.user_name || "不明"}</td>
                   <td>{tx.trans_date !== null ? new Date(tx.trans_date).toLocaleString() : "-"}</td>
-                  <td>{majorItemsENToJA[tx.category_id?.category_major]}</td>
-                  <td>{middleItemsENToJA[tx.category_id?.category_middle]}</td>
-                  <td>{tx.category_id?.category_minor || "-"}</td>
+                  <td>{majorItemsENToJA[tx.major_sel]}</td>
+                  <td>{middleItemsENToJA[tx.middle_sel]}</td>
+                  <td>{tx.minor_sel || "-"}</td>
                   <td>{tx.amount !== null ? tx.amount : "-"}円</td>
                   <td>{tx.total_amount !== null ? tx.total_amount : "-"}円</td>
                   <td>{tx.memo || "-"}</td>

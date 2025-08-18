@@ -14,13 +14,10 @@ const WhatsNew = () => {
   const [page, setPage] = useState(1); // 初期のページ
   const [hasMore, setHasMore] = useState(true) // 件数フラグ
 
-  // token取得
-  const token = localStorage.getItem('token');
-
   // DBからお知らせデータを取得する
   useEffect(() => {
     axios.get(`http://localhost:5001/api/home/notices?page=${page}&limit=3`, {
-      headers: {Authorization: `Bearer ${token}`}
+      withCredentials: true
     })
       .then(res => {
         const { notices: newNotices, totalCount } = res.data;

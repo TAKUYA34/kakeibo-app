@@ -61,8 +61,12 @@ const CurrentMoneyGraph = () => {
     const fetchData = async () => {
       try {
         const [barRes, pieRes] = await Promise.all([
-          fetch(`http://localhost:5001/api/summary/monthly?userId=${user._id}`),
-          fetch(`http://localhost:5001/api/summary/categories?userId=${user._id}`)
+          fetch(`http://localhost:5001/api/summary/monthly?userId=${user._id}`, {
+            credentials: 'include'
+          }),
+          fetch(`http://localhost:5001/api/summary/categories?userId=${user._id}`, {
+            credentials: 'include'
+          })
         ]);
 
         const barJson = await barRes.json(); // 収支／支出の合計金額
