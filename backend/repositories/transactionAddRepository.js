@@ -27,7 +27,7 @@ async function getLatestTransactionByMonth(userId, startOfMonth, endOfMonth) {
 /* カテゴリ検索、なければ作成する */
 async function findOrCreateCategory(userId, type, major, middle, minor) {
   // nullチェック
-  console.log('[findOrCreateCategory] 引数の内容:', { userId, type, major, middle, minor });
+  // console.log('[findOrCreateCategory] 引数の内容:', { userId, type, major, middle, minor });
 
   // バリデーション
   if (!type || !major || !middle) {

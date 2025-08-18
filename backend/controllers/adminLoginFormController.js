@@ -5,7 +5,7 @@ const getAdminProfile = async (req, res) => {
   try {
     // 管理者のユーザープロフィールを取得
     const user = await adminLoginFormService.fetchAdminProfile(req.user);
-    console.log('管理者データ', user);
+    // console.log('管理者データ', user);
     if (!user) {
       return res.status(403).json({ message: '管理者認証に失敗しました' });
     }

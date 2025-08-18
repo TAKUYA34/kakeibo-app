@@ -139,7 +139,7 @@ const AdminReportData = () => {
                 value={title}
                 placeholder='お知らせ'
                 onChange={(e) => {
-                  console.log('input changed:', e.target.value);
+                  // console.log('input changed:', e.target.value);
                   setTitle(e.target.value)}}
                 required // 入力必須
               />

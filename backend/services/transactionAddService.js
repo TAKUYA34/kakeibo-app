@@ -65,7 +65,7 @@ async function toAddUserTransactions(transactions, userId) {
         
     // 保存
     const savedata = await transactionAddRepository.insertMany(resultTransactions);
-    console.log('savedata', savedata);
+    // console.log('savedata', savedata);
 
     // 最後の月の合計を返す
     const latestTx = resultTransactions[resultTransactions.length - 1];

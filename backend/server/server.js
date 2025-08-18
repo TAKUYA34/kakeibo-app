@@ -11,11 +11,11 @@ const mongoUri = process.env.LOCAL_MONGO_URI || 'mongodb://localhost:27017/produ
 
 /* MongoDB接続 */
 mongoose.connect(mongoUri).then(() => {
-  console.log('MongoDB に接続しました');
+  // console.log('MongoDB に接続しました');
 
     /* サーバー起動 */
   app.listen(PORT, () => {
-    console.log(`サーバーがポート ${PORT} で起動しました`);
+    // console.log(`サーバーがポート ${PORT} で起動しました`);
   });
 }).catch((err) => {
   console.error('MongoDB 接続エラー:', err);

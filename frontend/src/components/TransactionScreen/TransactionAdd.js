@@ -254,7 +254,7 @@ const TransactionAdd = () => {
       ...prev,
       [yearMonthKey]: updatedTotal
     }));
-    console.log(minorSelect);
+    // console.log(minorSelect);
 
     // 入力フィールドをリセット
     setMajorSelect('default');
@@ -353,7 +353,7 @@ const TransactionAdd = () => {
 
     // 状態を更新
     setRows(newRows);
-    console.log(newRows);
+    // console.log(newRows);
     setEditIndex(null);
     setFormData({
       major: '',
