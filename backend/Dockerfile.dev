@@ -5,10 +5,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
+COPY . .
+
 # nodemonをグローバルインストール（もしくはdevDependenciesに含めておく）
 RUN npm install -g nodemon
-
-COPY . .
 
 EXPOSE 5001
 
