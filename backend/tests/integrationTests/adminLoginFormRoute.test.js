@@ -47,14 +47,18 @@ describe('POST /api/admin/login', () => {
 
     // 検証
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty('token');
+    expect(res.body).toHaveProperty('message', 'ログイン成功しました');
     expect(res.body.user).toMatchObject({
       user_name: 'testadmin',
       email: 'testadmin@example.com',
       role: 'admin'
     });
 
-    adminToken = res.body.token;
+    // Cookie に保存される JWT を取得
+    const cookies = res.headers['set-cookie'];
+    expect(cookies).toBeDefined();
+    adminTokenCookie = cookies.find((c) => c.startsWith('admin_token='));
+    expect(adminTokenCookie).toBeDefined();
   });
 
   /* 異常系 */
@@ -87,7 +91,7 @@ describe('POST /api/admin/login', () => {
       // supertestを使用してリクエスト
       const res = await request(appTest)
         .get('/api/admin/me')
-        .set('Authorization', `Bearer ${adminToken}`);
+        .set('Cookie', adminTokenCookie);
   
       // 検証
       expect(res.statusCode).toBe(200);

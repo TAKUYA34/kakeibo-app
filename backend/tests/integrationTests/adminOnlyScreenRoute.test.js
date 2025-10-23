@@ -65,7 +65,8 @@ describe('GET /api/admin/home/stats', () => {
       .send({ email: 'testadmin@example.com', password: 'password' });
 
     // token発行
-    adminToken = res.body.token;
+    const cookies = res.headers['set-cookie'];
+    adminTokenCookie = cookies.find((c) => c.startsWith('admin_token='));
   });
 
   // 検証後はDB削除する
@@ -79,7 +80,7 @@ describe('GET /api/admin/home/stats', () => {
     // supertestを使用してリクエスト
     const res = await request(appTest)
       .get('/api/admin/home/stats')
-      .set('Authorization', `Bearer ${adminToken}`);
+      .set('Cookie', adminTokenCookie);
 
     // 検証
     expect(res.statusCode).toBe(200);
@@ -104,7 +105,7 @@ describe('GET /api/admin/home/stats', () => {
       // supertestを使用してリクエスト
       const res = await request(appTest)
         .get('/api/admin/home/data')
-        .set('Authorization', `Bearer ${adminToken}`);
+        .set('Cookie', adminTokenCookie);
 
       // 検証
       expect(res.statusCode).toBe(200);

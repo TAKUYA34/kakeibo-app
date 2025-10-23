@@ -8,29 +8,30 @@ const nodemailer = require('nodemailer');
 // } else {
 //   dotenv.config({ path: path.resolve(__dirname, '.env.production') });
 // }
-/* Gmail宛に送信する処理 */
+
+// /* Gmail宛に送信する処理 */
 const sendContactEmailService = async ({ name, email, message, subject }) => {
+//   const transporter = nodemailer.createTransport({
+//     /* 本番環境用 */
+//     service: 'gmail',
+//     auth: {
+//       user: process.env.GMAIL_USER,
+//       pass: process.env.GMAIL_PASS
+//     },
+//   });
+
+  // 開発用アカウントを自動生成
+  const testAccount = await nodemailer.createTestAccount();
+  console.log(testAccount.user, testAccount.pass);
+  // etherealサーバーにアクセス
   const transporter = nodemailer.createTransport({
-    /* 本番環境用 */
-    service: 'gmail',
+    host: 'smtp.ethereal.email',
+    port: 587,
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS
+      user: testAccount.user,
+      pass: testAccount.pass,
     },
   });
-
-  // // 開発用アカウントを自動生成
-  // const testAccount = await nodemailer.createTestAccount();
-  // console.log(testAccount.user, testAccount.pass);
-  // // etherealサーバーにアクセス
-  // const transporter = nodemailer.createTransport({
-  //   host: 'smtp.ethereal.email',
-  //   port: 587,
-  //   auth: {
-  //     user: testAccount.user,
-  //     pass: testAccount.pass,
-  //   },
-  // });
 
   // メールの形式
   const mailOptions = {
