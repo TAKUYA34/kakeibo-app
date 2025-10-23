@@ -10,7 +10,6 @@ const login = async (req, res) => {
 
   try {
     const result = await loginFormService.login(email, password);
-
     // トークンをCookieにセットする
     res.cookie('user_token', result.token, {
       httpOnly: true, // JSでアクセス不可にする (XSS対策)
@@ -22,7 +21,8 @@ const login = async (req, res) => {
     res.status(200).json({ result, message: 'ログイン成功しました' });
     // console.log('result', result );
   } catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
+      console.error('Login error:', err);
     if (err.code === 'USER_NOT_FOUND' || err.code === 'INVALID_PASSWORD') {
       return res.status(401).json({ message: err.message });
     }

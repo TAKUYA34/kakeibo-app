@@ -62,8 +62,14 @@ describe('POST /api/home/login', () => {
 
     // 検証
     expect(res.statusCode).toBe(200);
-    expect(res.body.token).toBeDefined(); // JWTトークン取得
-    authToken = res.body.token; // 次のテストで使用
+
+    // Cookieが返されていることを確認する
+    expect(res.headers['set-cookie']).toBeDefined(); // Cookieがセットされていることを確認
+    expect(res.headers['set-cookie'][0]).toMatch(/user_token=/); // user_token Cookieが含まれていることを確認
+
+    // CookieからJWTトークンを取得
+    const cookie = res.headers['set-cookie'][0].split(';')[0]; // "user_token=xxxxxx" の形式
+    authToken = cookie; // 次のテストで使用
   });
 
   /* 異常系 */
@@ -97,7 +103,7 @@ describe('POST /api/home/login', () => {
       // supertestを使用してリクエスト
       const res = await request(appTest)
         .post('/api/home/logout/flag')
-        .set('Authorization', `Bearer ${authToken}`);
+        .set('Cookie', authToken);
       
       // 検証
       expect(res.statusCode).toBe(200);
@@ -108,10 +114,12 @@ describe('POST /api/home/login', () => {
   describe('GET /api/home/me', () => {
     /* 正常系 */
     it('ログイン後のユーザー情報取得', async () => {
+      // console.error('Using authToken:', authToken);
+      
       // supertestを使用してリクエスト
       const res = await request(appTest)
         .get('/api/home/me')
-        .set('Authorization', `Bearer ${authToken}`);
+        .set('Cookie', authToken);
       
       // 検証
       expect(res.statusCode).toBe(200);
@@ -124,7 +132,7 @@ describe('POST /api/home/login', () => {
       // supertestを使用してリクエスト
       const res = await request(appTest)
         .get('/api/home/me')
-        .set('Authorization', `Bearer ${authToken}`);
+        .set('Cookie', authToken);
 
       // logout処理はloginFlagのみなので200でステータスを返す
       expect(res.statusCode).toBe(200); // or 401 にしたい場合ミドルウェア調整が必要

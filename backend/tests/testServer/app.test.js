@@ -1,7 +1,9 @@
 // /testServer/app.js
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const mockAuthenticateToken = require('../middlewares/mockAuthenticateToken'); // テスト用
 const mockIsAdmin = (req, res, next) => next() // テスト用
+require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
 
 /* ルートのインポート */
 // 一般ユーザー用
@@ -24,13 +26,12 @@ const adminReportData = require('../../routes/adminReportDataRoutes'); // 管理
 const adminDashboardData = require('../../routes/adminDashboardDataRoutes'); // 管理者ユーザー取引管理画面の各処理
 const adminUsersManagementData = require('../../routes/adminUsersManagementDataRoutes'); // 管理者ユーザー管理画面の各処理
 
-require('dotenv').config({ path: './.env.development' }); // 環境変数の読み込み
-
 const app = express();
 
 /* JSON形式のリクエストボディをパース */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /* 一般ユーザー用ルーティング */
 app.use('/api/home', loginFormRoutes({ authenticate: mockAuthenticateToken.authenticateToken, isAdmin: mockIsAdmin })); // ログイン画面のルーティングを使用

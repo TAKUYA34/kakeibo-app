@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // JWT認証（ログイン／ログアウト用）
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = authHeader?.split(' ')[1] || req.cookies['user_token'] || req.cookies['admin_token']; // Cookieからも取得
 
   if (!token) return res.sendStatus(401);
   
@@ -32,7 +32,7 @@ function authenticateToken(req, res, next) {
 function mockAuthenticateWithTokenHeader(req, res, next) {
   const authHeader = req.headers.authorization;
 
-  if (authHeader && authHeader.startsWith('Bearer ')) {
+  if (authHeader && authHeader.startsWith('Bearer')) {
     const token = authHeader.split(' ')[1];
 
     try {
