@@ -38,7 +38,6 @@ const adminLogin = async (req, res) => {
       user: result.user
     });
 
-    // console.log("Login successful:", result);
   } catch (err) {
     console.error("Login error:", err.message);
     if (err.code === 'ADMIN_NOT_FOUND' || err.code === 'INVALID_PASSWORD') {
